@@ -1,6 +1,6 @@
-import { WrapperAll, WrapperContent} from '../../../style/styled';
 import {Outlet} from "react-router-dom";
 import Navbar from "../../components/guest/Navbar";
+import {WrapperAll} from "../../style/styled";
 export default function GuestLayout() {
     return (
         <WrapperAll>

@@ -1,8 +1,8 @@
 import AdminLayout from "../layouts/admin/AdminLayout";
 import GuestLayout from "../layouts/guest/GuestLayout";
 import UserLayout from "../layouts/user/UserLayout";
-import {UserLogin} from "../pages/user/login/UserLogin";
-import {UserRegister} from "../pages/user/register/UserRegister";
+import UserLogin from "../pages/user/auth/UserLogin";
+import UserRegister from "../pages/user/auth/UserRegister";
 import {AdminLogin} from "../pages/admin/login/AdminLogin";
 
 const admin = [], user = [], guest = [];
@@ -13,7 +13,7 @@ export const routes = [
         children: admin
     },
     {
-        path: "/admin/login",
+        path: "/admin/auth",
         element: <AdminLogin />,
         children: admin
     },

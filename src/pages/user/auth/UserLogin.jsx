@@ -53,7 +53,7 @@ export default function UserLogin() {
                         onSubmit={handleSubmit(onSubmit)}
                     >
                         <h1 className="text-blue-700 font-bold text-2xl mb-1 hover:text-blue-900">
-                            OWNER LOGIN
+                            USER LOGIN
                         </h1>
                         <p className="text-sm font-normal text-gray-600 mb-8"></p>
                         <div className="mb-5 text-red-500 text-xs">

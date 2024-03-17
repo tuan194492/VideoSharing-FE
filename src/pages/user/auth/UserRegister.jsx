@@ -22,7 +22,7 @@ export default function UserRegister() {
         // const createResult = await ownerRegister(data);
         // if (createResult.success) {
         //     toast.success(createResult.message)
-        //     navigate('/owner/login')
+        //     navigate('/owner/auth')
         // }
         // else toast.error(createResult.message)
     };

@@ -12,7 +12,7 @@ export const CollapseIconButton = styled.div`
   width: 42.8px;
   height: 42.8px;
   cursor: pointer;
-  z-index: 10000;
+  z-index: 10000; 
   & img {
     width: 100%;
     height: 100%;

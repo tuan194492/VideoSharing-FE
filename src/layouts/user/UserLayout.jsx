@@ -1,6 +1,6 @@
-import { WrapperAll, WrapperContent} from '../../../style/styled';
 import {Outlet} from "react-router-dom";
 import {Navbar} from "../../components/user/Navbar";
+import {WrapperAll} from "../../style/styled";
 export default function UserLayout() {
     return (
         <WrapperAll>

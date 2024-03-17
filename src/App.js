@@ -11,8 +11,8 @@ export default function App() {
   useEffect(() => {
     if (!isLogin) {
       if (window.location.href.includes("admin")) navigate("/admin/login");
-      else if (window.location.href.includes("owner")) navigate("/user/login");
-      else navigate("/guest/home-page")
+      else if (window.location.href.includes("user")) navigate("/user/login");
+      else navigate("/guest")
     }
   }, [isLogin]);
   return <div>{element}</div>;
