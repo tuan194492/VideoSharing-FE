@@ -1,25 +1,19 @@
-import logo from './logo.svg';
+import { useNavigate, useRoutes } from "react-router-dom";
+import { routes } from "./routes";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "./context/AuthContext";
 import './App.css';
+export default function App() {
+  const element = useRoutes(routes);
+  const { isLogin} = useContext(AuthContext);
+  const navigate = useNavigate();
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  useEffect(() => {
+    if (!isLogin) {
+      if (window.location.href.includes("admin")) navigate("/admin/login");
+      else if (window.location.href.includes("owner")) navigate("/user/login");
+      else navigate("/guest/home-page")
+    }
+  }, [isLogin]);
+  return <div>{element}</div>;
 }
-
-export default App;
