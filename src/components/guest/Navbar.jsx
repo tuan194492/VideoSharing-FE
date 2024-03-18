@@ -6,10 +6,10 @@ import {HeaderWrapper} from "../../style/styled";
 import {IMAGES} from "../../utils/images/images";
 
 export default function Navbar() {
-    const projectName = process.env.PROJECT_NAME || 'HOME RENTER';
+    const projectName = process.env.PROJECT_NAME || 'Video Sharing';
     const {clearAuthData} = useContext(AuthContext)
     const role = localStorage.getItem("role");
-    const page = role?.substring(1, role.length - 1).toLowerCase();
+    const page = role?.substring(1, role.length - 1).toLowerCase() || 'guest';
     const navigate = useNavigate()
     const logout = () => {
         clearAuthData?.();
@@ -17,7 +17,7 @@ export default function Navbar() {
         navigate(`/${page}/login`)
     }
     const returnHome = () => {
-        navigate(`/${page}/dashboard`)
+        navigate(`/${page}`)
     }
     const goToPersonal = () => {
         navigate(`/${page}/personal`)
@@ -25,12 +25,14 @@ export default function Navbar() {
     return (
         <HeaderWrapper className="w-full fixed top-0">
             <nav className='border-0 flex w-screen justify-between px-10 py-5 items-center z-10 bg-white'>
-                <div className='flex items-center'>
-                    <img height={55} width={55} src={IMAGES.icon.appLogo}/>
-                    <h1 className='text-2xl text-black font-bold' style={{marginLeft : 10}}> {projectName}</h1>
+                <div className='flex items-center' onClick={returnHome}>
+                    <img height={65} width={65} src={IMAGES.icon.appLogo}/>
+                    <h1 className='text-xl text-black font-bold'
+                        style={{marginLeft: 10, color: "black"}}> {projectName}</h1>
                 </div>
                 <div className='flex items-center'>
-                    <div className='md:flex items-center border-2 hover:border-gray-400  px-2 py-1 border-gray-200  rounded-md bg-white hidden'>
+                    <div
+                        className='md:flex items-center border-2 hover:border-gray-400  px-2 py-1 border-gray-200  rounded-md bg-white hidden'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             className='h-5 w-5 pt-0.5 text-gray-500'
@@ -38,9 +40,11 @@ export default function Navbar() {
                             viewBox='0 0 24 24'
                             stroke='currentColor'
                         >
-                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='5' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
+                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='5'
+                                  d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/>
                         </svg>
-                        <input className='ml-2  bg-white outline-0 ' type='text' name='search' id='search' placeholder='Search...' />
+                        <input className='ml-2  bg-white outline-0 ' type='text' name='search' id='search'
+                               placeholder='Search...'/>
                     </div>
                     <ul className='flex items-center space-x-6 ml-6'>
                         <li>
@@ -52,12 +56,13 @@ export default function Navbar() {
                                         width: '43px',
                                         height: '43px',
                                     }}
-                                    onClick = {goToPersonal}
+                                    onClick={goToPersonal}
                                 />
                             </div>
                         </li>
                         <li>
-                            <svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6 text-black' fill='none' viewBox='0 0 24 24' stroke='black'>
+                            <svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6 text-black' fill='none'
+                                 viewBox='0 0 24 24' stroke='black'>
                                 <path
                                     strokeLinecap='round'
                                     strokeLinejoin='round'

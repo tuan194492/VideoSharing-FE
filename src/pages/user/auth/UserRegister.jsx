@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {appendErrors, Controller, useForm} from 'react-hook-form';
 import './style.css'
 import {AuthContext} from "../../../context/AuthContext";
+import {userRegister} from "../../../api/user/auth";
 export default function UserRegister() {
     const navigate = useNavigate();
     const { setAuthData, clearAuthData } = useContext(AuthContext);
@@ -18,13 +19,13 @@ export default function UserRegister() {
     }, []);
 
     const onSubmit = async (data) => {
-        // console.log("Submit")
-        // const createResult = await ownerRegister(data);
-        // if (createResult.success) {
-        //     toast.success(createResult.message)
-        //     navigate('/owner/auth')
-        // }
-        // else toast.error(createResult.message)
+        console.log("Submit")
+        const createResult = await userRegister(data);
+        if (createResult.success) {
+            toast.success(createResult.message)
+            navigate('/owner/auth')
+        }
+        else toast.error(createResult.message)
     };
 
     const handleClickLogin = () => {

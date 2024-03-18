@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { appendErrors, useForm } from "react-hook-form";
 import "./style.css";
 import {AuthContext} from "../../../context/AuthContext";
+import {userLogin} from "../../../api/user/auth";
 export default function UserLogin() {
     const navigate = useNavigate();
     const { setAuthData, clearAuthData } = useContext(AuthContext);
@@ -24,15 +25,15 @@ export default function UserLogin() {
         navigate("/user/login");
     };
     const onSubmit = async (data) => {
-        // let response = await ownerLogin(data);
-        // if (response.success) {
-        //     const { token, role, user } = response.data;
-        //     toast.success(response.message);
-        //     setAuthData(token, role, user);
-        //     navigate("/user");
-        // } else {
-        //     toast.error(response.message);
-        // }
+        let response = await userLogin(data);
+        if (response.success) {
+            const { token, role, user } = response.data;
+            toast.success(response.message);
+            setAuthData(token, role, user);
+            navigate("/user");
+        } else {
+            toast.error(response.message);
+        }
     };
 
     return (

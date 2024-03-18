@@ -161,6 +161,7 @@ export const WrapperSideBar = styled.div`
         .pro-menu-item > .pro-inner-item {
           color: #ffffff;
           font-weight: 550;
+          font-size: 16px;
           padding: 5px 0 5px 15px !important;
         }
 
