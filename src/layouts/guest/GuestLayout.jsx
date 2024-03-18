@@ -1,7 +1,7 @@
 import {Outlet} from "react-router-dom";
 import Navbar from "../../components/guest/Navbar";
 import {WrapperAll, WrapperContent} from "../../style/styled";
-import Sidebar from "../../components/guest/SideBar";
+import Sidebar from "../../components/guest/Sidebar";
 import {useState} from "react";
 export default function GuestLayout() {
 

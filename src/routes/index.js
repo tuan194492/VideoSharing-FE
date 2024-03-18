@@ -4,8 +4,13 @@ import UserLayout from "../layouts/user/UserLayout";
 import UserLogin from "../pages/user/auth/UserLogin";
 import UserRegister from "../pages/user/auth/UserRegister";
 import {AdminLogin} from "../pages/admin/login/AdminLogin";
+import {userRoutes} from "./userRoutes";
 
 const admin = [], user = [], guest = [];
+userRoutes.map((route) => {
+    user.push(route)
+})
+
 export const routes = [
     {
         path: "/admin",
@@ -24,13 +29,11 @@ export const routes = [
     },
     {
         path: "/user/login",
-        element: <UserLogin />,
-        children: user
+        element: <UserLogin />
     },
     {
         path: "/user/register",
-        element: <UserRegister />,
-        children: user
+        element: <UserRegister />
     },
     {
         path: "/guest",

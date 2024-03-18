@@ -4,7 +4,7 @@ import { createContext, useState, useEffect } from "react";
 const defaultAuthContext = {
   token: "",
   role: "",
-  isLogin: false,
+  isLogin: true,
   user: null,
 };
 
