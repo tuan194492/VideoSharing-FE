@@ -1,13 +1,16 @@
 import ReactPlayer from 'react-player'
 export default function VideoWatcher(props) {
-    const {video} = {props};
+    const {video} = props;
     console.log(video)
+    console.log(props)
 
     const videoSrc = URL.createObjectURL(video);
-    console.log(videoSrc)
+    console.log(videoSrc.substring(5))
     return (
         <div>
-            <ReactPlayer src={videoSrc}/>
+            <video width={"100%"} height={"100%"} preload={"auto"} controls={true}>
+                <source src={videoSrc} type={"video/mp4"}/>
+            </video>
         </div>
     )
 }

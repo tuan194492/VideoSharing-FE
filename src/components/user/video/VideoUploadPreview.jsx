@@ -2,7 +2,7 @@ import VideoWatcher from "../../common/VideoWatcher";
 import {useState} from "react";
 
 export default function VideoUploadPreview(props) {
-    const [currentVideo, setCurrentVideo] = useState(null);
+    let [currentVideo, setCurrentVideo] = useState(null);
 
     const uploadVideo = (e) => {
         if (e.target.files) {

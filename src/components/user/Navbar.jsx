@@ -24,15 +24,15 @@ export default function Navbar() {
     }
     return (
         <HeaderWrapper className="w-full fixed top-0">
-            <nav className='border-0 flex w-screen justify-between px-10 py-5 items-center z-10 bg-white'>
-                <div className='flex items-center' onClick={returnHome}>
+            <nav className='border-0 grid grid-cols-12 w-screen px-10 py-5 z-10 bg-white'>
+                <div className='col-span-3 flex items-center' onClick={returnHome}>
                     <img height={65} width={65} src={IMAGES.icon.appLogo}/>
                     <h1 className='text-xl text-black font-bold'
                         style={{marginLeft: 10, color: "black"}}> {projectName}</h1>
                 </div>
-                <div className='flex items-center'>
+                <div className='col-span-5 flex items-center'>
                     <div
-                        className='md:flex items-center border-2 hover:border-gray-400  px-2 py-1 border-gray-200  rounded-md bg-white hidden'>
+                        className='w-screen md:flex items-center border-2 hover:border-gray-400  px-2 py-1 border-gray-200  rounded-md bg-white hidden'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
                             className='h-5 w-5 pt-0.5 text-gray-500'
@@ -46,7 +46,9 @@ export default function Navbar() {
                         <input className='ml-2  bg-white outline-0 ' type='text' name='search' id='search'
                                placeholder='Search...'/>
                     </div>
-                    <ul className='flex items-center space-x-6 ml-6'>
+                </div>
+                <div className="col-start-10 col-span-3">
+                    <ul className='flex justify-end items-center space-x-6 ml-6'>
                         <li>
                             <div className="cursor-pointer">
                                 <img
@@ -91,7 +93,9 @@ export default function Navbar() {
                         </li>
                     </ul>
                 </div>
-            </nav>
-        </HeaderWrapper>
-    );
+
+        </nav>
+</HeaderWrapper>
+)
+    ;
 }

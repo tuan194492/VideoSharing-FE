@@ -8,12 +8,12 @@ export default function App() {
   const { isLogin} = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!isLogin) {
-  //     if (window.location.href.includes("admin")) navigate("/admin/login");
-  //     else if (window.location.href.includes("user")) navigate("/user/login");
-  //     else navigate("/guest")
-  //   }
-  // }, [isLogin]);
+  useEffect(() => {
+    if (!isLogin) {
+      if (window.location.href.includes("admin")) navigate("/admin/login");
+      else if (window.location.href.includes("user")) navigate("/user/login");
+      else navigate("/guest")
+    }
+  }, [isLogin]);
   return <div>{element}</div>;
 }
