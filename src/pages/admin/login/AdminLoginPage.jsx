@@ -1,4 +1,4 @@
-export const AdminLogin = () => {
+export const AdminLoginPage = () => {
     return (
         <div>
 

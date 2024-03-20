@@ -1,8 +1,8 @@
-import VideoUpload from "../pages/user/video/VideoUpload";
+import VideoUploadPage from "../pages/user/video/VideoUploadPage";
 
 export const userRoutes = [
     {
         path: "/user/video/create",
-        element: <VideoUpload />
+        element: <VideoUploadPage />
     }
 ]

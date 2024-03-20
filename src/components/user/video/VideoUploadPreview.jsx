@@ -1,4 +1,4 @@
-import VideoWatcher from "../../common/VideoWatcher";
+import VideoPlayer from "../../common/video/VideoPlayer";
 import {useState} from "react";
 
 export default function VideoUploadPreview(props) {
@@ -27,7 +27,7 @@ export default function VideoUploadPreview(props) {
     else {
         return (
             <div>
-                <VideoWatcher video={currentVideo}/>
+                <VideoPlayer video={currentVideo}/>
             </div>
         );
     }

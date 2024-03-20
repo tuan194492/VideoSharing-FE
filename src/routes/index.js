@@ -1,9 +1,9 @@
 import AdminLayout from "../layouts/admin/AdminLayout";
 import GuestLayout from "../layouts/guest/GuestLayout";
 import UserLayout from "../layouts/user/UserLayout";
-import UserLogin from "../pages/user/auth/UserLogin";
-import UserRegister from "../pages/user/auth/UserRegister";
-import {AdminLogin} from "../pages/admin/login/AdminLogin";
+import UserLoginPage from "../pages/user/auth/UserLoginPage";
+import UserRegisterPage from "../pages/user/auth/UserRegisterPage";
+import {AdminLoginPage} from "../pages/admin/login/AdminLoginPage";
 import {userRoutes} from "./userRoutes";
 
 const admin = [], user = [], guest = [];
@@ -19,7 +19,7 @@ export const routes = [
     },
     {
         path: "/admin/auth",
-        element: <AdminLogin />,
+        element: <AdminLoginPage />,
         children: admin
     },
     {
@@ -29,11 +29,11 @@ export const routes = [
     },
     {
         path: "/user/login",
-        element: <UserLogin />
+        element: <UserLoginPage />
     },
     {
         path: "/user/register",
-        element: <UserRegister />
+        element: <UserRegisterPage />
     },
     {
         path: "/guest",

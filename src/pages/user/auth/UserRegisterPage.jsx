@@ -5,7 +5,7 @@ import {appendErrors, Controller, useForm} from 'react-hook-form';
 import './style.css'
 import {AuthContext} from "../../../context/AuthContext";
 import {userRegister} from "../../../api/user/auth";
-export default function UserRegister() {
+export default function UserRegisterPage() {
     const navigate = useNavigate();
     const { setAuthData, clearAuthData } = useContext(AuthContext);
     const {

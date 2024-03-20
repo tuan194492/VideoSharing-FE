@@ -3,7 +3,7 @@ import {AuthContext} from "../../../context/AuthContext";
 import {useForm} from "react-hook-form";
 import VideoUploadPreview from "../../../components/user/video/VideoUploadPreview";
 
-export default function VideoUpload(props) {
+export default function VideoUploadPage(props) {
     const authContext = useContext(AuthContext);
     const token = authContext.token;
     const {

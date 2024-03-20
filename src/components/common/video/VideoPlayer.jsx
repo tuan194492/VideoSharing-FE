@@ -1,5 +1,5 @@
 import ReactPlayer from 'react-player'
-export default function VideoWatcher(props) {
+export default function VideoPlayer(props) {
     const {video} = props;
     console.log(video)
     console.log(props)

@@ -5,7 +5,7 @@ import { appendErrors, useForm } from "react-hook-form";
 import "./style.css";
 import {AuthContext} from "../../../context/AuthContext";
 import {userLogin} from "../../../api/user/auth";
-export default function UserLogin() {
+export default function UserLoginPage() {
     const navigate = useNavigate();
     const { setAuthData, clearAuthData } = useContext(AuthContext);
     const {
