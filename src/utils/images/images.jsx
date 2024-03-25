@@ -4,6 +4,7 @@ import appLogo from '../../assets/icon/logo.png';
 import defaultAvatar from '../../assets/icon/defaultAvatar.png'
 import noImage from '../../assets/icon/noImage.png'
 import collapse from '../../assets/icon/collapse.png'
+import uploadIcon from '../../assets/icon/icons8-upload-100.png'
 //
 const home = (
     <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -293,7 +294,8 @@ export const IMAGES = {
         noImage,
         collapseIn,
         collapseOut,
-        collapse
+        collapse,
+        uploadIcon
     },
     logo: {
 
