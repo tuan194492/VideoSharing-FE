@@ -1,6 +1,8 @@
 import VideoPlayer from "../../common/video/VideoPlayer";
 import {useState} from "react";
 import {IMAGES} from "../../../utils/images/images";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faSignIn, faXmark} from '@fortawesome/free-solid-svg-icons';
 
 export default function VideoUploadPreview(props) {
     const {submitVideoAction, video} = props;
@@ -13,6 +15,11 @@ export default function VideoUploadPreview(props) {
             console.log(currentVideo);
             props.handleUploadVideo(uploadedVideo);
         }
+    }
+
+    const deleteVideo = (e) => {
+        setCurrentVideo(null);
+        props.handleUploadVideo(null);
     }
     // Upload Video
     if (!currentVideo) {
@@ -48,10 +55,18 @@ export default function VideoUploadPreview(props) {
     else {
         return (
             <div className={"grid grid-cols-6"}>
-                <div className={"col col-span-6 flex flex-col items-center"}>
+                <div className={"col col-span-6 flex flex-row items-start"}>
                     <VideoPlayer video={currentVideo}/>
+                    <div className={"col col-span-6  text-center translate-x-[-40px]"}>
+                        <button className="text-red-900 font-bold py-2 px-4 rounded-full w-10 h-10"
+                                type="submit"
+                                title="Abort"
+                                onClick={deleteVideo}>
+                            <FontAwesomeIcon icon={faXmark}/>
+                        </button>
+                    </div>
                 </div>
-                <div className={"col col-span-6  text-center mt-[60px]"}>
+                <div className={"col col-span-6  text-center mt-[30px]"}>
                     <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
                             type="submit"
                             onClick={submitVideoAction}>
