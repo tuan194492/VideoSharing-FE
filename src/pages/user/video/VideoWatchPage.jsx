@@ -16,6 +16,9 @@ export default function VideoWatchPage() {
             {/* Video watching + Comment List */}
             <div className={"col-start-1 col-span-8"}>
                 <VideoPlayer video={currentVideo}/>
+                <div className={"title"}>
+
+                </div>
             </div>
 
             {/* Recommend video list */}
