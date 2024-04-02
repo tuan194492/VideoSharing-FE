@@ -22,7 +22,7 @@ export default function VideoWatchPage() {
             </div>
 
             {/* Recommend video list */}
-            <div className={"col-span-4"} >
+            <div className={"col-span-4 ml-8"} >
                 <VideoVerticalList videos={videoList} />
             </div>
         </div>
