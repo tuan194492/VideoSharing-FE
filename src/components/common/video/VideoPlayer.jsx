@@ -16,7 +16,6 @@ export default function VideoPlayer(props) {
     } else {
         return (
             <div>
-                Please load the page again.
                 <video width={"100%"} height={"100%"} preload={"auto"} controls={true}>
 
                 </video>
