@@ -22,9 +22,9 @@ export default function VideoWatchPage() {
                         Nhạc Lofi Tâm Trạng - Nhạc Chill TikTok Nhẹ Nhàng Hay Nhất 2024 | Lofi Chill Tâm Trạng Buồn 2024
                     </div>
                     <div className={"video-info-bar"}>
-                        <div className={"float-left"}>
-                            <img src={IMAGES.icon.avatar} className={"rounded-2xl w-[8%]"} />
-                            <span>
+                        <div className={"float-left flex"}>
+                            <img src={IMAGES.icon.avatar} className={"rounded-2xl w-[8%] "} />
+                            <span className={"inline-block ml-2"}>
                                 <div className={"channel-name"}>
                                     2Am Lofi
                                 </div>
@@ -32,9 +32,14 @@ export default function VideoWatchPage() {
                                     31.4K subscribers
                                 </div>
                             </span>
+                            <button
+                                className={"rounded-2xl inline-flex items-center py-2 px-4 bg-red-500 hover:bg-red-600 text-white transition duration-300"}>Subscribe
+                            </button>
                         </div>
                         <div className={"float-right"}>
+                            <button className={"like-btn"}>
 
+                            </button>
                         </div>
                     </div>
                     <div className={"description"}>
