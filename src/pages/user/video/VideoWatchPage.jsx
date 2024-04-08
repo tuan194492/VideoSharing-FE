@@ -4,6 +4,9 @@ import VideoUploadPreview from "../../../components/user/video/VideoUploadPrevie
 import VideoPlayer from "../../../components/common/video/VideoPlayer";
 import VideoVerticalList from "../../../components/user/video/VideoVerticalList";
 import {IMAGES} from "../../../utils/images/images";
+import {LikeButton} from "../../../components/common/button/LikeButton";
+import {DislikeButton} from "../../../components/common/button/DislikeButton";
+import {MyButton} from "../../../components/common/button/MyButton";
 
 export default function VideoWatchPage() {
     const authContext = useContext(AuthContext);
@@ -36,10 +39,10 @@ export default function VideoWatchPage() {
                                 className={"rounded-2xl inline-flex items-center py-2 px-4 bg-red-500 hover:bg-red-600 text-white transition duration-300"}>Subscribe
                             </button>
                         </div>
-                        <div className={"float-right"}>
-                            <button className={"like-btn"}>
-
-                            </button>
+                        <div className={"float-right flex gap-[10px]"}>
+                            <LikeButton />
+                            <DislikeButton />
+                            <MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} />
                         </div>
                     </div>
                     <div className={"description"}>

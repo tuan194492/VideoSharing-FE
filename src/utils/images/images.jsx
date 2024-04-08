@@ -5,7 +5,8 @@ import defaultAvatar from '../../assets/icon/defaultAvatar.png'
 import noImage from '../../assets/icon/noImage.png'
 import collapse from '../../assets/icon/collapse.png'
 import uploadIcon from '../../assets/icon/icons8-upload-100.png'
-//
+import likeButton from '../../assets/icon/like-button.jpg'
+
 const home = (
     <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
          xmlns="http://www.w3.org/2000/svg">
@@ -252,6 +253,13 @@ const collapseOut = (
         </g>
     </svg>
 )
+
+const addPlaylist = (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+        <path
+            d="M 0.96875 0.25 A 0.75 0.75 0 0 0 1 1.75 L 20 1.75 A 0.75 0.75 0 0 0 20 0.25 L 1 0.25 A 0.75 0.75 0 0 0 0.96875 0.25 z M 0.96875 5.25 A 0.75 0.75 0 0 0 1 6.75 L 17 6.75 A 0.75 0.75 0 0 0 17 5.25 L 1 5.25 A 0.75 0.75 0 0 0 0.96875 5.25 z M 0.96875 10.25 A 0.75 0.75 0 0 0 1 11.75 L 14 11.75 A 0.75 0.75 0 0 0 14 10.25 L 1 10.25 A 0.75 0.75 0 0 0 0.96875 10.25 z M 19.021484 14.25 A 0.75 0.75 0 0 0 18.25 15 L 18.25 18.25 L 15 18.25 A 0.75 0.75 0 0 0 15 19.75 L 18.25 19.75 L 18.25 23 A 0.75 0.75 0 0 0 19 23.75 A 0.75 0.75 0 0 0 19.75 23 L 19.75 19.75 L 23 19.75 A 0.75 0.75 0 0 0 23 18.25 L 19.75 18.25 L 19.75 15 A 0.75 0.75 0 0 0 19.021484 14.25 z M 0.96875 15.25 A 0.75 0.75 0 0 0 1 16.75 L 10 16.75 A 0.75 0.75 0 0 0 10 15.25 L 1 15.25 A 0.75 0.75 0 0 0 0.96875 15.25 z M 0.96875 20.25 A 0.75 0.75 0 0 0 1 21.75 L 10 21.75 A 0.75 0.75 0 0 0 10 20.25 L 1 20.25 A 0.75 0.75 0 0 0 0.96875 20.25 z"/>
+    </svg>
+)
 export const IMAGES = {
     icon: {
         contract,
@@ -295,9 +303,9 @@ export const IMAGES = {
         collapseIn,
         collapseOut,
         collapse,
-        uploadIcon
+        uploadIcon,
+        likeButton,
+        addPlaylist
     },
-    logo: {
-
-    },
+    logo: {},
 };

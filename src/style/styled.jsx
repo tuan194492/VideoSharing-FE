@@ -27,7 +27,8 @@ export const HeaderWrapper = styled.div`
   padding: 0px 0px 0px 0px;
   height: 8%;
   display: flex;
-  justify-content: space-between;
+    min-height: 80px;
+    justify-content: space-between;
   align-item: center;
   box-shadow: 0px 0px 10px #00000029;
   opacity: 1;
