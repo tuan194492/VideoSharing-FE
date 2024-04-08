@@ -7,6 +7,7 @@ import {IMAGES} from "../../../utils/images/images";
 import {LikeButton} from "../../../components/common/button/LikeButton";
 import {DislikeButton} from "../../../components/common/button/DislikeButton";
 import {MyButton} from "../../../components/common/button/MyButton";
+import {DescriptionTextField} from "../../../components/common/textfield/DescriptionTextField";
 
 export default function VideoWatchPage() {
     const authContext = useContext(AuthContext);
@@ -24,7 +25,7 @@ export default function VideoWatchPage() {
                     <div className={"title"}>
                         Nhạc Lofi Tâm Trạng - Nhạc Chill TikTok Nhẹ Nhàng Hay Nhất 2024 | Lofi Chill Tâm Trạng Buồn 2024
                     </div>
-                    <div className={"flex items-center"}>
+                    <div className={"flex items-center justify-between"}>
                         <div className={"float-left flex"}>
                             <img src={IMAGES.icon.avatar} className={"rounded-2xl w-[8%] "} />
                             <span className={"inline-block ml-2"}>
@@ -46,7 +47,7 @@ export default function VideoWatchPage() {
                         </div>
                     </div>
                     <div className={"description"}>
-
+                        <DescriptionTextField />
                     </div>
                 </div>
 

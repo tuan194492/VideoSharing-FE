@@ -6,9 +6,9 @@ import {useState} from "react";
 
 function getClassNameByCollapse(collapsed) {
     if (collapsed) {
-        return 'left-[55px]';
+        return 'left-[55px] w-[95%]';
     } else {
-        return 'left-[235px]';
+        return 'left-[235px] w-[85%]';
     }
 }
 
@@ -24,7 +24,7 @@ export default function UserLayout() {
                 <WrapperContent className='fixed top-[8%]'>
                     <Sidebar  menuCollapse = {collapsed} setMenuCollapse = {handleCollapsedChange} />
                 </WrapperContent>
-                <div className={'fixed top-[8%] h-[92%] w-[85%] py-[50px] px-[50px] overflow-auto ' + getClassNameByCollapse(collapsed)} >
+                <div className={'fixed top-[8%] h-[92%] py-[50px] px-[50px] overflow-auto ' + getClassNameByCollapse(collapsed)} >
                     <Outlet />
                 </div>
             </div>
