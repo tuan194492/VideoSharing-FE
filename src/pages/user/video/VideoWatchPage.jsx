@@ -24,7 +24,7 @@ export default function VideoWatchPage() {
                     <div className={"title"}>
                         Nhạc Lofi Tâm Trạng - Nhạc Chill TikTok Nhẹ Nhàng Hay Nhất 2024 | Lofi Chill Tâm Trạng Buồn 2024
                     </div>
-                    <div className={"video-info-bar"}>
+                    <div className={"flex items-center"}>
                         <div className={"float-left flex"}>
                             <img src={IMAGES.icon.avatar} className={"rounded-2xl w-[8%] "} />
                             <span className={"inline-block ml-2"}>
@@ -39,7 +39,7 @@ export default function VideoWatchPage() {
                                 className={"rounded-2xl inline-flex items-center py-2 px-4 bg-red-500 hover:bg-red-600 text-white transition duration-300"}>Subscribe
                             </button>
                         </div>
-                        <div className={"float-right flex gap-[10px]"}>
+                        <div className={"float-right flex gap-[10px] items-center"}>
                             <LikeButton />
                             <DislikeButton />
                             <MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} />

@@ -9,7 +9,7 @@ export const DislikeButton = (props) => {
         handleFunction(!disliked);
     }
     return (
-        <div className={'inline-flex rounded-full bg-gray-300 p-2'} onClick={handleDislike}>
+        <div className={'inline-flex rounded-full bg-gray-300 p-2 text-xs hover:cursor-pointer'} onClick={handleDislike}>
             <button className={'w-[25px] rotate-180 translate-y-1'}>
                 <svg version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" className="css-ywt53g">
                     <path transform="scale(-1, 1) translate(-1200, 0)"

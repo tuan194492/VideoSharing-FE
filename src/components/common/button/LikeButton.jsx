@@ -9,7 +9,7 @@ export const LikeButton = (props) => {
         handleFunction(!liked);
     }
     return (
-        <div className={'flex rounded-full bg-gray-300 p-2'} onClick={handleLike}>
+        <div className={'flex rounded-full bg-gray-300 p-2 text-xs hover:cursor-pointer'} onClick={handleLike}>
             <button className={'w-[25px]'}>
                 <svg version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" className="css-ywt53g">
                     <path transform="scale(-1, 1) translate(-1200, 0)"
