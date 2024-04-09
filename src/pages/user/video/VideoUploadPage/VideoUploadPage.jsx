@@ -27,16 +27,28 @@ export default function VideoUploadPage(props) {
 
     }
 
+    function goToStepOne() {
+        setCurrentStep(1);
+    }
+
+    function goToStepTwo() {
+        setCurrentStep(2);
+    }
+
+    function goToStepThree() {
+        setCurrentStep(3);
+    }
+
     return (
         <div className={"grid grid-cols-12"}>
             <div className={'col col-span-12'}>
                 <Stepper className={'w-[80vw]'} activeStep={currentStep}>
-                    <Step label={UploadVideoStage.UPLOAD} onClick={e => setCurrentStep(1)} />
-                    <Step label={UploadVideoStage.DETAIL} onClick={e => setCurrentStep(2)} />
-                    <Step label={UploadVideoStage.SUCCESS} onClick={e => setCurrentStep(3)} />
+                    <Step label={UploadVideoStage.UPLOAD} onClick={goToStepOne} />
+                    <Step label={UploadVideoStage.DETAIL} onClick={goToStepTwo} />
+                    <Step label={UploadVideoStage.SUCCESS} onClick={goToStepThree} />
                 </Stepper>
             </div>
-            <div className={'col cols-span-12'}>
+            <div className={'col col-span-12'}>
                 {currentStep == 1 && <VideoUploadPageStepOne />}
                 {currentStep == 2 && <VideoUploadPageStepTwo />}
                 {currentStep == 3 && <VideoUploadPageStepThree />}
