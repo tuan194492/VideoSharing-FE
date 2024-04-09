@@ -1,4 +1,4 @@
-import VideoUploadPage from "../pages/user/video/VideoUploadPage";
+import VideoUploadPage from "../pages/user/video/VideoUploadPage/VideoUploadPage";
 import VideoWatchPage from "../pages/user/video/VideoWatchPage";
 
 export const userRoutes = [
