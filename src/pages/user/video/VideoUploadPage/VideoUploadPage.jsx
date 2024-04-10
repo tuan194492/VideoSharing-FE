@@ -27,31 +27,40 @@ export default function VideoUploadPage(props) {
 
     }
 
+    function handleSubmitStepOne() {
+
+    }
+
     function goToStepOne() {
-        setCurrentStep(1);
+        setCurrentStep(0);
     }
 
     function goToStepTwo() {
-        setCurrentStep(2);
+        setCurrentStep(1);
     }
 
     function goToStepThree() {
-        setCurrentStep(3);
+        setCurrentStep(2);
     }
 
     return (
         <div className={"grid grid-cols-12"}>
-            <div className={'col col-span-12'}>
+            <div className={'col col-span-12 flex justify-center'}>
                 <Stepper className={'w-[80vw]'} activeStep={currentStep}>
                     <Step label={UploadVideoStage.UPLOAD} onClick={goToStepOne} />
                     <Step label={UploadVideoStage.DETAIL} onClick={goToStepTwo} />
                     <Step label={UploadVideoStage.SUCCESS} onClick={goToStepThree} />
                 </Stepper>
             </div>
-            <div className={'col col-span-12'}>
-                {currentStep == 1 && <VideoUploadPageStepOne />}
-                {currentStep == 2 && <VideoUploadPageStepTwo />}
-                {currentStep == 3 && <VideoUploadPageStepThree />}
+            <div className={'col col-start-2 col-span-10 flex justify-center items-center h-[70vh] border-2'}>
+                {currentStep === 0 &&
+                    <VideoUploadPageStepOne uploadedVideo={uploadedVideo}
+                                            setUploadedVideo={setUploadedVideo}
+                                            handleSubmitStepOne={handleSubmitStepOne}
+                    />
+                }
+                {currentStep === 1 && <VideoUploadPageStepTwo />}
+                {currentStep === 2 && <VideoUploadPageStepThree />}
             </div>
 
         </div>
