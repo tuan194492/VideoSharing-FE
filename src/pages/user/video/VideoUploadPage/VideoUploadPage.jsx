@@ -7,6 +7,8 @@ import {Step, Stepper} from 'react-form-stepper';
 import {VideoUploadPageStepOne} from "./VideoUploadPageStepOne";
 import {VideoUploadPageStepThree} from "./VideoUploadPageStepThree";
 import {VideoUploadPageStepTwo} from "./VideoUploadPageStepTwo";
+import {toast} from "react-toastify";
+import {errorMessages} from "../../../../assets/error_messages/error-messages";
 
 export default function VideoUploadPage(props) {
     const authContext = useContext(AuthContext);
@@ -19,20 +21,34 @@ export default function VideoUploadPage(props) {
     } = useForm();
 
     const [uploadedVideo, setUploadedVideo] = useState(null);
-    const [currentStep, setCurrentStep] = useState(1);
+    const [uploadedImage, setUploadedImage] = useState(null);
+    const [currentStep, setCurrentStep] = useState(0);
     const uploadVideo = (video) => {
         setUploadedVideo(video);
     }
+
     const onSubmit = async (data) => {
 
     }
 
     function handleSubmitStepOne() {
+        if (!uploadVideo) {
+           return toast.error(errorMessages.EMPTY_VIDEO);
+        }
 
+        goToStepTwo();
+    }
+
+    function handleSubmitStepTwo() {
+        if (!uploadedImage) {
+            return toast.error(errorMessages.EMPTY_THUMBNAIL);
+        }
+        goToStepThree();
     }
 
     function goToStepOne() {
         setCurrentStep(0);
+        console.log(uploadedVideo)
     }
 
     function goToStepTwo() {
@@ -44,7 +60,7 @@ export default function VideoUploadPage(props) {
     }
 
     return (
-        <div className={"grid grid-cols-12"}>
+        <div className={"grid grid-cols-12 h-full"}>
             <div className={'col col-span-12 flex justify-center'}>
                 <Stepper className={'w-[80vw]'} activeStep={currentStep}>
                     <Step label={UploadVideoStage.UPLOAD} onClick={goToStepOne} />
@@ -59,10 +75,14 @@ export default function VideoUploadPage(props) {
                                             handleSubmitStepOne={handleSubmitStepOne}
                     />
                 }
-                {currentStep === 1 && <VideoUploadPageStepTwo />}
+                {currentStep === 1 &&
+                    <VideoUploadPageStepTwo uploadedVideo={uploadedVideo}
+                                            uploadedImage={uploadedImage}
+                                            setUploadedImage={setUploadedImage}
+                                            handleSubmitStepTwo={handleSubmitStepTwo}
+                    />}
                 {currentStep === 2 && <VideoUploadPageStepThree />}
             </div>
-
         </div>
     );
 }

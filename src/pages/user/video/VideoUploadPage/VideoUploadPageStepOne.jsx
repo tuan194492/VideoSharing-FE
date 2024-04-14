@@ -12,6 +12,7 @@ export const VideoUploadPageStepOne = (props) => {
         const file = e.target.files[0];
         if (file) {
             setCurrentVideo(file);
+            props.setUploadedVideo(file);
         }
     }
 
@@ -50,7 +51,7 @@ export const VideoUploadPageStepOne = (props) => {
                     </button>
                     <button className="text-green-900 font-bold py-2 px-4 rounded-full w-25 h-25"
                             type="submit"
-                            title="Abort"
+                            title="Submit"
                             onClick={props.handleSubmitStepOne}>
                         <FontAwesomeIcon icon={faArrowRight}  className={'min-w-25 min-h-25'} />
                     </button>
