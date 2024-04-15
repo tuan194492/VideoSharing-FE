@@ -1,15 +1,21 @@
 import {IMAGES} from "../../../utils/images/images";
 import {StringUtils} from "../../../utils/string/StringUtils";
+import {useNavigate} from "react-router-dom";
 
 export const VideoMini = (props) => {
     const data = props.data;
     console.log(data);
+    const navigate = useNavigate();
+    const role = localStorage.getItem("role");
+    const page = role?.substring(1, role.length - 1).toLowerCase() || 'guest';
 
     const base64String = btoa(new Uint8Array(data.thumbnail.data).reduce(function (data, byte) {
         return data + String.fromCharCode(byte);
     }, ''));
     return (
-        <div className={'p-1 ' + props.className}>
+        <div className={'p-1 ' + props.className} onClick={e => {
+            navigate(`/${page}/video/detail/${data.id}`)
+        }}>
             <img src={`data:image/png;base64,${base64String}`} />
             <div className={'grid grid-cols-12'}>
                 <div className={'col col-span-1 mt-2'}>

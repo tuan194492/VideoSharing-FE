@@ -42,7 +42,7 @@ export const userRoutes = [
         element: <VideoUploadPage />
     },
     {
-        path: "/user/video/detail",
+        path: "/user/video/detail/:id",
         element: <VideoWatchPage />
     }
 ]

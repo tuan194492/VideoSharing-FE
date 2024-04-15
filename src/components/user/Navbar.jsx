@@ -17,7 +17,7 @@ export default function Navbar() {
         navigate(`/${page}/login`)
     }
     const returnHome = () => {
-        navigate(`/${page}`)
+        navigate(`/${page}/homepage`)
     }
     const goToPersonal = () => {
         navigate(`/${page}/personal`)

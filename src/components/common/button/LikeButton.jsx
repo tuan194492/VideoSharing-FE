@@ -1,9 +1,9 @@
 import {useState} from "react";
+import {StringUtils} from "../../../utils/string/StringUtils";
 
 export const LikeButton = (props) => {
-    const {handleFunction, likeStatus} = props;
-    const [liked, setLiked] = useState(true);
-    const likeCount = '10.24K';
+    const {handleFunction, likeCount} = props;
+    const [liked, setLiked] = useState(props.liked);
     const handleLike = () => {
         setLiked(!liked);
         handleFunction(!liked);
@@ -18,7 +18,7 @@ export const LikeButton = (props) => {
                 </svg>
             </button>
             <span className={'like-count p-1'}>
-                {likeCount}
+                {StringUtils.formatNumber(likeCount)}
             </span>
         </div>
 

@@ -1,9 +1,9 @@
 import {useState} from "react";
+import {StringUtils} from "../../../utils/string/StringUtils";
 
 export const DislikeButton = (props) => {
-    const {handleFunction, dislikeStatus} = props;
-    const [disliked, setDisliked] = useState(true);
-    const dislikeCount = '20K';
+    const {handleFunction, dislikeCount} = props;
+    const [disliked, setDisliked] = useState(props.disliked);
     const handleDislike = () => {
         setDisliked(!disliked);
         handleFunction(!disliked);
@@ -18,7 +18,7 @@ export const DislikeButton = (props) => {
                 </svg>
             </button>
             <span className={'like-count p-1'}>
-                {dislikeCount}
+                {StringUtils.formatNumber(dislikeCount)}
             </span>
         </div>
 
