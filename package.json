@@ -14,6 +14,8 @@
     "react-dom": "^18.2.0",
     "react-form-stepper": "^2.0.3",
     "react-hook-form": "^7.51.1",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-loader-spinner": "^6.1.6",
     "react-player": "^2.15.1",
     "react-pro-sidebar": "^0.7.1",
     "react-router-dom": "^6.22.3",
