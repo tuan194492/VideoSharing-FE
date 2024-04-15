@@ -63,8 +63,8 @@ export default function VideoUploadPage(props) {
         <div className={"grid grid-cols-12 h-full"}>
             <div className={'col col-span-12 flex justify-center'}>
                 <Stepper className={'w-[80vw]'} activeStep={currentStep}>
-                    <Step label={UploadVideoStage.UPLOAD} onClick={goToStepOne} />
-                    <Step label={UploadVideoStage.DETAIL} onClick={goToStepTwo} />
+                    <Step label={UploadVideoStage.UPLOAD} onClick={goToStepOne} disabled={currentStep === 2}/>
+                    <Step label={UploadVideoStage.DETAIL} onClick={goToStepTwo} disabled={currentStep === 2 || uploadedVideo == null} />
                     <Step label={UploadVideoStage.SUCCESS} onClick={goToStepThree} />
                 </Stepper>
             </div>

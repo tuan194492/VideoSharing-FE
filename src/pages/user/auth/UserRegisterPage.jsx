@@ -21,6 +21,7 @@ export default function UserRegisterPage() {
     const onSubmit = async (data) => {
         console.log("Submit")
         const createResult = await userRegister(data);
+        console.log(createResult);
         if (createResult.success) {
             toast.success(createResult.message)
             navigate('/user/login')
