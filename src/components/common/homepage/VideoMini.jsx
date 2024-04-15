@@ -31,7 +31,7 @@ export const VideoMini = (props) => {
                         </div>
                         <div className={"detail"}>
                         <span className={"view-count"}>
-                            {data.views} views
+                            {StringUtils.formatNumber(data.views)} views
                         </span>
                             <span className={"posted-date ml-4"}>
                             {StringUtils.convertSeconds(data.postedSince)} ago

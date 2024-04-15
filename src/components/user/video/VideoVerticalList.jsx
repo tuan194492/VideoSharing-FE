@@ -1,14 +1,14 @@
 import {VideoMini} from "../../common/video/VideoMini";
 
 export default function VideoVerticalList(props) {
+    const {videos} = props;
     return (
         <div>
-            <VideoMini />
-            <VideoMini />
-            <VideoMini />
-            <VideoMini />
-            <VideoMini />
-
+            { videos &&
+                videos.map(video => {
+                    return <VideoMini className={'bg-gray-100'} data={video}/>
+                })
+            }
         </div>
     )
 }

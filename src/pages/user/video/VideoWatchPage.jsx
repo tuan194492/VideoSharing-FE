@@ -12,6 +12,9 @@ import {useParams} from "react-router-dom";
 import async from "async";
 import {videoService} from "../../../api/user/video";
 import {StringUtils} from "../../../utils/string/StringUtils";
+import {ThreeCircles} from "react-loader-spinner";
+import {VideoMini} from "../../../components/common/homepage/VideoMini";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
 export default function VideoWatchPage() {
@@ -35,13 +38,66 @@ export default function VideoWatchPage() {
         }
     }
 
+    const initVideoData = async () => {
+        const result = await videoService.fetchVideoListAtHomePage(token, {
+            page: 1,
+            pageSize: videoPerRequest
+        })
+        console.log(result.data.data)
+        if (result.success) {
+            if (result.data.count < videoPerRequest) {
+                setHasMore(false);
+            }
+            if (result.data.count > 0) {
+                setVideoList(result.data.data)
+            }
+            console.log(videoList)
+        }
+
+    }
+
+    const fetchVideoDataList = async (page, pageSize) => {
+        const result = await videoService.fetchVideoListAtHomePage(token, {
+            page: page,
+            pageSize: pageSize
+        })
+        console.log(result.data.data)
+        if (result.success) {
+            return result.data.data;
+        } else {
+            return [];
+        }
+    }
+
     useEffect(() => {
         fetchVideoData(videoId);
+        initVideoData();
     }, []);
 
     const createVideoSrc = (videoId) => {
         console.log(`${baseAdminURL}/video/stream/${videoId}`);
-        return `${baseAdminURL}/video/stream/${videoId}`;
+        if (user != null) {
+            return `${baseAdminURL}/video/stream/${videoId}?userId=${user.id}`;
+        } else {
+            return `${baseAdminURL}/video/stream/${videoId}`;
+        }
+    }
+
+    const videoPerRequest = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+
+    const fetchMoreData = async () => {
+        console.log('Has more')
+        const result = await fetchVideoDataList(currentPage + 1, videoPerRequest);
+        if (result.length > 0) {
+            setVideoList(videoList => [...videoList, ...result]);
+            setCurrentPage(currentPage => currentPage + 1);
+            setHasMore(true);
+        } else {
+            setHasMore(false);
+        }
+        console.log(hasMore)
     }
 
     return (
@@ -91,7 +147,16 @@ export default function VideoWatchPage() {
 
             {/* Recommend video list */}
             <div className={"col-span-4 ml-8"}>
-                <VideoVerticalList videos={videoList}/>
+                <InfiniteScroll
+                    dataLength={videoList.length}
+                    next={fetchMoreData}
+                    hasMore={hasMore}
+                    loader={<ThreeCircles />}
+                    className={'flex justify-center'}
+                >
+                    <VideoVerticalList videos={videoList}/>
+                </InfiniteScroll>
+
             </div>
         </div>
     );
