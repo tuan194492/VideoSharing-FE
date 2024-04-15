@@ -34,7 +34,7 @@ export const VideoUploadPageStepTwo = (props) => {
         if (formData.description == null || formData.description.length < 50) {
             return toast.error(errorMessages.EMPTY_DESCRIPTION);
         }
-        props.handleSubmitStepTwo();
+        props.handleSubmitStepTwo(formData);
     }
 
     return (
@@ -43,7 +43,7 @@ export const VideoUploadPageStepTwo = (props) => {
                 <form className="w-[80%] mx-auto">
                     <div className="relative z-0 w-full mb-5 group">
                         <input type="text" name="title" id="title"
-                               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                               className="block py-3 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required
                                onChange={e => {
                                    setFormData({

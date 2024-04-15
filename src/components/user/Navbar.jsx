@@ -22,6 +22,11 @@ export default function Navbar() {
     const goToPersonal = () => {
         navigate(`/${page}/personal`)
     }
+
+    const goToUploadVideoPage = () => {
+        navigate(`/${page}/video/create`)
+    }
+
     return (
         <HeaderWrapper className="w-full fixed top-0">
             <nav className='border-0 grid grid-cols-12 w-screen px-10 py-5 z-10 bg-white'>
@@ -49,6 +54,14 @@ export default function Navbar() {
                 </div>
                 <div className="col-start-10 col-span-3">
                     <ul className='flex justify-end items-center space-x-6 ml-6'>
+                        <li className="cursor-pointer">
+                            <button type="button"
+                                    className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
+                                    onClick={goToUploadVideoPage}>
+                                Upload
+                            </button>
+
+                        </li>
                         <li>
                             <div className="cursor-pointer">
                                 <img

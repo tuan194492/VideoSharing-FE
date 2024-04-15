@@ -1,4 +1,4 @@
-import userService, {userService as videoService} from '../../../api/user/video/index'
+import userService, {videoService as videoService} from '../../../api/user/video/index'
 import {IMAGES} from "../../../utils/images/images";
 
 export const VideoMini = (props) => {

@@ -1,11 +1,11 @@
-import {userService} from "../../../api/user/video";
+import {videoService} from "../../../api/user/video";
 import {useState} from "react";
 import {StringUtils} from "../../../utils/string/StringUtils";
 
 export const DescriptionTextField = (props) => {
     const {videoId, userId} = props;
 
-    const [videoData, setVideoData] = useState(userService.fetchVideoDescriptionData(videoId));
+    const [videoData, setVideoData] = useState(videoService.fetchVideoDescriptionData(videoId));
     const [isShowingMoreDetail, setShowingMoreDetail] = useState(StringUtils.countLines(videoData.description) > 5);
 
     return (

@@ -9,6 +9,7 @@ import {VideoUploadPageStepThree} from "./VideoUploadPageStepThree";
 import {VideoUploadPageStepTwo} from "./VideoUploadPageStepTwo";
 import {toast} from "react-toastify";
 import {errorMessages} from "../../../../assets/error_messages/error-messages";
+import {videoService} from "../../../../api/user/video";
 
 export default function VideoUploadPage(props) {
     const authContext = useContext(AuthContext);
@@ -39,11 +40,14 @@ export default function VideoUploadPage(props) {
         goToStepTwo();
     }
 
-    function handleSubmitStepTwo() {
-        if (!uploadedImage) {
-            return toast.error(errorMessages.EMPTY_THUMBNAIL);
+    async function handleSubmitStepTwo(formDataFromChild) {
+        const result = await videoService.uploadVideo(formDataFromChild, uploadedVideo, uploadedImage, token);
+        if (result.success) {
+            toast.success(result.message);
+            goToStepThree();
+        } else {
+            toast.error(result.message);
         }
-        goToStepThree();
     }
 
     function goToStepOne() {
@@ -64,7 +68,7 @@ export default function VideoUploadPage(props) {
             <div className={'col col-span-12 flex justify-center'}>
                 <Stepper className={'w-[80vw]'} activeStep={currentStep}>
                     <Step label={UploadVideoStage.UPLOAD} onClick={goToStepOne} disabled={currentStep === 2}/>
-                    <Step label={UploadVideoStage.DETAIL} onClick={goToStepTwo} disabled={currentStep === 2 || uploadedVideo == null} />
+                    <Step label={UploadVideoStage.DETAIL} onClick={goToStepTwo} disabled={currentStep === 2 || uploadedVideo == null || (uploadedVideo != null && currentStep == 0)} />
                     <Step label={UploadVideoStage.SUCCESS} onClick={goToStepThree} />
                 </Stepper>
             </div>

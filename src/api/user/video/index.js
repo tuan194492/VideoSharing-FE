@@ -1,4 +1,6 @@
 import axios from 'axios';
+import async from "async";
+import {RequestFactory} from "../../../utils/request";
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
 
 function findVideoById(id) {
@@ -32,8 +34,41 @@ function fetchVideoDescriptionData (id) {
     }
 }
 
-export const userService = {
+const uploadVideo = async (data, uploadedVideo, uploadedImage, token)  => {
+    try {
+        const formData = RequestFactory.createFormDataFromObject(data);
+        formData.append(`file`, uploadedVideo);
+        formData.append('thumbnail', uploadedImage);
+
+        const result = await axios.post(`${baseAdminURL}/video`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Create Video successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+    
+}
+
+export const videoService = {
     findVideoById,
-    fetchVideoDescriptionData
+    fetchVideoDescriptionData,
+    uploadVideo
 }
 
