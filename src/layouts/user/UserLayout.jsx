@@ -6,7 +6,7 @@ import {useState} from "react";
 
 function getClassNameByCollapse(collapsed) {
     if (collapsed) {
-        return 'left-[55px] w-[95%]';
+        return 'left-[55px] w-[100%]';
     } else {
         return 'left-[235px] w-[85%]';
     }

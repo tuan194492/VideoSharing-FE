@@ -4,6 +4,7 @@ import VideoUploadPreview from "../../../../components/user/video/VideoUploadPre
 import VideoPlayer from "../../../../components/common/video/VideoPlayer";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmark, faTrash, faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import VideoPreview from "../../../../components/common/video/VideoPreview";
 
 export const VideoUploadPageStepOne = (props) => {
     const [currentVideo, setCurrentVideo] = useState(props.uploadedVideo);
@@ -41,7 +42,7 @@ export const VideoUploadPageStepOne = (props) => {
     } else {
         return (
             <div className={props.className}>
-                <VideoPlayer width={'60%'} height={'60%'} video={currentVideo}/>
+                <VideoPreview width={'60%'} height={'60%'} video={currentVideo}/>
                 <div className={"text-center mt-[10px]"}>
                     <button className="text-red-900 font-bold py-2 px-4 rounded-full"
                             type="submit"

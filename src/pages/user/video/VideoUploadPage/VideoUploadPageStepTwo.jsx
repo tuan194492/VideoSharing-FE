@@ -6,6 +6,7 @@ import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import ImageWatcher from "../../../../components/common/video/ImageWatcher";
 import {toast} from "react-toastify";
 import {errorMessages} from "../../../../assets/error_messages/error-messages";
+import VideoPreview from "../../../../components/common/video/VideoPreview";
 
 export const VideoUploadPageStepTwo = (props) => {
     const currentVideo= props.uploadedVideo;
@@ -126,7 +127,7 @@ export const VideoUploadPageStepTwo = (props) => {
 
             </div>
             <div className={'col col-span-2 p-2'}>
-                <VideoPlayer width={'100%'} height={'100%'} video={currentVideo}/>
+                <VideoPreview width={'100%'} height={'100%'} video={currentVideo}/>
 
             </div>
         </div>

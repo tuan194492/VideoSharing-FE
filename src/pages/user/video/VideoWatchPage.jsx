@@ -15,6 +15,7 @@ import {StringUtils} from "../../../utils/string/StringUtils";
 import {ThreeCircles} from "react-loader-spinner";
 import {VideoMini} from "../../../components/common/homepage/VideoMini";
 import InfiniteScroll from "react-infinite-scroll-component";
+import {CommentPostBox} from "../../../components/common/comment/CommentPostBox";
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
 export default function VideoWatchPage() {
@@ -140,6 +141,10 @@ export default function VideoWatchPage() {
                             </span>
                         </div>
                         {currentVideo.description}
+                    </div>
+                    <CommentPostBox />
+                    <div>
+
                     </div>
                 </div>
 
