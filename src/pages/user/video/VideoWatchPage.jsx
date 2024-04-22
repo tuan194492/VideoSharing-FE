@@ -16,6 +16,8 @@ import {ThreeCircles} from "react-loader-spinner";
 import {VideoMini} from "../../../components/common/homepage/VideoMini";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {CommentPostBox} from "../../../components/common/comment/CommentPostBox";
+import './index.css'
+
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
 export default function VideoWatchPage() {
@@ -142,9 +144,14 @@ export default function VideoWatchPage() {
                         </div>
                         {currentVideo.description}
                     </div>
-                    <CommentPostBox />
-                    <div>
 
+                    <div>
+                        <div className={'comment-header'}>
+                            130 Comments
+                        </div>
+                        <div className={'comment-body'}>
+                            <CommentPostBox />
+                        </div>
                     </div>
                 </div>
 
