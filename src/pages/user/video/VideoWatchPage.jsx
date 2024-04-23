@@ -17,6 +17,7 @@ import {VideoMini} from "../../../components/common/homepage/VideoMini";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {CommentPostBox} from "../../../components/common/comment/CommentPostBox";
 import './index.css'
+import {CommentBox} from "../../../components/common/comment/CommentBox";
 
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
@@ -151,6 +152,11 @@ export default function VideoWatchPage() {
                         </div>
                         <div className={'comment-body'}>
                             <CommentPostBox />
+                            <div className={'mt-4'}>
+                                <CommentBox />
+                                <CommentBox />
+
+                            </div>
                         </div>
                     </div>
                 </div>
