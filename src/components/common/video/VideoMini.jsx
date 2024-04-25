@@ -18,10 +18,10 @@ export const VideoMini = (props) => {
              onClick={e => {
                  navigate(`/${page}/video/detail/${data.id}`);
              }}>
-            <div className={"thumbnail col col-span-2 w-full w-full p-2"}>
+            <div className={"thumbnail col col-span-2 w-full w-full p-2 flex justify-center"}>
                 <img src={`data:image/png;base64,${base64String}`}
                      alt={"An alt"}
-                     className={"object-cover rounded-md"}/>
+                     className={"object-fill rounded-md h-[15vh]"}/>
             </div>
             <div className={"col col-span-3 p-1 flex flex-col justify-between"}>
                 <div className={"title font-bold text-sm line-clamp-2"}>

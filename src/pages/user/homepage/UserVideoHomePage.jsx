@@ -70,18 +70,22 @@ export const UserVideoHomePage = (props) => {
 
 
     return (
-        <InfiniteScroll
-            dataLength={videoList.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            loader={<ThreeCircles />}
-            className={'flex justify-center'}
-        >
-            <div className={'grid sm:grid-cols-1 md:grid-cols-4 p-1 gap-1'}>
-                {videoList &&
-                    videoList.map(item => <VideoMini data={item} className={getClassNameForVideoMini}/>)}
-            </div>
-        </InfiniteScroll>
+        <div id="videoList">
+            <InfiniteScroll
+                dataLength={videoList.length}
+                next={fetchMoreData}
+                hasMore={hasMore}
+                loader={<ThreeCircles />}
+                className={'flex justify-center'}
+                scrollableTarget={'videoList'}
+            >
+                <div className={'grid sm:grid-cols-1 md:grid-cols-4 p-1 gap-1'}>
+                    {videoList &&
+                        videoList.map(item => <VideoMini data={item} className={getClassNameForVideoMini}/>)}
+                </div>
+            </InfiniteScroll>
+        </div>
+
 
     )
 }

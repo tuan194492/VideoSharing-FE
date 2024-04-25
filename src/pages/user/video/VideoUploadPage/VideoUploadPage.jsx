@@ -72,7 +72,7 @@ export default function VideoUploadPage(props) {
                     <Step label={UploadVideoStage.SUCCESS} onClick={goToStepThree} />
                 </Stepper>
             </div>
-            <div className={'col col-start-2 col-span-10 flex justify-center items-center h-[70vh] border-2'}>
+            <div className={'col col-start-2 col-span-10 flex justify-center items-center min-h-[70vh] h-[100%] border-2'}>
                 {currentStep === 0 &&
                     <VideoUploadPageStepOne uploadedVideo={uploadedVideo}
                                             setUploadedVideo={setUploadedVideo}

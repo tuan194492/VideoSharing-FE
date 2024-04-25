@@ -143,7 +143,9 @@ export default function VideoWatchPage() {
                                 {StringUtils.convertSeconds(currentVideo.postedSince)} ago
                             </span>
                         </div>
-                        {currentVideo.description}
+                        <div className={"break-words"}>
+                            {currentVideo.description}
+                        </div>
                     </div>
 
                     <div>

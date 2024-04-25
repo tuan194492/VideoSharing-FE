@@ -1,9 +1,12 @@
 import {IMAGES} from "../../../utils/images/images";
 import {StringUtils} from "../../../utils/string/StringUtils";
 import './index.css';
+import '../../../css/index.css'
 import {LikeButton} from "../button/LikeButton";
 import {DislikeButton} from "../button/DislikeButton";
 import {useState} from "react";
+import {MyButton} from "../button/MyButton";
+import {CommentPostBox} from "./CommentPostBox";
 
 export const CommentBox = (props) => {
     const commentId = props.id;
@@ -16,6 +19,7 @@ export const CommentBox = (props) => {
         disliked: false,
         postedSince: 2666
     });
+    const [showReply, setShowReply] = useState(false);
     return (
         <div className={'grid grid-cols-12 p-2 mt-1.5'}>
             <div className={'avatar-box col col-span-1'}>
@@ -33,10 +37,27 @@ export const CommentBox = (props) => {
                 <div className={'comment-value'}>
                     {currentComment.value}
                 </div>
-                <div>
-                    <LikeButton count={currentComment.likeCount} liked={currentComment.liked}/>
-                    <DislikeButton count={currentComment.dislikeCount} disliked={currentComment.disliked}/>
+                <div className={'flex gap-0.5'}>
+                    <LikeButton
+                        className={'scale-75'}
+                        count={currentComment.likeCount}
+                        liked={currentComment.liked}/>
+                    <DislikeButton
+                        className={'scale-75'}
+                        count={currentComment.dislikeCount}
+                        disliked={currentComment.disliked}/>
+                    <button className={'text-2xl default-button scale-75'} onClick={e => {
+                            setShowReply(showReply => !showReply)}
+                    }>
+                        Reply
+                    </button>
                 </div>
+                {
+                    showReply &&
+                    <div>
+                        <CommentPostBox autoFocus holder={'Reply...'}/>
+                    </div>
+                }
             </div>
         </div>
     )

@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.default-button {
+    @apply inline-flex rounded-full bg-gray-300 p-2 font-bold text-xs whitespace-nowrap hover:cursor-pointer;
+}
