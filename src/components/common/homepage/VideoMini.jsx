@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 
 export const VideoMini = (props) => {
     const data = props.data;
-    console.log(data);
     const navigate = useNavigate();
     const role = localStorage.getItem("role");
     const page = role?.substring(1, role.length - 1).toLowerCase() || 'guest';
@@ -16,7 +15,7 @@ export const VideoMini = (props) => {
         <div className={'p-1 ' + props.className} onClick={e => {
             navigate(`/${page}/video/detail/${data.id}`)
         }}>
-            <img className={'object-fill h-[25vh]'} src={`data:image/png;base64,${base64String}`} />
+            <img className={'object-fill h-[25vh] w-[100%]'} src={`data:image/png;base64,${base64String}`} />
             <div className={'grid grid-cols-12'}>
                 <div className={'col col-span-1 mt-2'}>
                     <img src={IMAGES.icon.avatar} />

@@ -11,7 +11,7 @@ export const UserVideoHomePage = (props) => {
     const token = authContext.token;
     const [videoList, setVideoList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
+    const [hasMore, setHasMore] = useState(false);
 
     function getClassNameForVideoMini() {
         return 'col col-span-1';
@@ -37,15 +37,13 @@ export const UserVideoHomePage = (props) => {
             page: 1,
             pageSize: videoPerRequest
         })
-        console.log(result.data.data)
         if (result.success) {
             if (result.data.count < videoPerRequest) {
                 setHasMore(false);
-            }
-            if (result.data.count > 0) {
+            } else {
                 setVideoList(result.data.data)
+                setHasMore(true);
             }
-            console.log(videoList)
         }
 
     }
@@ -58,9 +56,9 @@ export const UserVideoHomePage = (props) => {
         console.log('Has more')
         const result = await fetchVideoData(currentPage + 1, videoPerRequest);
         if (result.length > 0) {
-            setVideoList(videoList => [...videoList, ...result]);
+            setVideoList([...videoList, ...result]);
             setCurrentPage(currentPage => currentPage + 1);
-            setHasMore(true);
+            setHasMore(result.length === videoPerRequest);
         } else {
             setHasMore(false);
         }
@@ -70,20 +68,28 @@ export const UserVideoHomePage = (props) => {
 
 
     return (
-        <div id="videoList">
+        <div
+
+            className={'flex justify-center flex-col'}
+        >
             <InfiniteScroll
                 dataLength={videoList.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
                 loader={<ThreeCircles />}
-                className={'flex justify-center'}
-                scrollableTarget={'videoList'}
+                scrollThreshold="0.8"
+                scrollableTarget={"videoList"}
             >
-                <div className={'grid sm:grid-cols-1 md:grid-cols-4 p-1 gap-1'}>
+                <div
+                    id="videoList"
+                    className={'grid sm:grid-cols-1 md:grid-cols-4 p-1 gap-1'}>
                     {videoList &&
                         videoList.map(item => <VideoMini data={item} className={getClassNameForVideoMini}/>)}
                 </div>
             </InfiniteScroll>
+            <button onClick={fetchMoreData}>
+                Show more
+            </button>
         </div>
 
 

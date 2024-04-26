@@ -166,13 +166,13 @@ export default function VideoWatchPage() {
             </div>
 
             {/* Recommend video list */}
-            <div className={"col-span-4 ml-8"}>
+            <div className={"col-span-4 ml-8 flex "}>
                 <InfiniteScroll
                     dataLength={videoList.length}
                     next={fetchMoreData}
                     hasMore={hasMore}
                     loader={<ThreeCircles />}
-                    className={'flex justify-center'}
+                    className={'flex flex-col'}
                 >
                     <VideoVerticalList videos={videoList}/>
                 </InfiniteScroll>

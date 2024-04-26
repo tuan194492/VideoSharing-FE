@@ -5,10 +5,15 @@ import UserLoginPage from "../pages/user/auth/UserLoginPage";
 import UserRegisterPage from "../pages/user/auth/UserRegisterPage";
 import {AdminLoginPage} from "../pages/admin/login/AdminLoginPage";
 import {userRoutes} from "./userRoutes";
+import {guestRoutes} from "./guestRoutes";
 
 const admin = [], user = [], guest = [];
 userRoutes.map((route) => {
     user.push(route)
+})
+
+guestRoutes.map((route) => {
+    guest.push(route)
 })
 
 export const routes = [
