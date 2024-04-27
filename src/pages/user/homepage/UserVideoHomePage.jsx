@@ -20,7 +20,7 @@ export const UserVideoHomePage = (props) => {
     const videoPerRequest = 8;
 
     const fetchVideoData = async (page, pageSize) => {
-        const result = await videoService.fetchVideoListAtHomePage(token, {
+        const result = await videoService.fetchVideoList(token, {
             page: page,
             pageSize: pageSize
         })
@@ -33,15 +33,15 @@ export const UserVideoHomePage = (props) => {
     }
 
     const initVideoData = async () => {
-        const result = await videoService.fetchVideoListAtHomePage(token, {
+        const result = await videoService.fetchVideoList(token, {
             page: 1,
             pageSize: videoPerRequest
         })
         if (result.success) {
+            setVideoList(result.data.data)
             if (result.data.count < videoPerRequest) {
                 setHasMore(false);
             } else {
-                setVideoList(result.data.data)
                 setHasMore(true);
             }
         }
@@ -69,7 +69,6 @@ export const UserVideoHomePage = (props) => {
 
     return (
         <div
-
             className={'flex justify-center flex-col'}
         >
             <InfiniteScroll

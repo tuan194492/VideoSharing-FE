@@ -88,7 +88,7 @@ const uploadVideo = async (data, uploadedVideo, uploadedImage, token)  => {
     }
 }
 
-const fetchVideoListAtHomePage = async (token, data) => {
+const fetchVideoList = async (token, data) => {
     try {
         console.log(`${baseAdminURL}/video/watch?page=${data.page}&pageSize=${data.pageSize}`);
         const result = await axios.get(`${baseAdminURL}/video/watch?page=${data.page}&pageSize=${data.pageSize}`, RequestFactory.createHeaderRequestWithJson(token));
@@ -120,6 +120,6 @@ export const videoService = {
     findVideoById,
     fetchVideoDescriptionData,
     uploadVideo,
-    fetchVideoListAtHomePage
+    fetchVideoList
 }
 

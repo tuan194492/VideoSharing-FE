@@ -20,6 +20,9 @@ export const CommentBox = (props) => {
         postedSince: 2666
     });
     const [showReply, setShowReply] = useState(false);
+    const hideReply = () => {
+        setShowReply(false);
+    }
     return (
         <div className={'grid grid-cols-12 p-2 mt-1.5'}>
             <div className={'avatar-box col col-span-1'}>
@@ -55,7 +58,7 @@ export const CommentBox = (props) => {
                 {
                     showReply &&
                     <div>
-                        <CommentPostBox autoFocus holder={'Reply...'}/>
+                        <CommentPostBox hideReply={hideReply} autoFocus holder={'Reply...'}/>
                     </div>
                 }
             </div>

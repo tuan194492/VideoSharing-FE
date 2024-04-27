@@ -43,7 +43,7 @@ export default function VideoWatchPage() {
     }
 
     const initVideoData = async () => {
-        const result = await videoService.fetchVideoListAtHomePage(token, {
+        const result = await videoService.fetchVideoList(token, {
             page: 1,
             pageSize: videoPerRequest
         })
@@ -61,7 +61,7 @@ export default function VideoWatchPage() {
     }
 
     const fetchVideoDataList = async (page, pageSize) => {
-        const result = await videoService.fetchVideoListAtHomePage(token, {
+        const result = await videoService.fetchVideoList(token, {
             page: page,
             pageSize: pageSize
         })
