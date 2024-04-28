@@ -17,7 +17,7 @@ export const CommentBox = (props) => {
         value: props.comment.value,
         liked: false,
         disliked: false,
-        postedSince: 2666
+        postedSince: props.comment.postedSince
     });
     const [showReply, setShowReply] = useState(false);
     const hideReply = () => {

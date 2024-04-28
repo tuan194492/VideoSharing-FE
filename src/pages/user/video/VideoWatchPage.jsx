@@ -21,6 +21,7 @@ import {CommentBox} from "../../../components/common/comment/CommentBox";
 import {userService} from "../../../api/user/user";
 import {commentService} from "../../../api/user/comment";
 import {VerticalCommentList} from "../../../components/common/comment/VerticalCommentList";
+import {SubscribeButton} from "../../../components/common/button/SubscribeButton";
 
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
@@ -136,9 +137,9 @@ export default function VideoWatchPage() {
                                     {StringUtils.formatNumber(currentVideo.subcriberCount)} subscribers
                                 </div>
                             </span>
-                            <button
-                                className={"ml-8 h-[50%] rounded-2xl inline-flex items-center py-2 px-4 bg-red-500 hover:bg-red-600 text-white transition duration-300"}>Subscribe
-                            </button>
+                            <SubscribeButton
+                                channelI={currentVideo.publisher_id}
+                                className={"ml-8 h-[50%] rounded-2xl inline-flex items-center py-2 px-4 bg-red-500 hover:bg-red-600 text-white transition duration-300"}/>
                         </div>
                         <div className={"float-right flex gap-[10px] items-center"}>
                             <LikeButton count={currentVideo.likeCount} liked={currentVideo.liked}/>
