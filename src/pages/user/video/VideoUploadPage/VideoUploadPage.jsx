@@ -8,7 +8,7 @@ import {VideoUploadPageStepOne} from "./VideoUploadPageStepOne";
 import {VideoUploadPageStepThree} from "./VideoUploadPageStepThree";
 import {VideoUploadPageStepTwo} from "./VideoUploadPageStepTwo";
 import {toast} from "react-toastify";
-import {errorMessages} from "../../../../assets/error_messages/error-messages";
+import {errorMessages} from "../../../../assets/message/error_messages/error-messages";
 import {videoService} from "../../../../api/user/video";
 
 export default function VideoUploadPage(props) {

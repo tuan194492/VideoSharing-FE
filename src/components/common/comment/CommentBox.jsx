@@ -9,12 +9,12 @@ import {MyButton} from "../button/MyButton";
 import {CommentPostBox} from "./CommentPostBox";
 
 export const CommentBox = (props) => {
-    const commentId = props.id;
+    console.log(props.comment);
+    const commentId = props.comment.id;
     const [currentComment, setCurrentComment] = useState({
         dislikeCount: 0,
         likeCount: 0,
-        value: 'Với mình thì bái mashup này Anh Tú hát đã tai nhất, Vũ đưa bài này lên 1 cao trào và bùng nổ hơn.\n' +
-            '                    trước đã thích anh tú, sau khi nghe bài hoàng hôn nhớ thì chính thức thành fan của Anh Tú',
+        value: props.comment.value,
         liked: false,
         disliked: false,
         postedSince: 2666
@@ -31,7 +31,7 @@ export const CommentBox = (props) => {
             <div className={'col col-span-11 ml-1'}>
                 <div>
                     <span className={"channel-name text-lg font-bold"}>
-                        {'No name'}
+                        {props.comment.username}
                     </span>
                     <span className={'ml-2'}>
                         {StringUtils.convertSeconds(currentComment.postedSince)} ago

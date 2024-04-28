@@ -1,15 +1,39 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {AuthContext} from "../../../context/AuthContext";
+import {toast} from "react-toastify";
+import {errorMessages} from "../../../assets/message/error_messages/error-messages";
+import {commentService} from "../../../api/user/comment";
+import {successMessage} from "../../../assets/message/success_message/success_message";
 
 export const CommentPostBox = (props) => {
+    const authContext = useContext(AuthContext);
+    const token = authContext.token;
+
     let [commentValue, setCommentValue] = useState('');
     const hideReply = props.hideReply;
     function onCancelHandle(e) {
         console.log(commentValue)
         console.log('Delete comment  value')
         const empty = '';
-        setCommentValue( empty)
+        setCommentValue(empty)
         console.log(commentValue)
         hideReply && props.hideReply();
+    }
+
+    async function onHandleSubmit() {
+        if (!token) {
+            return toast.error(errorMessages.NEED_TO_LOGIN_TO_POST_COMMENT);
+        }
+        const data = {
+            comment: commentValue
+        }
+        const postCommentResult = await commentService.postComment(token, data, props.videoId);
+        if (!postCommentResult.success) {
+            return toast.error(postCommentResult.message);
+        }
+        toast.success(successMessage.POST_COMMENT_SUCCESSFUL);
+        setCommentValue('');
+
     }
 
     return (
@@ -35,7 +59,10 @@ export const CommentPostBox = (props) => {
                 >
                     Cancel
                 </button>
-                <button className="px-2.5 py-1.5 rounded-md text-white text-sm bg-indigo-500">
+                <button
+                    className="px-2.5 py-1.5 rounded-md text-white text-sm bg-indigo-500"
+                    onClick={onHandleSubmit}
+                >
                     Comment
                 </button>
             </div>

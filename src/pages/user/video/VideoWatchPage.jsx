@@ -18,6 +18,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {CommentPostBox} from "../../../components/common/comment/CommentPostBox";
 import './index.css'
 import {CommentBox} from "../../../components/common/comment/CommentBox";
+import {userService} from "../../../api/user/user";
+import {commentService} from "../../../api/user/comment";
+import {VerticalCommentList} from "../../../components/common/comment/VerticalCommentList";
 
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
@@ -31,7 +34,7 @@ export default function VideoWatchPage() {
     const [videoList, setVideoList] = useState([]);
     const [currentVideo, setCurrentVideo] = useState({});
     const [currentVideoSrc, setCurrentVideoSrc] = useState('');
-
+    const [currentChannel, setCurrentChannel] = useState({});
 
     const fetchVideoData = async (id) => {
         const result = await videoService.findVideoById(token, id);
@@ -39,6 +42,15 @@ export default function VideoWatchPage() {
         if (result.success) {
             setCurrentVideo(result.data.data);
             setCurrentVideoSrc(createVideoSrc(result.data.data.id));
+            const fetchChannelResult = await userService.findUserById(result.data.data.publisher_id);
+            if (fetchChannelResult.success) {
+                console.log(fetchChannelResult.data.data);
+                setCurrentChannel(fetchChannelResult.data.data);
+            }
+            // const fetchCommentResult = await commentService.getCommentListByVideo(id);
+            // if (fetchCommentResult.success) {
+            //     setCommentList(fetchCommentResult.data.data);
+            // }
         }
     }
 
@@ -153,12 +165,8 @@ export default function VideoWatchPage() {
                             130 Comments
                         </div>
                         <div className={'comment-body'}>
-                            <CommentPostBox />
-                            <div className={'mt-4'}>
-                                <CommentBox />
-                                <CommentBox />
-
-                            </div>
+                            <CommentPostBox videoId={currentVideo.id}/>
+                            <VerticalCommentList videoId={currentVideo.id} />
                         </div>
                     </div>
                 </div>
@@ -176,7 +184,6 @@ export default function VideoWatchPage() {
                 >
                     <VideoVerticalList videos={videoList}/>
                 </InfiniteScroll>
-
             </div>
         </div>
     );

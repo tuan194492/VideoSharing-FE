@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
 import ImageWatcher from "../../../../components/common/video/ImageWatcher";
 import {toast} from "react-toastify";
-import {errorMessages} from "../../../../assets/error_messages/error-messages";
+import {errorMessages} from "../../../../assets/message/error_messages/error-messages";
 import VideoPreview from "../../../../components/common/video/VideoPreview";
 
 export const VideoUploadPageStepTwo = (props) => {
