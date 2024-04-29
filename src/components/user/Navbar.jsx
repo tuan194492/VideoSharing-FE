@@ -30,17 +30,17 @@ export default function Navbar() {
     return (
         <HeaderWrapper className="w-full fixed top-0">
             <nav className='border-0 grid grid-cols-12 w-screen px-10 py-5 z-10 bg-white'>
-                <div className='col-span-3 flex items-center' onClick={returnHome}>
+                <div className='col-span-3 flex items-center cursor-pointer' onClick={returnHome}>
                     <img height={65} width={65} src={IMAGES.icon.appLogo}/>
                     <h1 className='text-xl text-black font-bold'
                         style={{marginLeft: 10, color: "black"}}> {projectName}</h1>
                 </div>
-                <div className='col-span-5 flex items-center'>
+                <div className='col-span-5 flex items-center '>
                     <div
                         className='w-screen md:flex items-center border-2 hover:border-gray-400  px-2 py-1 border-gray-200  rounded-md bg-white hidden'>
                         <svg
                             xmlns='http://www.w3.org/2000/svg'
-                            className='h-5 w-5 pt-0.5 text-gray-500'
+                            className='h-5 w-5 pt-0.5 text-gray-500 cursor-pointer'
                             fill='none'
                             viewBox='0 0 24 24'
                             stroke='currentColor'

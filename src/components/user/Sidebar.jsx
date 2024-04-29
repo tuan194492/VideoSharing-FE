@@ -14,6 +14,7 @@ import {WrapperOwnerSideBar, WrapperSideBar} from "../../style/styled";
 import {IMAGES} from "../../utils/images/images";
 import {userFooterRoute, userRoutes} from "../../routes/userRoutes";
 import {routes} from "../../routes";
+import socket from "../../context/Socket";
 function initSidebarValue(arrayRoute) {
     arrayRoute.map((route) => {
         let count = 0;

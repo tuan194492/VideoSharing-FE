@@ -138,8 +138,8 @@ export default function VideoWatchPage() {
                                 </div>
                             </span>
                             <SubscribeButton
-                                channelI={currentVideo.publisher_id}
-                                className={"ml-8 h-[50%] rounded-2xl inline-flex items-center py-2 px-4 bg-red-500 hover:bg-red-600 text-white transition duration-300"}/>
+                                channelId={currentVideo.publisher_id}
+                                className={"ml-8 h-[50%] rounded-2xl inline-flex items-center py-2 px-4 text-white transition duration-300"}/>
                         </div>
                         <div className={"float-right flex gap-[10px] items-center"}>
                             <LikeButton count={currentVideo.likeCount} liked={currentVideo.liked}/>

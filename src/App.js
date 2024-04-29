@@ -3,6 +3,7 @@ import { routes } from "./routes";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
 import './App.css';
+import socket from "./context/Socket";
 export default function App() {
   const element = useRoutes(routes);
   const { isLogin} = useContext(AuthContext);
