@@ -71,10 +71,11 @@ const isSubscribed = async (token, channelId) => {
         return false;
     }
     try {
-        const result = await axios.get(`${baseAdminURL}/subscribe/is_subscribed/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const result = await axios.get(`${baseAdminURL}/subcriber/is_subscribed/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        console.log(result)
         return {
             success: true,
-            isSubscribed: result.isSubscribed
+            isSubscribed: result.data.isSubscribed
         }
     } catch (error) {
         let message = '';

@@ -17,20 +17,21 @@ export const SubscribeButton = (props) => {
         setSubscribed(result.success ? result.isSubscribed : false);
     }
 
-    useEffect(() => {
-        initState();
-    }, []);
+
     const handleSubscribe = async () => {
         if (!subscribed) {
             const result = await subscribeService.subscribeChannel(token, channelId);
             if (result.success) {
+                setSubscribed(true);
                 return toast.success(successMessage.SUBSCRIBE_SUCCESSFUL)
+
             } else {
                 return toast.error(result.message);
             }
         } else {
             const result = await subscribeService.undoSubscribeChannel(token, channelId);
             if (result.success) {
+                setSubscribed(false);
                 return toast.success(successMessage.UNDO_SUBSCRIBE_SUCCESSFUL)
             } else {
                 return toast.error(result.message);
@@ -40,6 +41,9 @@ export const SubscribeButton = (props) => {
 
     }
 
+    useEffect(() => {
+        initState();
+    }, []);
 
     function getClassNameForButton() {
         if (subscribed) {

@@ -9,7 +9,7 @@ import {MyButton} from "../button/MyButton";
 import {CommentPostBox} from "./CommentPostBox";
 
 export const CommentBox = (props) => {
-    console.log(props.comment);
+    // console.log(props.comment);
     const commentId = props.comment.id;
     const [currentComment, setCurrentComment] = useState({
         dislikeCount: 0,
