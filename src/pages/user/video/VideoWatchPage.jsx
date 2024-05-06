@@ -142,8 +142,16 @@ export default function VideoWatchPage() {
                                 className={"ml-8 h-[50%] rounded-2xl inline-flex items-center py-2 px-4 text-white transition duration-300"}/>
                         </div>
                         <div className={"float-right flex gap-[10px] items-center"}>
-                            <LikeButton count={currentVideo.likeCount} liked={currentVideo.liked}/>
-                            <DislikeButton count={currentVideo.dislikeCount} disliked={currentVideo.disliked}/>
+                            <LikeButton
+                                count={currentVideo.likeCount}
+                                liked={currentVideo.liked}
+                                className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
+                            />
+                            <DislikeButton
+                                count={currentVideo.dislikeCount}
+                                disliked={currentVideo.disliked}
+                                className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
+                            />
                             <MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} />
                         </div>
                     </div>
@@ -163,11 +171,11 @@ export default function VideoWatchPage() {
 
                     <div>
                         <div className={'comment-header'}>
-                            130 Comments
+                            {StringUtils.formatNumber(currentVideo.commentCount)} Comments
                         </div>
                         <div className={'comment-body'}>
-                            <CommentPostBox videoId={currentVideo.id}/>
-                            <VerticalCommentList videoId={currentVideo.id} />
+                            <CommentPostBox videoId={videoId}/>
+                            <VerticalCommentList videoId={videoId} />
                         </div>
                     </div>
                 </div>

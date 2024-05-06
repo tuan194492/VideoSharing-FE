@@ -9,6 +9,7 @@ import {commentService} from "../../../api/user/comment";
 export const VerticalCommentList = (props) => {
     const [commentList, setCommentList] = useState([]);
     const videoId = props.videoId || 1;
+    console.log(props);
     console.log(videoId);
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(false);
@@ -30,7 +31,7 @@ export const VerticalCommentList = (props) => {
 
     const initCommentData = async () => {
         console.log('Init comment data')
-        const result = await commentService.getCommentListByVideo(videoId, {
+        const result = await commentService.getCommentListByVideo(props.videoId, {
             page: 1,
             pageSize: commentPerRequest
         })

@@ -1,15 +1,43 @@
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {StringUtils} from "../../../utils/string/StringUtils";
+import {AuthContext} from "../../../context/AuthContext";
+import {reactionService} from "../../../api/user/reaction";
+import {ReactionType} from "../../../utils/enum/ReactionType";
 
 export const LikeButton = (props) => {
+    const authContext = useContext(AuthContext);
+    const token = authContext.token;
     const {handleFunction, likeCount} = props;
     const [liked, setLiked] = useState(props.liked);
     const handleLike = () => {
         setLiked(!liked);
         handleFunction(!liked);
     }
+
+    const initData = async () => {
+        if (token == null) {
+            return setLiked(false);
+        }
+        const fetchReactionStatus = await reactionService.isUserReactToVideo(token, props.videoId);
+        if (fetchReactionStatus.success) {
+            return setLiked(fetchReactionStatus.isLiked);
+        }
+        setLiked(false);
+
+    }
+
+    useEffect(() => {
+        initData();
+    }, []);
+
+    function getClassNameForButton() {
+        if (liked) {
+            return ' bg-red-500 text-white hover:bg-red-600';
+        }
+    }
+
     return (
-        <div className={'inline-flex rounded-full bg-gray-300 p-2 text-xs hover:cursor-pointer ' + props.className} onClick={handleLike}>
+        <div className={'inline-flex rounded-full bg-gray-300 p-2 text-xs hover:cursor-pointer ' + props.className + ' ' + getClassNameForButton()} onClick={handleLike}>
             <button className={'w-[25px]'}>
                 <svg version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" className="css-ywt53g">
                     <path transform="scale(-1, 1) translate(-1200, 0)"

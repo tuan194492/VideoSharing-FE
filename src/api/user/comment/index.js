@@ -7,6 +7,7 @@ const getCommentListByVideo = async (id, query) => {
         const {
             page, pageSize
         } = query;
+        console.log(id);
         const result = await axios.get(`${baseAdminURL}/comment/${id}?page=${page || 0}&pageSize=${pageSize || 8}`);
         console.log(result)
         return {

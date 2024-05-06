@@ -1,15 +1,42 @@
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {StringUtils} from "../../../utils/string/StringUtils";
+import {reactionService} from "../../../api/user/reaction";
+import {AuthContext} from "../../../context/AuthContext";
 
 export const DislikeButton = (props) => {
+    const authContext = useContext(AuthContext);
+    const token = authContext.token;
     const {handleFunction, dislikeCount} = props;
     const [disliked, setDisliked] = useState(props.disliked);
     const handleDislike = () => {
         setDisliked(!disliked);
         handleFunction(!disliked);
     }
+
+    const initData = async () => {
+        if (token == null) {
+            return setDisliked(false);
+        }
+        const fetchReactionStatus = await reactionService.isUserReactToVideo(token, props.videoId);
+        if (fetchReactionStatus.success) {
+            return setDisliked(fetchReactionStatus.isDisliked);
+        }
+        setDisliked(false);
+
+    }
+
+    useEffect(() => {
+        initData();
+    }, []);
+
+    function getClassNameForButton() {
+        if (disliked) {
+            return ' bg-red-500 text-white hover:bg-red-600';
+        }
+    }
+
     return (
-        <div className={'inline-flex rounded-full bg-gray-300 p-2 text-xs hover:cursor-pointer ' + props.className} onClick={handleDislike}>
+        <div className={'inline-flex rounded-full bg-gray-300 p-2 text-xs hover:cursor-pointer ' + props.className + ' ' + getClassNameForButton()} onClick={handleDislike}>
             <button className={'w-[25px] rotate-180 translate-y-1'}>
                 <svg version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" className="css-ywt53g">
                     <path transform="scale(-1, 1) translate(-1200, 0)"
