@@ -3,15 +3,33 @@ import {StringUtils} from "../../../utils/string/StringUtils";
 import {AuthContext} from "../../../context/AuthContext";
 import {reactionService} from "../../../api/user/reaction";
 import {ReactionType} from "../../../utils/enum/ReactionType";
+import {toast} from "react-toastify";
 
 export const LikeButton = (props) => {
     const authContext = useContext(AuthContext);
     const token = authContext.token;
-    const {handleFunction, likeCount} = props;
+    const [likeCount, setLikeCount] = useState(props.likeCount);
     const [liked, setLiked] = useState(props.liked);
-    const handleLike = () => {
-        setLiked(!liked);
-        handleFunction(!liked);
+    const handleClick = async () => {
+        if (liked) {
+            const result = await reactionService.undoLikeVideo(token, props.videoId);
+            if (result.success) {
+                toast.success(result.message);
+                setLikeCount(prev => prev - 1);
+                return setLiked(false);
+            } else {
+                return toast.error(result.message);
+            }
+        }
+
+        const result = await reactionService.likeVideo(token, props.videoId);
+        if (result.success) {
+            toast.success(result.message);
+            setLikeCount(prev => prev + 1);
+            return setLiked(true);
+        } else {
+            return toast.error(result.message);
+        }
     }
 
     const initData = async () => {
@@ -37,7 +55,10 @@ export const LikeButton = (props) => {
     }
 
     return (
-        <div className={'inline-flex rounded-full bg-gray-300 p-2 text-xs hover:cursor-pointer ' + props.className + ' ' + getClassNameForButton()} onClick={handleLike}>
+        <div
+            className={'inline-flex rounded-full bg-gray-300 p-2 text-xs hover:cursor-pointer ' + props.className + ' ' + getClassNameForButton()}
+            onClick={handleClick}
+        >
             <button className={'w-[25px]'}>
                 <svg version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" className="css-ywt53g">
                     <path transform="scale(-1, 1) translate(-1200, 0)"

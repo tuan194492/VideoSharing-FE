@@ -20,7 +20,7 @@ const undoDislikeComment = async (token, commentId) => {
 
 const likeVideo = async (token, videoId) => {
     try {
-        const result = await axios.delete(`${baseAdminURL}/react/like/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const result = await axios.post(`${baseAdminURL}/react/like-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             data: result.data,
@@ -46,16 +46,39 @@ const likeVideo = async (token, videoId) => {
 }
 
 const undoLikeVideo = async (token, videoId) => {
-
+    try {
+        const result = await axios.post(`${baseAdminURL}/react/undo-like-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Undo Like video successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
 }
 
 const dislikeVideo = async (token, videoId) => {
     try {
-        const result = await axios.delete(`${baseAdminURL}/react/dislike/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const result = await axios.post(`${baseAdminURL}/react/dislike-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             data: result.data,
-            message: 'Like video successful!'
+            message: 'Dislike video successful!'
         };
     } catch (error) {
         let message = '';
@@ -77,7 +100,30 @@ const dislikeVideo = async (token, videoId) => {
 }
 
 const undoDislikeVideo = async (token, videoId) => {
-
+    try {
+        const result = await axios.post(`${baseAdminURL}/react/undo-dislike-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Undo dislike video successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
 }
 
 const isUserReactToVideo = async (token, videoId) => {
@@ -88,7 +134,7 @@ const isUserReactToVideo = async (token, videoId) => {
         return false;
     }
     try {
-        const result = await axios.get(`${baseAdminURL}/reaction/react-to/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const result = await axios.get(`${baseAdminURL}/reaction/react-to-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
         console.log(result)
         return {
             success: true,

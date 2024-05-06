@@ -134,7 +134,7 @@ export default function VideoWatchPage() {
                                     {currentVideo.user_name || 'No name'}
                                 </div>
                                 <div className={"channel-subscriber-count"}>
-                                    {StringUtils.formatNumber(currentVideo.subcriberCount)} subscribers
+                                    {StringUtils.formatNumber(currentVideo.subscriberCount)} subscribers
                                 </div>
                             </span>
                             <SubscribeButton
@@ -145,11 +145,13 @@ export default function VideoWatchPage() {
                             <LikeButton
                                 count={currentVideo.likeCount}
                                 liked={currentVideo.liked}
+                                videoId={videoId}
                                 className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
                             />
                             <DislikeButton
                                 count={currentVideo.dislikeCount}
                                 disliked={currentVideo.disliked}
+                                videoId={videoId}
                                 className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
                             />
                             <MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} />
