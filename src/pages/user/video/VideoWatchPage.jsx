@@ -65,10 +65,10 @@ export default function VideoWatchPage() {
             pageSize: videoPerRequest
         })
         if (result.success) {
-            if (result.data.count < videoPerRequest) {
+            if (result.data.rows < videoPerRequest) {
                 setHasMore(false);
             }
-            if (result.data.count > 0) {
+            if (result.data.rows > 0) {
                 setVideoList(result.data.data)
             }
         }

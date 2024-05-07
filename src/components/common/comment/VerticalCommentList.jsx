@@ -38,7 +38,7 @@ export const VerticalCommentList = (props) => {
         console.log(result);
         if (result.success) {
             setCommentList(result.data.data)
-            if (result.data.count < commentPerRequest) {
+            if (result.data.rows < commentPerRequest) {
                 setHasMore(false);
             } else {
                 setHasMore(true);
