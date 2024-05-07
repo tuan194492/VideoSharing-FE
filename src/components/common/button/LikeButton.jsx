@@ -6,9 +6,10 @@ import {ReactionType} from "../../../utils/enum/ReactionType";
 import {toast} from "react-toastify";
 
 export const LikeButton = (props) => {
+    console.log(props)
     const authContext = useContext(AuthContext);
     const token = authContext.token;
-    const [likeCount, setLikeCount] = useState(props.likeCount);
+    const [likeCount, setLikeCount] = useState(props.count);
     const [liked, setLiked] = useState(props.liked);
     const handleClick = async () => {
         if (liked) {
@@ -33,10 +34,12 @@ export const LikeButton = (props) => {
     }
 
     const initData = async () => {
+        setLikeCount(props.count)
         if (token == null) {
             return setLiked(false);
         }
         const fetchReactionStatus = await reactionService.isUserReactToVideo(token, props.videoId);
+        console.log(fetchReactionStatus);
         if (fetchReactionStatus.success) {
             return setLiked(fetchReactionStatus.isLiked);
         }

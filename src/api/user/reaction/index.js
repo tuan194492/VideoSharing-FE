@@ -20,7 +20,8 @@ const undoDislikeComment = async (token, commentId) => {
 
 const likeVideo = async (token, videoId) => {
     try {
-        const result = await axios.post(`${baseAdminURL}/react/like-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const formData = RequestFactory.createFormDataFromObject({});
+        const result = await axios.post(`${baseAdminURL}/react/like-video/${videoId}`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             data: result.data,
@@ -47,7 +48,9 @@ const likeVideo = async (token, videoId) => {
 
 const undoLikeVideo = async (token, videoId) => {
     try {
-        const result = await axios.post(`${baseAdminURL}/react/undo-like-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const formData = RequestFactory.createFormDataFromObject({});
+        console.log(token)
+        const result = await axios.post(`${baseAdminURL}/react/undo-like-video/${videoId}`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             data: result.data,
@@ -74,7 +77,8 @@ const undoLikeVideo = async (token, videoId) => {
 
 const dislikeVideo = async (token, videoId) => {
     try {
-        const result = await axios.post(`${baseAdminURL}/react/dislike-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const formData = RequestFactory.createFormDataFromObject({});
+        const result = await axios.post(`${baseAdminURL}/react/dislike-video/${videoId}`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             data: result.data,
@@ -101,7 +105,8 @@ const dislikeVideo = async (token, videoId) => {
 
 const undoDislikeVideo = async (token, videoId) => {
     try {
-        const result = await axios.post(`${baseAdminURL}/react/undo-dislike-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const formData = RequestFactory.createFormDataFromObject({});
+        const result = await axios.post(`${baseAdminURL}/react/undo-dislike-video/${videoId}`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             data: result.data,
@@ -127,14 +132,15 @@ const undoDislikeVideo = async (token, videoId) => {
 }
 
 const isUserReactToVideo = async (token, videoId) => {
-    if (!token) {
-        return false;
-    }
-    if (!videoId) {
-        return false;
+    if (!token || !videoId) {
+        return {
+            success: false,
+            isLiked: false,
+            isDisliked: false
+        };
     }
     try {
-        const result = await axios.get(`${baseAdminURL}/reaction/react-to-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const result = await axios.get(`${baseAdminURL}/react/react-to-video/${videoId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
         console.log(result)
         return {
             success: true,

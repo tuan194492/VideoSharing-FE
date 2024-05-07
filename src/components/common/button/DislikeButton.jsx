@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 export const DislikeButton = (props) => {
     const authContext = useContext(AuthContext);
     const token = authContext.token;
-    const [dislikeCount, setDislikeCount] = useState(props.dislikeCount);
+    const [dislikeCount, setDislikeCount] = useState(props.count);
     const [disliked, setDisliked] = useState(props.disliked);
     const handleClick = async () => {
         if (disliked) {
@@ -32,6 +32,7 @@ export const DislikeButton = (props) => {
     }
 
     const initData = async () => {
+        setDislikeCount(props.count);
         if (token == null) {
             return setDisliked(false);
         }

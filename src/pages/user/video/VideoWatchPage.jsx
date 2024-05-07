@@ -36,12 +36,16 @@ export default function VideoWatchPage() {
     const [currentVideo, setCurrentVideo] = useState({});
     const [currentVideoSrc, setCurrentVideoSrc] = useState('');
     const [currentChannel, setCurrentChannel] = useState({});
+    const [likeCount, setLikeCount] = useState(0);
+    const [dislikeCount, setDislikeCount] = useState(0);
 
     const fetchVideoData = async (id) => {
         const result = await videoService.findVideoById(token, id);
         console.log(result.data);
         if (result.success) {
             setCurrentVideo(result.data.data);
+            setLikeCount(result.data.data.likeCount);
+            setDislikeCount(result.data.data.dislikeCount);
             setCurrentVideoSrc(createVideoSrc(result.data.data.id));
             const fetchChannelResult = await userService.findUserById(result.data.data.publisher_id);
             if (fetchChannelResult.success) {
@@ -60,7 +64,6 @@ export default function VideoWatchPage() {
             page: 1,
             pageSize: videoPerRequest
         })
-        console.log(result.data.data)
         if (result.success) {
             if (result.data.count < videoPerRequest) {
                 setHasMore(false);
@@ -68,7 +71,6 @@ export default function VideoWatchPage() {
             if (result.data.count > 0) {
                 setVideoList(result.data.data)
             }
-            console.log(videoList)
         }
 
     }
@@ -143,13 +145,13 @@ export default function VideoWatchPage() {
                         </div>
                         <div className={"float-right flex gap-[10px] items-center"}>
                             <LikeButton
-                                count={currentVideo.likeCount}
+                                count={likeCount}
                                 liked={currentVideo.liked}
                                 videoId={videoId}
                                 className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
                             />
                             <DislikeButton
-                                count={currentVideo.dislikeCount}
+                                count={dislikeCount}
                                 disliked={currentVideo.disliked}
                                 videoId={videoId}
                                 className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
