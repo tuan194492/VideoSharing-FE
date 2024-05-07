@@ -64,12 +64,13 @@ const undoSubscribeChannel = async (token, channelId) => {
 }
 
 const isSubscribed = async (token, channelId) => {
-    if (!token) {
-        return false;
+    if (!token || !channelId) {
+        return {
+            success: false,
+            isSubscribed: false
+        };
     }
-    if (!channelId) {
-        return false;
-    }
+
     try {
         const result = await axios.get(`${baseAdminURL}/subcriber/is_subscribed/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
         console.log(result)

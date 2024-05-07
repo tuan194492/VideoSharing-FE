@@ -9,12 +9,12 @@ import {
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
-import {AuthContext} from "../../context/AuthContext";
-import {WrapperOwnerSideBar, WrapperSideBar} from "../../style/styled";
-import {IMAGES} from "../../utils/images/images";
-import {userFooterRoute, userRoutes} from "../../routes/userRoutes";
-import {routes} from "../../routes";
-import socket from "../../context/Socket";
+import {AuthContext} from "../../../context/AuthContext";
+import {WrapperOwnerSideBar, WrapperSideBar} from "../../../style/styled";
+import {IMAGES} from "../../../utils/images/images";
+import {userFooterRoute, userRoutes, userStudioRoute} from "../../../routes/userRoutes";
+import {routes} from "../../../routes";
+import socket from "../../../context/Socket";
 function initSidebarValue(arrayRoute) {
     arrayRoute.map((route) => {
         let count = 0;
@@ -27,10 +27,10 @@ function initSidebarValue(arrayRoute) {
         route.able = 1;
     });
 }
-const Sidebar = ({ menuCollapse, setMenuCollapse }) => {
+const Sidebar = ({ menuCollapse, setMenuCollapse, isStudio }) => {
     const navigate = useNavigate();
     const { permission } = useContext(AuthContext);
-    const arrayRoute = userRoutes;
+    const arrayRoute = [...userRoutes, ...userStudioRoute];
     // initSidebarValue(arrayRoute);
     return (
         <WrapperOwnerSideBar style={{ width: !menuCollapse ? '250px' : '100px'}}>
@@ -60,7 +60,7 @@ const Sidebar = ({ menuCollapse, setMenuCollapse }) => {
                         flexGrow: '0.9'
                     }}
                 >
-                    { arrayRoute.filter(item => item.able == 1 ).map((item, index) => {
+                    { arrayRoute.filter(item => item.able == 1 && item.isStudio == isStudio ).map((item, index) => {
                         return (<Menu iconShape="square" key={item.path}>
                             <MenuItem
                                 active={item.path === window.location.pathname || (index === 0 && window.location.pathname === '/')}

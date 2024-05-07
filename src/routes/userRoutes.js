@@ -11,7 +11,8 @@ export const userRoutes = [
         element: <UserVideoHomePage/>,
         icon: IMAGES.icon.home,
         subRoute: [],
-        able: 1
+        able: 1,
+        isStudio: false
     },
     {
         title: 'Subscriptions',
@@ -19,7 +20,8 @@ export const userRoutes = [
         element: <div/>,
         icon: IMAGES.icon.subscription,
         subRoute: [],
-        able: 1
+        able: 1,
+        isStudio: false
     },
     {
         title: 'Playlist',
@@ -27,7 +29,8 @@ export const userRoutes = [
         element: <div/>,
         icon: IMAGES.icon.playlist,
         subRoute: [],
-        able: 1
+        able: 1,
+        isStudio: false
     },
     {
         title: 'History',
@@ -35,7 +38,8 @@ export const userRoutes = [
         element: <div/>,
         icon: IMAGES.icon.history,
         subRoute: [],
-        able: 1
+        able: 1,
+        isStudio: false
     },
     {
         path: "/user/video/create",
@@ -45,6 +49,45 @@ export const userRoutes = [
         path: "/user/video/detail/:id",
         element: <VideoWatchPage />
     }
+]
+
+export const userStudioRoute = [
+    {
+        title: 'Customization',
+        path: '/user/studio/customization',
+        element: <div/>,
+        icon: IMAGES.icon.history,
+        subRoute: [],
+        able: 1,
+        isStudio: true
+    },
+    {
+        title: 'Analytic',
+        path: '/user/studio/analytic',
+        element: <div/>,
+        icon: IMAGES.icon.history,
+        subRoute: [],
+        able: 1,
+        isStudio: true
+    },
+    {
+        title: 'Video Manage',
+        path: '/user/studio/video-manage',
+        element: <div/>,
+        icon: IMAGES.icon.history,
+        subRoute: [],
+        able: 1,
+        isStudio: true
+    },
+    {
+        title: 'Subscriber Manage',
+        path: '/user/studio/subscriber-manage',
+        element: <div/>,
+        icon: IMAGES.icon.history,
+        subRoute: [],
+        able: 1,
+        isStudio: true
+    },
 ]
 
 export const userFooterRoute = [

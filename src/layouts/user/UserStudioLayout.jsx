@@ -12,7 +12,7 @@ function getClassNameByCollapse(collapsed) {
     }
 }
 
-export default function UserLayout() {
+export default function UserStudioLayout() {
     const [collapsed, setCollapsed] = useState(false);
     const handleCollapsedChange = () => {
         setCollapsed(!collapsed);
@@ -22,7 +22,7 @@ export default function UserLayout() {
             <div className=''>
                 <Navbar />
                 <WrapperContent className='fixed top-[8%]'>
-                    <Sidebar isStudio={false}  menuCollapse = {collapsed} setMenuCollapse = {handleCollapsedChange} />
+                    <Sidebar isStudio={true}  menuCollapse = {collapsed} setMenuCollapse = {handleCollapsedChange} />
                 </WrapperContent>
                 <div className={'fixed top-[8%] h-[92%] py-[50px] px-[50px] overflow-auto ' + getClassNameByCollapse(collapsed)} >
                     <Outlet />

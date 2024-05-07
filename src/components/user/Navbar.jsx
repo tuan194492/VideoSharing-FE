@@ -20,7 +20,7 @@ export default function Navbar() {
         navigate(`/${page}/homepage`)
     }
     const goToPersonal = () => {
-        navigate(`/${page}/personal`)
+        navigate(`/${page}/studio`)
     }
 
     const goToUploadVideoPage = () => {

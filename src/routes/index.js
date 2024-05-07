@@ -4,14 +4,18 @@ import UserLayout from "../layouts/user/UserLayout";
 import UserLoginPage from "../pages/user/auth/UserLoginPage";
 import UserRegisterPage from "../pages/user/auth/UserRegisterPage";
 import {AdminLoginPage} from "../pages/admin/login/AdminLoginPage";
-import {userRoutes} from "./userRoutes";
+import {userRoutes, userStudioRoute} from "./userRoutes";
 import {guestRoutes} from "./guestRoutes";
+import UserStudioLayout from "../layouts/user/UserStudioLayout";
 
-const admin = [], user = [], guest = [];
+const admin = [], user = [], guest = [], userStudio = [];
 userRoutes.map((route) => {
     user.push(route)
 })
 
+userStudioRoute.map((route) => {
+    userStudio.push(route)
+})
 guestRoutes.map((route) => {
     guest.push(route)
 })
@@ -26,6 +30,11 @@ export const routes = [
         path: "/admin/auth",
         element: <AdminLoginPage />,
         children: admin
+    },
+    {
+        path: "/user/studio",
+        element: <UserStudioLayout />,
+        children: userStudio
     },
     {
         path: "/user",
