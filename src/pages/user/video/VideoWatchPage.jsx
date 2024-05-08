@@ -22,6 +22,7 @@ import {userService} from "../../../api/user/user";
 import {commentService} from "../../../api/user/comment";
 import {VerticalCommentList} from "../../../components/common/comment/VerticalCommentList";
 import {SubscribeButton} from "../../../components/common/button/SubscribeButton";
+import {AddPlaylistPopup} from "../../../components/modal/AddPlaylistPopup";
 
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
@@ -65,10 +66,10 @@ export default function VideoWatchPage() {
             pageSize: videoPerRequest
         })
         if (result.success) {
-            if (result.data.rows < videoPerRequest) {
+            if (result.data.count < videoPerRequest) {
                 setHasMore(false);
             }
-            if (result.data.rows > 0) {
+            if (result.data.count > 0) {
                 setVideoList(result.data.data)
             }
         }
@@ -156,7 +157,8 @@ export default function VideoWatchPage() {
                                 videoId={videoId}
                                 className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
                             />
-                            <MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} />
+                            <AddPlaylistPopup />
+                            {/*<MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} />*/}
                         </div>
                     </div>
                     <div className={"description mt-2 bg-gray-300 p-2"}>
