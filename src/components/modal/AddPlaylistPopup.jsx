@@ -6,19 +6,22 @@ import ReactTable from "react-table-6";
 import "react-table-6/react-table.css"
 import './index.css';
 import {playlistService} from "../../api/user/playlist";
+import {toast} from "react-toastify";
+
 const columns = [
     {
         accessor: 'added_to_playlist',
         filterable: false,
         sortable: false,
         Cell: props => <div className={'flex justify-center items-center h-[100%]'}>
-                <input
-                    id="vue-checkbox"
-                    type="checkbox"
-                    value={props.value}
-                    className={'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded'}
-                />
-             </div>,
+            <input
+                onClick={e => handleAddToPlaylist(e, props)}
+                id="vue-checkbox"
+                type="checkbox"
+                value={props.value}
+                className={'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded'}
+            />
+        </div>,
 
     },
     {
@@ -33,45 +36,70 @@ const columns = [
     }
 ]
 
+let handleAddToPlaylist;
+
 const filterMethod = (filter, row, column) => {
     const id = filter.pivotId || filter.id
     return row[id] !== undefined ? String(row[id]).includes(filter.value) : true
-        }
+}
 
-            export const AddPlaylistPopup = (props) => {
-            const [open, setOpen] = useState(false);
-            const [playlist, setPlaylist] = useState([]);
-            const initData = async () => {
-            const result = await playlistService.getPlaylistListByUser();
-            if (result.success) {
+export const AddPlaylistPopup = (props) => {
+    const [open, setOpen] = useState(false);
+    let [playlist, setPlaylist] = useState([]);
+    const initData = async () => {
+        const result = await playlistService.getPlaylistListByUser();
+        if (result.success) {
+            playlist = result.data;
             setPlaylist(result.data);
         }
+    }
+
+    const initFunction = () => {
+        handleAddToPlaylist = async (e, props) => {
+            e.stopPropagation();
+            /*e.stopPropagation();
+            const result = await playlistService.addToPlaylist
+            console.log(result)
+            if (!result.success) {
+                toast.error(result.message);
+            } else {
+                toast.success(result.message);
+            }
+
+            await fetchPostData();*/
+            // console.log(props);
+            console.log(playlist)
+            const newPLaylist = [...playlist];
+            console.log(newPLaylist)
+            newPLaylist[props.row._index] = {
+                ...newPLaylist[props.row._index],
+                playlist_mame: 'clicked'
+            };
+            playlist = newPLaylist;
+            setPlaylist(newPLaylist);
         }
 
-            useEffect(() => {
-            initData();
-        }, []);
-            const closeModal = ()  => setOpen(false);
-            return (
-            <div>
+    }
+
+    const init = async () => {
+        await initData();
+        initFunction();
+    }
+
+    useEffect(() => {
+        init();
+    }, []);
+    const closeModal = () => setOpen(false);
+    return (
+        <div>
             <MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} callback={() => setOpen(true)}/>
-    <Popup contentStyle={{width: '20%'}} open={open} closeOnDocumentClick onClose={closeModal} >
+            <Popup contentStyle={{width: '20%'}} open={open} closeOnDocumentClick onClose={closeModal}>
                 <div className={'modal p-2'}>
                     <div className={'text-lg p-2'}>
                         Save video to..
                     </div>
                     <div>
                         <ReactTable
-                            getTrProps={(state, rowInfo, column, instance) => {
-                                return {
-                                    onClick: (e) => {
-                                        console.log(JSON.stringify(state));
-                                        console.log(JSON.stringify(rowInfo));
-                                        console.log(JSON.stringify(column));
-
-                                    }
-                                }
-                            }}
                             data={playlist}
                             columns={columns}
                             defaultPageSize={4}
@@ -85,7 +113,7 @@ const filterMethod = (filter, row, column) => {
                         <MyButton
                             icon={IMAGES.icon.addButton}
                             className={'bg-gray-200 w-[40%] mt-3 p-1 font-medium'}
-                            title={'Create new playlist'} />
+                            title={'Create new playlist'}/>
                     </div>
 
                 </div>

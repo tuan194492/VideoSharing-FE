@@ -14,6 +14,14 @@ const getPlaylistListByUser = async () => {
     }
 }
 
+const addToPlaylist = async (videoId, playlistId, token) => {
+    return {
+        success: true,
+        message: 'Add to playlist successful'
+    }
+}
+
 export const playlistService = {
-    getPlaylistListByUser
+    getPlaylistListByUser,
+    addToPlaylist
 }
