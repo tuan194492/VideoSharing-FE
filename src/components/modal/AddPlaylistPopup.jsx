@@ -12,8 +12,12 @@ const columns = [
         filterable: false,
         sortable: false,
         Cell: props => <div className={'flex justify-center items-center h-[100%]'}>
-                <input id="vue-checkbox" type="checkbox" value={props.value}
-                   className={'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded'}/>
+                <input
+                    id="vue-checkbox"
+                    type="checkbox"
+                    value={props.value}
+                    className={'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded'}
+                />
              </div>,
 
     },
@@ -58,6 +62,16 @@ const filterMethod = (filter, row, column) => {
                     </div>
                     <div>
                         <ReactTable
+                            getTrProps={(state, rowInfo, column, instance) => {
+                                return {
+                                    onClick: (e) => {
+                                        console.log(JSON.stringify(state));
+                                        console.log(JSON.stringify(rowInfo));
+                                        console.log(JSON.stringify(column));
+
+                                    }
+                                }
+                            }}
                             data={playlist}
                             columns={columns}
                             defaultPageSize={4}
