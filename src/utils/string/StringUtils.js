@@ -52,8 +52,15 @@ function formatNumber(num) {
     }
 }
 
+function displayDescription(description) {
+    if (!description) return '';
+    const regex = /\\n|\\r\\n|\\n\\r|\\r/g;
+    return description.replace(regex, '<br>');
+}
+
 export const StringUtils = {
     countLines,
     convertSeconds,
-    formatNumber
+    formatNumber,
+    displayDescription
 };

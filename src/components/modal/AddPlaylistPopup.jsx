@@ -1,5 +1,5 @@
 import Popup from "reactjs-popup";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {MyButton} from "../common/button/MyButton";
 import {IMAGES} from "../../utils/images/images";
 import ReactTable from "react-table-6";
@@ -7,6 +7,9 @@ import "react-table-6/react-table.css"
 import './index.css';
 import {playlistService} from "../../api/user/playlist";
 import {toast} from "react-toastify";
+import {AuthContext} from "../../context/AuthContext";
+import {useParams} from "react-router-dom";
+import {CreatePlaylistButton, CreatePLaylistButton} from "../common/button/CreatePLaylistButton";
 
 const columns = [
     {
@@ -46,6 +49,12 @@ const filterMethod = (filter, row, column) => {
 export const AddPlaylistPopup = (props) => {
     const [open, setOpen] = useState(false);
     let [playlist, setPlaylist] = useState([]);
+    const authContext = useContext(AuthContext);
+    const token = authContext.token;
+    const user = authContext.user;
+    const params = useParams();
+    const videoId = params.id;
+
     const initData = async () => {
         const result = await playlistService.getPlaylistListByUser();
         if (result.success) {
@@ -68,15 +77,23 @@ export const AddPlaylistPopup = (props) => {
 
             await fetchPostData();*/
             // console.log(props);
-            console.log(playlist)
             const newPLaylist = [...playlist];
-            console.log(newPLaylist)
-            newPLaylist[props.row._index] = {
-                ...newPLaylist[props.row._index],
-                playlist_mame: 'clicked'
-            };
-            playlist = newPLaylist;
-            setPlaylist(newPLaylist);
+
+            const currentPlaylist = props.row;
+            // console.log(props.row);
+            const result = await playlistService.addToPlaylist(videoId, currentPlaylist.playlist_id, token);
+            if (result.success) {
+                newPLaylist[props.row._index] = {
+                    ...newPLaylist[props.row._index],
+                    added_to_playlist: result.added_to_playlist
+                };
+                playlist = newPLaylist;
+                setPlaylist(newPLaylist);
+                toast.success(result.message);
+            } else {
+                toast.error(result.message);
+            }
+
         }
 
     }
@@ -93,7 +110,7 @@ export const AddPlaylistPopup = (props) => {
     return (
         <div>
             <MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} callback={() => setOpen(true)}/>
-            <Popup contentStyle={{width: '20%'}} open={open} closeOnDocumentClick onClose={closeModal}>
+            <Popup nested contentStyle={{width: '20%'}} open={open} closeOnDocumentClick onClose={closeModal}>
                 <div className={'modal p-2'}>
                     <div className={'text-lg p-2'}>
                         Save video to..
@@ -110,10 +127,7 @@ export const AddPlaylistPopup = (props) => {
                         />
                     </div>
                     <div className={'flex justify-center'}>
-                        <MyButton
-                            icon={IMAGES.icon.addButton}
-                            className={'bg-gray-200 w-[40%] mt-3 p-1 font-medium'}
-                            title={'Create new playlist'}/>
+                        <CreatePlaylistButton nested />
                     </div>
 
                 </div>

@@ -9,13 +9,14 @@ import {errorMessages} from "../../../../assets/message/error_messages/error-mes
 import VideoPreview from "../../../../components/common/video/VideoPreview";
 
 export const VideoUploadPageStepTwo = (props) => {
-    const currentVideo= props.uploadedVideo;
+    const currentVideo = props.uploadedVideo;
     const [uploadedImage, setUploadedImage] = useState(props.uploadedImage);
     const [formData, setFormData] = useState({
         title: '',
         description: '',
         isPublic: false
     });
+
     function handleUploadThumbnails(e) {
         console.log(e);
         const file = e.target.files[0];
@@ -95,8 +96,8 @@ export const VideoUploadPageStepTwo = (props) => {
                             </>
                         }
 
-                        { (uploadedImage == null) ||
-                            <ImageWatcher className={'max-w-[20%]'} image={uploadedImage} />
+                        {(uploadedImage == null) ||
+                            <ImageWatcher className={'max-w-[20%]'} image={uploadedImage}/>
                         }
                     </div>
                     <label className="inline-flex items-center mb-5 cursor-pointer">

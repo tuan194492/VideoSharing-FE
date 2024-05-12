@@ -162,7 +162,7 @@ export default function VideoWatchPage() {
                         </div>
                     </div>
                     <div className={"description mt-2 bg-gray-300 p-2"}>
-                        <div className={"channel-name text-gray-700 text-sm mb-3 "}>
+                        <div className={"channel-name text-gray-700 text-md mb-3 "}>
                             <span className={"view-count"}>
                                 {currentVideo.views} views
                             </span>
@@ -170,9 +170,7 @@ export default function VideoWatchPage() {
                                 {StringUtils.convertSeconds(currentVideo.postedSince)} ago
                             </span>
                         </div>
-                        <div className={"break-words"}>
-                            {currentVideo.description}
-                        </div>
+                        <DescriptionTextField description={currentVideo.description} line={2}/>
                     </div>
 
                     <div>

@@ -7,6 +7,7 @@ import {DislikeButton} from "../button/DislikeButton";
 import {useState} from "react";
 import {MyButton} from "../button/MyButton";
 import {CommentPostBox} from "./CommentPostBox";
+import {DescriptionTextField} from "../textfield/DescriptionTextField";
 
 export const CommentBox = (props) => {
     // console.log(props.comment);
@@ -37,9 +38,7 @@ export const CommentBox = (props) => {
                         {StringUtils.convertSeconds(currentComment.postedSince)} ago
                     </span>
                 </div>
-                <div className={'comment-value'}>
-                    {currentComment.value}
-                </div>
+                <DescriptionTextField description={currentComment.value} line={2} />
                 <div className={'flex gap-0.5'}>
                     <LikeButton
                         className={'scale-75'}

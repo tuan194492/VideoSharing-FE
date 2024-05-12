@@ -4,11 +4,13 @@ const getPlaylistListByUser = async () => {
         data: [
             {
                 added_to_playlist: false,
-                playlist_mame: 'Watch later'
+                playlist_mame: 'Watch later',
+                playlist_id: 1
             },
             {
                 added_to_playlist: false,
-                playlist_mame: 'New playlist'
+                playlist_mame: 'New playlist',
+                playlist_id: 2
             }
         ]
     }
