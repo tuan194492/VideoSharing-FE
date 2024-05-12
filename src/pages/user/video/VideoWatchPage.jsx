@@ -39,6 +39,7 @@ export default function VideoWatchPage() {
     const [currentChannel, setCurrentChannel] = useState({});
     const [likeCount, setLikeCount] = useState(0);
     const [dislikeCount, setDislikeCount] = useState(0);
+    const [description, setDescription] = useState('');
 
     const fetchVideoData = async (id) => {
         const result = await videoService.findVideoById(token, id);
@@ -47,6 +48,7 @@ export default function VideoWatchPage() {
             setCurrentVideo(result.data.data);
             setLikeCount(result.data.data.likeCount);
             setDislikeCount(result.data.data.dislikeCount);
+            setDescription(result.data.data.description);
             setCurrentVideoSrc(createVideoSrc(result.data.data.id));
             const fetchChannelResult = await userService.findUserById(result.data.data.publisher_id);
             if (fetchChannelResult.success) {
@@ -170,7 +172,7 @@ export default function VideoWatchPage() {
                                 {StringUtils.convertSeconds(currentVideo.postedSince)} ago
                             </span>
                         </div>
-                        <DescriptionTextField description={currentVideo.description} line={2}/>
+                        <DescriptionTextField description={description} line={2}/>
                     </div>
 
                     <div>

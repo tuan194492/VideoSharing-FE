@@ -12,9 +12,10 @@ export const DescriptionTextField = (props) => {
     }
     useEffect(() => {
         const lineCount = props.description ? (props.description.match(/\n/g) || []).length : 0;
-        console.log(props.description  + lineCount + props.line);
+        console.log('' + props.description  + lineCount + props.line);
+        console.log(props.line)
         setDisplayShowMore(lineCount > props.line);
-    }, []);
+    }, [props.description]);
     return (
         <>
             <div className={"break-words whitespace-pre-line " + getClassName()}>
