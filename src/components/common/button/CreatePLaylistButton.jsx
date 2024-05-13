@@ -2,13 +2,17 @@ import {MyButton} from "./MyButton";
 import {IMAGES} from "../../../utils/images/images";
 import ReactTable from "react-table-6";
 import Popup from "reactjs-popup";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useForm} from "react-hook-form";
+import {playlistService} from "../../../api/user/playlist";
+import {AuthContext} from "../../../context/AuthContext";
+import {toast} from "react-toastify";
 
 export const CreatePlaylistButton = (props) => {
     const [open, setOpen] = useState(false);
     const closeModal = () => setOpen(false);
-
+    const authContext = useContext(AuthContext);
+    const token = authContext.token;
     const {
         register,
         handleSubmit,
@@ -17,6 +21,11 @@ export const CreatePlaylistButton = (props) => {
     const onSubmit = async (data) => {
         console.log('aaa')
         console.log(data)
+        const result = await playlistService.createPlaylist(data, token);
+        if (!result.success) {
+            return toast.error(result.message);
+        }
+        setOpen(false);
     }
     return (
         <>
@@ -60,14 +69,14 @@ export const CreatePlaylistButton = (props) => {
                                         rows="4"
                                         id="description"
                                         placeholder="Description"
-                                        {...register("description", {required: true, minLength: 50})}
+                                        {...register("description", {required: true, minLength: 15})}
                                     />
                                 </div>
                                 {errors?.description?.type === "required" && (
                                     <p>⚠ This field is required!</p>
                                 )}
                                 {errors?.description?.type === "minLength" && (
-                                    <p>⚠ Description cannot be less than 50 characters!</p>
+                                    <p>⚠ Description cannot be less than 15 characters!</p>
                                 )}
                             </div>
                             <div>

@@ -122,6 +122,20 @@ export default function VideoWatchPage() {
         console.log(hasMore)
     }
 
+    const adjustSubscriberCount = (isAdded) => {
+        if (isAdded) {
+            return setCurrentChannel({
+                ...currentChannel,
+                subscriberCount: currentChannel.subscriberCount + 1
+            })
+        }
+
+        return setCurrentChannel({
+            ...currentChannel,
+            subscriberCount: currentChannel.subscriberCount - 1
+        })
+    }
+
     return (
         <div className={"grid grid-cols-12"}>
             {/* Video watching + Comment List */}
@@ -139,10 +153,11 @@ export default function VideoWatchPage() {
                                     {currentVideo.user_name || 'No name'}
                                 </div>
                                 <div className={"channel-subscriber-count"}>
-                                    {StringUtils.formatNumber(currentVideo.subscriberCount)} subscribers
+                                    {StringUtils.formatNumber(currentChannel.subscriberCount)} subscribers
                                 </div>
                             </span>
                             <SubscribeButton
+                                callback={adjustSubscriberCount}
                                 channelId={currentVideo.publisher_id}
                                 className={"ml-8 h-[50%] rounded-2xl inline-flex items-center py-2 px-4 text-white transition duration-300"}/>
                         </div>

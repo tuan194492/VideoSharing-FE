@@ -10,29 +10,22 @@ import {toast} from "react-toastify";
 import {AuthContext} from "../../context/AuthContext";
 import {useParams} from "react-router-dom";
 import {CreatePlaylistButton, CreatePLaylistButton} from "../common/button/CreatePLaylistButton";
+import {AddToPlaylistCheckBox} from "./AddToPlaylistCheckBox";
 
 const columns = [
     {
-        accessor: 'added_to_playlist',
+        accessor: 'isAddedToPlaylist',
         filterable: false,
         sortable: false,
-        Cell: props => <div className={'flex justify-center items-center h-[100%]'}>
-            <input
-                onClick={e => handleAddToPlaylist(e, props)}
-                id="vue-checkbox"
-                type="checkbox"
-                value={props.value}
-                className={'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded'}
-            />
-        </div>,
+        Cell: props => <AddToPlaylistCheckBox data={props} />,
 
     },
     {
-        accessor: 'playlist_mame',
+        accessor: 'title',
         sortable: false,
         Cell: props => <div className={'flex justify-center items-center h-[100%]'}>
             <label htmlFor="vue-checkbox"
-                   className="w-full py-3 ms-2 text-sm font-medium text-gray-900">Vue
+                   className="w-full py-3 ms-2 text-sm font-medium text-gray-900 break-words whitespace-pre-line">
                 {props.value}
             </label>
         </div>,
@@ -45,7 +38,6 @@ const filterMethod = (filter, row, column) => {
     const id = filter.pivotId || filter.id
     return row[id] !== undefined ? String(row[id]).includes(filter.value) : true
 }
-
 export const AddPlaylistPopup = (props) => {
     const [open, setOpen] = useState(false);
     let [playlist, setPlaylist] = useState([]);
@@ -56,7 +48,8 @@ export const AddPlaylistPopup = (props) => {
     const videoId = params.id;
 
     const initData = async () => {
-        const result = await playlistService.getPlaylistListByUser();
+        const result = await playlistService.getPlaylistListByUser(token);
+        console.log(result)
         if (result.success) {
             playlist = result.data;
             setPlaylist(result.data);
@@ -66,17 +59,6 @@ export const AddPlaylistPopup = (props) => {
     const initFunction = () => {
         handleAddToPlaylist = async (e, props) => {
             e.stopPropagation();
-            /*e.stopPropagation();
-            const result = await playlistService.addToPlaylist
-            console.log(result)
-            if (!result.success) {
-                toast.error(result.message);
-            } else {
-                toast.success(result.message);
-            }
-
-            await fetchPostData();*/
-            // console.log(props);
             const newPLaylist = [...playlist];
 
             const currentPlaylist = props.row;

@@ -23,6 +23,7 @@ export const SubscribeButton = (props) => {
             const result = await subscribeService.subscribeChannel(token, channelId);
             if (result.success) {
                 setSubscribed(true);
+                props.callback(true);
                 return toast.success(successMessage.SUBSCRIBE_SUCCESSFUL)
 
             } else {
@@ -32,6 +33,7 @@ export const SubscribeButton = (props) => {
             const result = await subscribeService.undoSubscribeChannel(token, channelId);
             if (result.success) {
                 setSubscribed(false);
+                props.callback(false);
                 return toast.success(successMessage.UNDO_SUBSCRIBE_SUCCESSFUL)
             } else {
                 return toast.error(result.message);
@@ -43,7 +45,7 @@ export const SubscribeButton = (props) => {
 
     useEffect(() => {
         initState();
-    }, []);
+    }, [props.channelId]);
 
     function getClassNameForButton() {
         if (subscribed) {
