@@ -2,6 +2,7 @@ import VideoUploadPage from "../pages/user/video/VideoUploadPage/VideoUploadPage
 import VideoWatchPage from "../pages/user/video/VideoWatchPage";
 import {IMAGES} from "../utils/images/images";
 import {UserVideoHomePage} from "../pages/user/homepage/UserVideoHomePage";
+import {PlaylistSummary} from "../pages/user/playlist/PlaylistSummary";
 
 
 export const userRoutes = [
@@ -26,7 +27,7 @@ export const userRoutes = [
     {
         title: 'Playlist',
         path: '/user/playlist',
-        element: <div/>,
+        element: <PlaylistSummary />,
         icon: IMAGES.icon.playlist,
         subRoute: [],
         able: 1,

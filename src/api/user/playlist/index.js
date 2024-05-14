@@ -181,11 +181,39 @@ const isAddedToPlaylist = async (playlistId, videoId, token) => {
     }
 }
 
+const getPlaylistDetail = async (token, playlistId) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/playlist/detail/${playlistId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        return {
+            success: true,
+            data: result.data,
+            message: result.message
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                data: null,
+                message: 'Network error'
+            };
+        }
+    }
+}
+
 export const playlistService = {
     getPlaylistListByUser,
     addToPlaylist,
     createPlaylist,
     deletePlaylist,
     deleteVideoFromPlaylist,
-    isAddedToPlaylist
+    isAddedToPlaylist,
+    getPlaylistDetail
 }

@@ -11,7 +11,7 @@ export const UserVideoHomePage = (props) => {
     const token = authContext.token;
     const [videoList, setVideoList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [hasMore, setHasMore] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
 
     function getClassNameForVideoMini() {
         return 'col col-span-1';

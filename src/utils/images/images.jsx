@@ -6,6 +6,7 @@ import noImage from '../../assets/icon/noImage.png'
 import collapse from '../../assets/icon/collapse.png'
 import uploadIcon from '../../assets/icon/icons8-upload-100.png'
 import likeButton from '../../assets/icon/like-button.jpg'
+import empty from '../../assets/icon/empty.jpg'
 
 const home = (
     <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -356,7 +357,8 @@ export const IMAGES = {
         uploadButtonSmaller,
         subscription,
         playlist,
-        history
+        history,
+        empty
     },
     logo: {},
 };
