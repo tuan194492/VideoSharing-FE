@@ -16,6 +16,9 @@ export const VideoMini = (props) => {
     return (
         <div className={"grid grid-cols-5 cursor-pointer " + props.className}
              onClick={e => {
+                 if (props.onClick) {
+                     return props.onClick();
+                 }
                  navigate(`/${page}/video/detail/${data.id}`);
              }}>
             <div className={"thumbnail col col-span-2 w-full w-full p-2 flex justify-center"}>

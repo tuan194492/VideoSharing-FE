@@ -49,7 +49,7 @@ export const VerticalCommentList = (props) => {
 
     useEffect( () => {
         initCommentData();
-    }, []);
+    }, [videoId]);
 
     const fetchMoreData = async () => {
         console.log('Has more')

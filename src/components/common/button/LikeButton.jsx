@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 
 export const LikeButton = (props) => {
     console.log(props)
+    const videoId = props.videoId;
     const authContext = useContext(AuthContext);
     const token = authContext.token;
     const [likeCount, setLikeCount] = useState(props.count);
@@ -49,7 +50,7 @@ export const LikeButton = (props) => {
 
     useEffect(() => {
         initData();
-    }, []);
+    }, [props.videoId, props.count]);
 
     function getClassNameForButton() {
         if (liked) {

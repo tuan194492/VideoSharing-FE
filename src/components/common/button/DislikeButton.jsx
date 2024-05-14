@@ -46,7 +46,7 @@ export const DislikeButton = (props) => {
 
     useEffect(() => {
         initData();
-    }, []);
+    }, [props.videoId, props.count]);
 
     function getClassNameForButton() {
         if (disliked) {

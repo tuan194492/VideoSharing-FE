@@ -3,6 +3,7 @@ import VideoWatchPage from "../pages/user/video/VideoWatchPage";
 import {IMAGES} from "../utils/images/images";
 import {UserVideoHomePage} from "../pages/user/homepage/UserVideoHomePage";
 import {PlaylistSummary} from "../pages/user/playlist/PlaylistSummary";
+import {PlaylistWatchDetail} from "../pages/user/playlist/PlaylistWatchDetail";
 
 
 export const userRoutes = [
@@ -49,6 +50,10 @@ export const userRoutes = [
     {
         path: "/user/video/detail/:id",
         element: <VideoWatchPage />
+    },
+    {
+        path: "/user/playlist/detail/:id",
+        element: <PlaylistWatchDetail />
     }
 ]
 
