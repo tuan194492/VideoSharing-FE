@@ -5,6 +5,10 @@ import { AuthContext } from "./context/AuthContext";
 import './App.css';
 import socket from "./context/Socket";
 import {playlistService} from "./api/user/playlist";
+import '@fontsource/roboto/400.css'; // Normal 400
+import '@fontsource/roboto/500.css'; // Medium 500
+import '@fontsource/roboto/700.css'; // Bold 700
+
 export default function App() {
   const element = useRoutes(routes);
   const { isLogin, role, token, clearAuthData} = useContext(AuthContext);

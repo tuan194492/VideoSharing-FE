@@ -5,7 +5,7 @@ import {playlistService} from "../../../api/user/playlist";
 import {toast} from "react-toastify";
 import {AuthContext} from "../../../context/AuthContext";
 import {IMAGES} from "../../../utils/images/images";
-
+import './index.css'
 export const PlayListMini = (props) => {
     const playlistId = props.data.id;
 
@@ -55,20 +55,20 @@ export const PlayListMini = (props) => {
     }, []);
 
     return (
-        <div className={"grid grid-cols-5 cursor-pointer " + props.className}
+        <div className={"grid grid-cols-5 cursor-pointer hover:bg-gray-100  " + props.className}
              onClick={e => {
                  navigate(`/${page}/playlist/detail/${playlistId}`);
              }}
             title={playlist.description}
         >
-            <div className={"thumbnail col col-span-2 w-full h-full p-2 flex justify-center"}>
+            <div className={"thumbnail col col-span-2 w-full h-full p-2 flex justify-center aspect-ratio-container"}>
                 {!playlistThumbnail && <img src={IMAGES.icon.empty}
                                             alt={"An alt"}
-                                            className={"object-cover rounded-md h-[15vh] w-[100%]"}/>}
+                                            className={"aspect-ratio-image"}/>}
                 {playlistThumbnail &&
                     <img src={`data:image/png;base64,${base64String}`}
-                     alt={"An alt"}
-                     className={"object-cover rounded-md h-[15vh] w-[100%]"}/>
+                         alt={"An alt"}
+                         className={"aspect-ratio-image"}/>
                 }
             </div>
             <div className={"col col-span-3 p-1 flex flex-col justify-between"}>
@@ -87,7 +87,6 @@ export const PlayListMini = (props) => {
                         {videoCount} videos
                     </span>
                 </div>
-
             </div>
         </div>
     )

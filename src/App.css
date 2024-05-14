@@ -110,3 +110,41 @@
 [data-popup='tooltip'].popup-overlay {
   background: transparent;
 }
+
+.aspect-ratio-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  overflow: hidden;
+}
+
+.aspect-ratio-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+}
+
+
+.infinite-scroll-component__outerdiv {
+  width: 100%;
+}
+
+.video-title {
+  margin: 0 0 4px 0;
+  font-family: "Roboto", "Arial", sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.6rem;
+  font-weight: 500;
+  overflow: hidden;
+  max-height: 4rem;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: normal;
+}

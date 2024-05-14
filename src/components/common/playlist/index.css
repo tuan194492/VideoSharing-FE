@@ -1,0 +1,21 @@
+.collections-stack-wiz__collection-stack1 {
+    position: absolute;
+    top: -4px;
+    width: calc(100% - 16px);
+    height: 100%;
+    left: 8px;
+    right: 8px;
+    border-radius: 8px;
+}
+
+.collections-stack-wiz__collection-stack2 {
+    background-color: #606060;
+    opacity: 50%;
+    position: absolute;
+    top: -8px;
+    width: calc(100% - 24px);
+    height: 100%;
+    left: 12px;
+    right: 12px;
+    border-radius: 12px;
+}

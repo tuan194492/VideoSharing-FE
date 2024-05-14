@@ -12,13 +12,15 @@ export const VideoMini = (props) => {
         return data + String.fromCharCode(byte);
     }, ''));
     return (
-        <div className={'p-1 ' + props.className} onClick={e => {
+        <div className={'p-1 cursor-pointer hover:bg-gray-100  ' + props.className} onClick={e => {
             navigate(`/${page}/video/detail/${data.id}`)
         }}>
-            <img className={'object-fill h-[25vh] w-[100%]'} src={`data:image/png;base64,${base64String}`} />
+            <div className="aspect-ratio-container">
+                <img className={'aspect-ratio-image'} src={`data:image/png;base64,${base64String}`}/>
+            </div>
             <div className={'grid grid-cols-12'}>
                 <div className={'col col-span-1 mt-2'}>
-                    <img src={IMAGES.icon.avatar} />
+                <img src={IMAGES.icon.avatar} />
                 </div>
                 <div className={"col col-span-11 p-1 ml-3 flex flex-col justify-between"}>
                     <div className={"title font-bold text-lg line-clamp-2"}>
