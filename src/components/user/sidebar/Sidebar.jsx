@@ -70,6 +70,7 @@ const Sidebar = ({ menuCollapse, setMenuCollapse, isStudio }) => {
                                 style={{
                                     font: 'normal normal normal 12px',
                                 }}
+                                className={'hover:bg-gray-200 rounded-xl'}
                             >
                                 {item.title}
                             </MenuItem>

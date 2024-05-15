@@ -23,6 +23,9 @@ import {commentService} from "../../../api/user/comment";
 import {VerticalCommentList} from "../../../components/common/comment/VerticalCommentList";
 import {SubscribeButton} from "../../../components/common/button/SubscribeButton";
 import {AddPlaylistPopup} from "../../../components/modal/AddPlaylistPopup";
+import {AiOutlineDownload, AiOutlineLike} from "react-icons/ai";
+import { AiOutlineDislike } from "react-icons/ai";
+import {MdOutlineReportProblem} from "react-icons/md";
 
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
@@ -142,44 +145,53 @@ export default function VideoWatchPage() {
             <div className={"col-start-1 col-span-8 p-2"}>
                 <VideoPlayer videoStc={currentVideoSrc}/>
                 <div className={"video-info p-1 ml-3 flex flex-col justify-between"}>
-                    <div className={"title font-bold text-2xl line-clamp-2"}>
+                    <div className={"text-black font-bold text-sm md:text-xl mt-4 line-clamp-2"}>
                         {currentVideo.title}
                     </div>
-                    <div className={"flex items-center justify-between mt-2"}>
-                        <div className={"float-left flex"}>
-                            <img src={IMAGES.icon.avatar} className={"rounded-2xl w-[8%] "} />
-                            <span className={"inline-block ml-2 "}>
-                                <div className={"channel-name text-lg font-bold"}>
-                                    {currentVideo.user_name || 'No name'}
-                                </div>
-                                <div className={"channel-subscriber-count"}>
-                                    {StringUtils.formatNumber(currentChannel.subscriberCount)} subscribers
-                                </div>
-                            </span>
+                    <div className={"flex justify-between flex-col md:flex-row mt-4"}>
+                        <div className={"flex flex-row items-center"}>
+                            <div className={'relative h-20 md:h-16 md:rounded-xl overflow-hidden'}>
+                                <img src={IMAGES.icon.avatar} className={"h-full w-full object-cover rounded-lg"}/>
+                            </div>
+                            <div className={'flex flex-col'}>
+                                <span className={"inline-block ml-2 "}>
+                                    <div className={"text-black text-md font-semibold flex items-center"}>
+                                        {currentVideo.user_name || 'No name'}
+                                    </div>
+                                    <div className={"text-black/[0.7] text-sm"}>
+                                        {StringUtils.formatNumber(currentChannel.subscriberCount)} subscribers
+                                    </div>
+                                </span>
+                            </div>
+
                             <SubscribeButton
                                 callback={adjustSubscriberCount}
                                 channelId={currentVideo.publisher_id}
-                                className={"ml-8 h-[50%] rounded-2xl inline-flex items-center py-2 px-4 text-white transition duration-300"}/>
+                                className={" ml-8 transition duration-300 leading-3 h-12"}/>
                         </div>
-                        <div className={"float-right flex gap-[10px] items-center"}>
-                            <LikeButton
-                                count={likeCount}
-                                liked={currentVideo.liked}
-                                videoId={videoId}
-                                className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
-                            />
-                            <DislikeButton
-                                count={dislikeCount}
-                                disliked={currentVideo.disliked}
-                                videoId={videoId}
-                                className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
-                            />
-                            <AddPlaylistPopup />
+                        <div className={"float-right flex items-center gap-[10px]"}>
+                            <div className={'float-right flex items-center'}>
+                                <LikeButton
+                                    count={likeCount}
+                                    liked={currentVideo.liked}
+                                    videoId={videoId}
+                                    className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
+                                />
+                                <DislikeButton
+                                    count={dislikeCount}
+                                    disliked={currentVideo.disliked}
+                                    videoId={videoId}
+                                    className={'rounded-2xl inline-flex items-center py-2 px-4 transition duration-300'}
+                                />
+                            </div>
+
+                            <AddPlaylistPopup/>
                             {/*<MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} />*/}
                         </div>
+
                     </div>
-                    <div className={"description mt-2 bg-gray-300 p-2"}>
-                        <div className={"channel-name text-gray-700 text-md mb-3 "}>
+                    <div className={"description mt-6 bg-gray-100 round-xl p-2"}>
+                        <div className={"text-black text-md font-semibold  mb-3 "}>
                             <span className={"view-count"}>
                                 {currentVideo.views} views
                             </span>
@@ -196,7 +208,7 @@ export default function VideoWatchPage() {
                         </div>
                         <div className={'comment-body'}>
                             <CommentPostBox videoId={videoId}/>
-                            <VerticalCommentList videoId={videoId} />
+                            <VerticalCommentList videoId={videoId}/>
                         </div>
                     </div>
                 </div>

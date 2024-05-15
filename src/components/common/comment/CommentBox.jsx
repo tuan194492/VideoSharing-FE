@@ -26,31 +26,35 @@ export const CommentBox = (props) => {
     }
     return (
         <div className={'grid grid-cols-12 p-2 mt-1.5'}>
-            <div className={'avatar-box col col-span-1'}>
-                <img src={IMAGES.icon.avatar} className={"rounded-2xl w-[100%] p-2"}/>
+            <div className={'relative h-14 md:h-12 md:rounded-xl overflow-hidden'}>
+                <img src={IMAGES.icon.avatar} className={"h-full w-full object-contain rounded-lg"}/>
             </div>
-            <div className={'col col-span-11 ml-1'}>
+            <div className={'col col-span-11'}>
                 <div>
-                    <span className={"channel-name text-lg font-bold"}>
+                    <span className={"text-black text-md font-semibold "}>
                         {props.comment.username}
                     </span>
-                    <span className={'ml-2'}>
+                    <span className={'ml-2 text-black/[0.7] text-sm'}>
                         {StringUtils.convertSeconds(currentComment.postedSince)} ago
                     </span>
                 </div>
-                <DescriptionTextField description={currentComment.value} line={2} />
-                <div className={'flex gap-0.5'}>
-                    <LikeButton
-                        className={'scale-75'}
-                        count={currentComment.likeCount}
-                        liked={currentComment.liked}/>
-                    <DislikeButton
-                        className={'scale-75'}
-                        count={currentComment.dislikeCount}
-                        disliked={currentComment.disliked}/>
-                    <button className={'text-2xl default-button scale-75'} onClick={e => {
-                            setShowReply(showReply => !showReply)}
-                    }>
+                <DescriptionTextField description={currentComment.value} line={2}/>
+                <div className={'flex mt-2'}>
+                    <div className={'flex flex-row scale-75'}>
+                        <LikeButton
+                            count={currentComment.likeCount}
+                            liked={currentComment.liked}/>
+                        <DislikeButton
+                            count={currentComment.dislikeCount}
+                            disliked={currentComment.disliked}/>
+                    </div>
+
+                    <button
+                        className={'flex rounded-full bg-gray-100 hover:bg-gray-200 p-2 text-xs whitespace-nowrap hover:cursor-pointer'}
+                        onClick={e => {
+                            setShowReply(showReply => !showReply)
+                        }
+                        }>
                         Reply
                     </button>
                 </div>

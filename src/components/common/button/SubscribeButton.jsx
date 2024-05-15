@@ -57,7 +57,7 @@ export const SubscribeButton = (props) => {
     return (
         <button
             onClick={handleSubscribe}
-            className={props.className + getClassNameForButton()}>
+            className={'bg-black rounded-full px-4 ml-2 text-white hover:bg-white hover:text-black hover:border border-black ' + getClassNameForButton() + props.className}>
             {subscribed ? 'Subscribed' : 'Subscribe'}
         </button>
     )

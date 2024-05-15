@@ -4,6 +4,11 @@ import {IMAGES} from "../utils/images/images";
 import {UserVideoHomePage} from "../pages/user/homepage/UserVideoHomePage";
 import {PlaylistSummary} from "../pages/user/playlist/PlaylistSummary";
 import {PlaylistWatchDetail} from "../pages/user/playlist/PlaylistWatchDetail";
+import { RiPlayList2Fill } from "react-icons/ri";
+import { FaHistory } from "react-icons/fa";
+import { BsFire } from "react-icons/bs";
+import { LuClock2 } from "react-icons/lu";
+import { AiOutlineLike } from "react-icons/ai";
 
 
 export const userRoutes = [
@@ -12,6 +17,15 @@ export const userRoutes = [
         path: '/user/homepage',
         element: <UserVideoHomePage/>,
         icon: IMAGES.icon.home,
+        subRoute: [],
+        able: 1,
+        isStudio: false
+    },
+    {
+        title: 'Trending',
+        path: '/user/homepage',
+        element: <UserVideoHomePage/>,
+        icon: <BsFire size={28}/>,
         subRoute: [],
         able: 1,
         isStudio: false
@@ -29,7 +43,25 @@ export const userRoutes = [
         title: 'Playlist',
         path: '/user/playlist',
         element: <PlaylistSummary />,
-        icon: IMAGES.icon.playlist,
+        icon: <RiPlayList2Fill size={28}/>,
+        subRoute: [],
+        able: 1,
+        isStudio: false
+    },
+    {
+        title: 'Watch Later',
+        path: '/user/playlist',
+        element: <PlaylistSummary />,
+        icon: <LuClock2  size={28}/>,
+        subRoute: [],
+        able: 1,
+        isStudio: false
+    },
+    {
+        title: 'Liked',
+        path: '/user/playlist',
+        element: <PlaylistSummary />,
+        icon: <AiOutlineLike  size={28}/>,
         subRoute: [],
         able: 1,
         isStudio: false
@@ -38,7 +70,7 @@ export const userRoutes = [
         title: 'History',
         path: '/user/history',
         element: <div/>,
-        icon: IMAGES.icon.history,
+        icon: <FaHistory size={28}/>,
         subRoute: [],
         able: 1,
         isStudio: false
