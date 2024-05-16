@@ -6,6 +6,7 @@ import {toast} from "react-toastify";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {ThreeCircles} from "react-loader-spinner";
 import {VideoMini} from "../../../components/common/homepage/VideoMini";
+import {DropdownButton, DropDownButton} from "../../../components/common/button/DropDownButton";
 
 export const PlaylistSummary = (props) => {
     const [playlistList, setPlaylistList] = useState([]);
@@ -38,6 +39,18 @@ export const PlaylistSummary = (props) => {
         <div
             className={'flex justify-center flex-col'}
         >
+            <div className={'font-extrabold text-4xl ml-3'}>
+                Playlist:
+            </div>
+            <DropdownButton options={[{
+                value: 'A-Z',
+                label: 'A-Z'
+            },
+                {
+                    value: 'Recently added',
+                    label: 'Recently added'
+                }
+            ]}/>
             <InfiniteScroll
                 dataLength={playlistList.length}
                 next={fetchMoreData}
@@ -48,7 +61,7 @@ export const PlaylistSummary = (props) => {
             >
                 <div
                     id="playlistList"
-                    className={'grid sm:grid-cols-1 md:grid-cols-3 p-1 gap-1'}>
+                    className={'grid sm:grid-cols-1 md:grid-cols-3 p-1 gap-1 mt-6'}>
                     {playlistList && playlistList.map(playlist => <PlayListMini data={playlist}/>)}
                 </div>
             </InfiniteScroll>

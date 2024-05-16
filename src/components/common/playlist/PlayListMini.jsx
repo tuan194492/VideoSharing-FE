@@ -6,6 +6,8 @@ import {toast} from "react-toastify";
 import {AuthContext} from "../../../context/AuthContext";
 import {IMAGES} from "../../../utils/images/images";
 import './index.css'
+import VideoLength from "../video/VideoLength";
+import VideoCount from "../video/VideoCount";
 export const PlayListMini = (props) => {
     const playlistId = props.data.id;
 
@@ -55,13 +57,13 @@ export const PlayListMini = (props) => {
     }, []);
 
     return (
-        <div className={"grid grid-cols-5 cursor-pointer hover:bg-gray-100  " + props.className}
+        <div className={"flex flex-col cursor-pointer hover:bg-gray-100  " + props.className}
              onClick={e => {
                  navigate(`/${page}/playlist/detail/${playlistId}`);
              }}
-            title={playlist.description}
+             title={playlist.description}
         >
-            <div className={"thumbnail col col-span-2 w-full h-full p-2 flex justify-center aspect-ratio-container"}>
+            <div className="aspect-ratio-container relative">
                 {!playlistThumbnail && <img src={IMAGES.icon.empty}
                                             alt={"An alt"}
                                             className={"aspect-ratio-image"}/>}
@@ -70,22 +72,19 @@ export const PlayListMini = (props) => {
                          alt={"An alt"}
                          className={"aspect-ratio-image"}/>
                 }
+                <VideoCount count={videoCount}/>
             </div>
-            <div className={"col col-span-3 p-1 flex flex-col justify-between"}>
-                <div className={"channel-name text-gray-700 text-md bold flex flex-col"}>
-                    <span className={"title font-bold text-md line-clamp-2"}>
+            <div className={'flex flex-col'}>
+                <div className={"p-2"}>
+                    <div className={"text-black text-lg font-semibold line-clamp-2 mt-1"}>
                         {playlist.title}
-                    </span>
-                    <span className={"view-count mt-2"}>
+                    </div>
+                    <div className={"posted-date text-black/[0.7] text-sm mt-1"}>
+                        Updated {StringUtils.convertSeconds(playlist.postedSince)} ago
+                    </div>
+                    <div className={"view-count text-black/[0.7] text-sm mt-1"}>
                         {playlist.status} Playlist
-                    </span>
-                    <span className={"posted-date"}>
-                        {StringUtils.convertSeconds(playlist.postedSince)} ago
-                    </span>
-
-                    <span className={"bold items-end mt-10"}>
-                        {videoCount} videos
-                    </span>
+                    </div>
                 </div>
             </div>
         </div>
