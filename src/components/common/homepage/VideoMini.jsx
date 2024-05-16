@@ -1,6 +1,7 @@
 import {IMAGES} from "../../../utils/images/images";
 import {StringUtils} from "../../../utils/string/StringUtils";
 import {useNavigate} from "react-router-dom";
+import VideoLength from "../video/VideoLength";
 
 export const VideoMini = (props) => {
     const data = props.data;
@@ -15,10 +16,11 @@ export const VideoMini = (props) => {
         <div className={'p-1 cursor-pointer hover:bg-gray-100  ' + props.className} onClick={e => {
             navigate(`/${page}/video/detail/${data.id}`)
         }}>
-            <div className="aspect-ratio-container">
+            <div className="aspect-ratio-container relative">
                 <img className={'aspect-ratio-image'} src={`data:image/png;base64,${base64String}`}/>
+                <VideoLength time={data?.video_length_in_seconds} />
             </div>
-            <div className={'grid grid-cols-12'}>
+            <div className={'grid grid-cols-12 mt-2'}>
                 <div className={'col col-span-1 mt-2'}>
                 <img src={IMAGES.icon.avatar} />
                 </div>
@@ -26,8 +28,8 @@ export const VideoMini = (props) => {
                     <div className={"title font-bold text-lg line-clamp-2"}>
                         {data.title}
                     </div>
-                    <div className={"channel-name text-gray-700 text-sm mb-3 "}>
-                        <div className={'line-clamp-1'}>
+                    <div className={"channel-name text-black/[0.7] text-sm mt-1 "}>
+                        <div className={'line-clamp-1 '}>
                             {data.user_name}
                         </div>
                         <div className={"detail"}>

@@ -2,10 +2,11 @@ import userService, {videoService as videoService} from '../../../api/user/video
 import {IMAGES} from "../../../utils/images/images";
 import {useNavigate} from "react-router-dom";
 import {StringUtils} from "../../../utils/string/StringUtils";
+import VideoLength from "./VideoLength";
 
 export const VideoMini = (props) => {
     const data = props.data;
-    // console.log(data);
+    console.log(data);
     const navigate = useNavigate();
     const role = localStorage.getItem("role");
     const page = role?.substring(1, role.length - 1).toLowerCase() || 'guest';
@@ -21,16 +22,17 @@ export const VideoMini = (props) => {
                  }
                  navigate(`/${page}/video/detail/${data.id}`);
              }}>
-            <div className={"thumbnail col col-span-2 w-full p-2 flex justify-center aspect-ratio-container"}>
+            <div className={"thumbnail col col-span-2 w-full flex justify-center aspect-ratio-container relative"}>
                 <img src={`data:image/png;base64,${base64String}`}
                      alt={"An alt"}
                      className={"aspect-ratio-image rounded-lg"}/>
+                <VideoLength time={data?.video_length_in_seconds} />
             </div>
-            <div className={"col col-span-3 p-1 flex flex-col justify-between"}>
-                <div className={"title font-bold text-sm line-clamp-2"}>
+            <div className={"col col-span-3 ml-4 flex flex-col justify-between"}>
+                <div className={"title text-black text-md font-medium line-clamp-2"}>
                     {data.title}
                 </div>
-                <div className={"channel-name text-gray-700 text-sm mb-3"}>
+                <div className={"channel-name text-black/[0.7] text-sm"}>
                     <div >
                         {data.user_name}
                     </div>
@@ -43,7 +45,6 @@ export const VideoMini = (props) => {
                         </span>
                     </div>
                 </div>
-
             </div>
         </div>
     )

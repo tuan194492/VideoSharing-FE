@@ -54,16 +54,16 @@ export const CommentPostBox = (props) => {
             </div>
             <div className="flex justify-end px-4 gap-4">
                 <button
-                    className="px-2.5 py-1.5 rounded-md text-white text-sm bg-red-500"
+                    className="px-2.5 py-1.5 rounded-md text-white text-md bg-gray-400 hover:bg-gray-500 transition-colors"
                     onClick={onCancelHandle}
                 >
                     Cancel
                 </button>
                 <button
-                    className="px-2.5 py-1.5 rounded-md text-white text-sm bg-indigo-500"
+                    className="px-2.5 py-1.5 rounded-md  text-white text-md bg-blue-600 hover:bg-blue-800"
                     onClick={onHandleSubmit}
                 >
-                    Comment
+                    Post
                 </button>
             </div>
         </div>
