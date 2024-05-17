@@ -199,7 +199,7 @@ export default function VideoWatchPage() {
                                 {StringUtils.convertSeconds(currentVideo.postedSince)} ago
                             </span>
                         </div>
-                        <DescriptionTextField description={description} line={2}/>
+                        <DescriptionTextField description={description} line={1}/>
                     </div>
 
                     <div>

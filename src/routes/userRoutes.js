@@ -23,7 +23,7 @@ export const userRoutes = [
     },
     {
         title: 'Trending',
-        path: '/user/homepage',
+        path: '/user/trending',
         element: <UserVideoHomePage/>,
         icon: <BsFire size={28}/>,
         subRoute: [],

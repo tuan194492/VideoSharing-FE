@@ -63,7 +63,16 @@ export const PlayListMini = (props) => {
              }}
              title={playlist.description}
         >
-            <div className="aspect-ratio-container relative">
+            <div className="aspect-ratio-container relative ">
+                <div className={'absolute bg-gray-200 translate-y-[-24px] w-[85%] h-full rounded-[8px] left-9'}>
+
+                </div>
+                <div className={'absolute bg-gray-300 translate-y-[-16px] w-[90%] h-full rounded-[8px] left-6'}>
+
+                </div>
+                <div className={'absolute bg-gray-400 translate-y-[-8px] w-[95%] h-full rounded-[8px] left-3'}>
+
+                </div>
                 {!playlistThumbnail && <img src={IMAGES.icon.empty}
                                             alt={"An alt"}
                                             className={"aspect-ratio-image"}/>}

@@ -26,7 +26,8 @@ export const DropdownButton = ({ options, onSelect }) => {
                     aria-expanded="true"
                     aria-haspopup="true"
                     onClick={e => {
-                        setIsOpen(!isOpen);
+                        console.log('aaa')
+                        setIsOpen(prev => !prev);
                     }}
                 >
                     {selectedOption ? selectedOption.label : 'Select an option'}
@@ -45,8 +46,7 @@ export const DropdownButton = ({ options, onSelect }) => {
                     </svg>
                 </button>
             </div>
-
-
+            {isOpen &&
                 <div
                     className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
                     role="menu"
@@ -67,6 +67,8 @@ export const DropdownButton = ({ options, onSelect }) => {
                         ))}
                     </div>
                 </div>
+            }
+
 
         </div>
     );
