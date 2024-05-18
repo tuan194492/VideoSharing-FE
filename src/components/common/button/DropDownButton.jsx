@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-export const DropdownButton = ({ options, onSelect }) => {
+export const DropdownButton = ({ options, onSelect, className }) => {
     console.log(options)
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
 
     const toggleDropdown = (e) => {
@@ -13,11 +13,12 @@ export const DropdownButton = ({ options, onSelect }) => {
     const handleOptionClick = (option) => {
         setSelectedOption(option);
         setIsOpen(false);
-        onSelect(option);
+        option.onSelect(option);
+        // option.callback();
     };
 
     return (
-        <div className="relative inline-block text-left">
+        <div className={"relative inline-block text-left " + className}>
             <div>
                 <button
                     type="button"
@@ -26,7 +27,6 @@ export const DropdownButton = ({ options, onSelect }) => {
                     aria-expanded="true"
                     aria-haspopup="true"
                     onClick={e => {
-                        console.log('aaa')
                         setIsOpen(prev => !prev);
                     }}
                 >
@@ -48,7 +48,7 @@ export const DropdownButton = ({ options, onSelect }) => {
             </div>
             {isOpen &&
                 <div
-                    className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                    className="origin-top-right absolute z-10 left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="options-menu"
@@ -58,11 +58,11 @@ export const DropdownButton = ({ options, onSelect }) => {
                             <a
                                 href="#"
                                 key={option.value}
-                                onClick={() => handleOptionClick(option)}
+                                onClick={(e) => handleOptionClick(option)}
                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                 role="menuitem"
                             >
-                                {option.label}aaa
+                                {option.label}
                             </a>
                         ))}
                     </div>
