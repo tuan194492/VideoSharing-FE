@@ -19,6 +19,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import {ThreeCircles} from "react-loader-spinner";
 import VideoVerticalList from "../../../components/user/video/VideoVerticalList";
 import {VideoMini} from "../../../components/common/video/VideoMini";
+import {MdLock, MdLoop, MdPrivateConnectivity, MdPublic} from "react-icons/md";
+import {GiPrivate} from "react-icons/gi";
+import {SiPrivateinternetaccess} from "react-icons/si";
+import {BsDot, BsPlay} from "react-icons/bs";
+import {HiXMark} from "react-icons/hi2";
+import {GrCirclePlay, GrGooglePlay} from "react-icons/gr";
+import {BiMoviePlay, BiShuffle} from "react-icons/bi";
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
 
@@ -125,6 +132,15 @@ export const PlaylistWatchDetail = (props) => {
         })
     }
 
+    const togglePlaylistLoop = (e) => {
+
+    }
+
+    const togglePlaylistShuffle = (e) => {
+
+    }
+
+
     return (
         <div className={"grid grid-cols-12"}>
             {/* Video watching + Comment List */}
@@ -193,24 +209,70 @@ export const PlaylistWatchDetail = (props) => {
 
             </div>
 
-            <div className={"col-span-4 ml-8 flex flex-col bg-gray-200 max-h-[50vh] "}>
-                <div className={'text-lg font-bold ml-2 text-white-900'}>
-                    Playlist: {playlist.title} <br/>
-                    Video: {currentVideoIndex + 1} / {videoList.length}
+            <div className={"col-span-4 flex flex-col border-gray-300 box-border border-[1px] rounded-[12px] relative"}>
+                <div className={'pt-[12px] pr-[6px] pb-[0px] pl-[16px] border-b-2 pb-4'}>
+                    <div className={'text-black text-2xl font-semibold line-clamp-2 mt-2'}>
+                        Playlist: {playlist.title}
+                    </div>
+                    <button className={'absolute right-[5%] top-7'}>
+                        <HiXMark size={28}/>
+                    </button>
+                    <div className={'flex flex-row mt-3'}>
+                        <div className={'flex text-black/[0.7] text-sm bg-gray-200 px-2 py-[4px] rounded-[4px] gap-1 '}>
+                            {playlist.status === 'PUBLIC' ? <MdPublic size={16}/>  : <MdLock size={16}/> }
+                            <span>
+                                {playlist.status === 'PUBLIC' ? 'Public'  : 'Private' }
+                            </span>
+                        </div>
+                        <div className={'flex text-black/[0.7] text-sm px-2 py-[4px]'}>
+                            <div>
+                                {playlist.User?.name}
+                            </div>
+                            <BsDot size={16}/>
+                            <div>
+                                {currentVideoIndex + 1} / {videoList.length}
+                            </div>
+                        </div>
+                    </div>
+                    <div className={'mt-4 flex flex-row justify-items-start gap-4'}>
+                        <button
+                            className={'hover:bg-gray-100'}
+                            onClick={togglePlaylistLoop}
+                        >
+                            <MdLoop size={28}/>
+                        </button>
+                        <button
+                            className={'hover:bg-gray-100'}
+                            onClick={togglePlaylistShuffle}
+                        >
+                            <BiShuffle size={28}/>
+                        </button>
+                    </div>
                 </div>
-                <div className={'max-h-[50vh] overflow-hidden overflow-y-scroll mt-5'}>
+                <div className={'flex flex-col gap-2 overflow-y-scroll mt-2'}>
                     {videoList &&
                         videoList.map(video => {
                             if (video.id === currentVideo.id) {
-                                return <VideoMini
-                                    className={'p-0.5 mb-3 bg-red-300'}
-                                    data={video}/>
+                                return <div className={'flex flex-row justify-center items-center bg-gray-200 hover:bg-gray-200 gap-1'}>
+                                    <div className={'w-[5%] flex items-center justify-center'}>
+                                        <BsPlay size={28}/>
+                                    </div>
+                                    <VideoMini
+                                        className={'p-0.5 w-full'}
+                                        data={video}/>
+                                </div>
+
                             }
-                            return <VideoMini
-                                className={'bg-gray-100 p-0.5 mb-3'}
-                                data={video}
-                                onClick={e => onChangeVideo(video)}
-                            />
+                            return <div className={'flex flex-row justify-center items-center hover:bg-gray-100 gap-1'}>
+                                <div className={'w-[5%] flex items-center justify-center'}>
+                                    {video.id}
+                                </div>
+                                <VideoMini
+                                    className={'p-0.5 w-full'}
+                                    data={video}
+                                    onClick={e => onChangeVideo(video)}
+                                />
+                            </div>
                         })
                     }
                 </div>

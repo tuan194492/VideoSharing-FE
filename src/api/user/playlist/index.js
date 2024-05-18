@@ -184,6 +184,7 @@ const isAddedToPlaylist = async (playlistId, videoId, token) => {
 const getPlaylistDetail = async (token, playlistId) => {
     try {
         const result = await axios.get(`${baseAdminURL}/playlist/detail/${playlistId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        console.log(result)
         return {
             success: true,
             data: result.data,
