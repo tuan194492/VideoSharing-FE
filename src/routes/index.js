@@ -7,6 +7,7 @@ import {AdminLoginPage} from "../pages/admin/login/AdminLoginPage";
 import {userRoutes, userStudioRoute} from "./userRoutes";
 import {guestRoutes} from "./guestRoutes";
 import UserStudioLayout from "../layouts/user/UserStudioLayout";
+import {ChannelDetail} from "../pages/user/channel/ChannelDetail";
 
 const admin = [], user = [], guest = [], userStudio = [];
 userRoutes.map((route) => {

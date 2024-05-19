@@ -26,6 +26,7 @@ import {AddPlaylistPopup} from "../../../components/modal/AddPlaylistPopup";
 import {AiOutlineDownload, AiOutlineLike} from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
 import {MdOutlineReportProblem} from "react-icons/md";
+import {useNavigate} from "react-router-dom";
 
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
@@ -43,6 +44,7 @@ export default function VideoWatchPage() {
     const [likeCount, setLikeCount] = useState(0);
     const [dislikeCount, setDislikeCount] = useState(0);
     const [description, setDescription] = useState('');
+    const navigate = useNavigate();
 
     const fetchVideoData = async (id) => {
         const result = await videoService.findVideoById(token, id);
@@ -58,10 +60,7 @@ export default function VideoWatchPage() {
                 console.log(fetchChannelResult.data.data);
                 setCurrentChannel(fetchChannelResult.data.data);
             }
-            // const fetchCommentResult = await commentService.getCommentListByVideo(id);
-            // if (fetchCommentResult.success) {
-            //     setCommentList(fetchCommentResult.data.data);
-            // }
+
         }
     }
 
@@ -150,7 +149,11 @@ export default function VideoWatchPage() {
                     </div>
                     <div className={"flex justify-between flex-col md:flex-row mt-4"}>
                         <div className={"flex flex-row items-center"}>
-                            <div className={'relative h-20 md:h-16 md:rounded-xl overflow-hidden'}>
+                            <div
+                                onClick={(e) => {
+                                    navigate(`/user/channel/${currentChannel.id}`);
+                                }} 
+                                className={'relative h-20 md:h-16 md:rounded-xl overflow-hidden'}>
                                 <img src={IMAGES.icon.avatar} className={"h-full w-full object-cover rounded-lg"}/>
                             </div>
                             <div className={'flex flex-col'}>

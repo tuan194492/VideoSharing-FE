@@ -9,6 +9,7 @@ import { FaHistory } from "react-icons/fa";
 import { BsFire } from "react-icons/bs";
 import { LuClock2 } from "react-icons/lu";
 import { AiOutlineLike } from "react-icons/ai";
+import {ChannelDetail} from "../pages/user/channel/ChannelDetail";
 
 
 export const userRoutes = [
@@ -86,6 +87,10 @@ export const userRoutes = [
     {
         path: "/user/playlist/detail/:id",
         element: <PlaylistWatchDetail />
+    },
+    {
+        path: "/user/channel/:id",
+        element: <ChannelDetail />
     }
 ]
 
