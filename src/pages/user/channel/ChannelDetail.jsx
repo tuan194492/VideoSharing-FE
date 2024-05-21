@@ -6,6 +6,13 @@ import {IMAGES} from "../../../utils/images/images";
 import {videoService} from "../../../api/user/video";
 import {AuthContext} from "../../../context/AuthContext";
 import {VideoMini} from "../../../components/common/homepage/VideoMini";
+import {CgArrowRight, CgMoveRight} from "react-icons/cg";
+import {AiOutlineArrowRight} from "react-icons/ai";
+import {BsBoxArrowRight, BsPlay, BsPlayBtn} from "react-icons/bs";
+import {FaCircleArrowRight} from "react-icons/fa6";
+import {TbCircleArrowLeftFilled, TbCircleArrowRightFilled} from "react-icons/tb";
+import {playlistService} from "../../../api/user/playlist";
+import {PlayListMini} from "../../../components/common/playlist/PlayListMini";
 const defaultImage = 'https://www.frontsigns.com/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2020/12/Business-Branding-Ideas.jpg.webp';
 
 const videoPerRequest = 8;
@@ -30,6 +37,11 @@ export const ChannelDetail = (props) => {
             })
             if (fetchVideoData.success) {
                 setVideoList(fetchVideoData.data.data)
+            }
+
+            const fetchPlaylistResult = await playlistService.getPublicPlaylistListByUser(channelId);
+            if (fetchPlaylistResult.success) {
+                setPlaylistList(fetchPlaylistResult.data);
             }
         }
     }
@@ -61,18 +73,75 @@ export const ChannelDetail = (props) => {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className={'border-b-2 border-gray-100'}>
                 <h4 className='text-[16px] text-[#585858] font-bold tracking-wider'>VIDEOS</h4>
-                <div className='mt-3 gap-x-5 gap-y-3 grid sm:grid-cols-1 md:grid-cols-6 px-4'>
+                <div className='mt-3 gap-x-5 gap-y-3 grid sm:grid-cols-1 md:grid-cols-6 px-4 pt-2 pb-4 relative'>
                     {
                         videoList.map((item) => (
                             <VideoMini data={item} key={item.id}/>
                         ))
                     }
+                        <TbCircleArrowLeftFilled className={'text-gray-300 hover:text-gray-400 transition-colors absolute left-[-15px] top-1/4 cursor-pointer'} size={32} />
+                        <TbCircleArrowRightFilled className={'text-gray-300 hover:text-gray-400 transition-colors absolute right-[-10px] top-1/4 cursor-pointer'} size={32} />
                 </div>
             </div>
-            <div>
 
+            {
+                playlistList.map((playlist) => (
+                    <div className={'border-b-2 border-gray-100 mt-4'}>
+                        <div className={'flex flex-row justify-start items-center gap-8'}>
+                            <h4 className='text-[16px] text-[#585858] font-bold tracking-wider'>{playlist.title}</h4>
+                            <div className={'flex flex-row justify-items-start items-center hover:bg-gray-200 cursor-pointer rounded-full gap-1 px-2'}>
+                                <BsPlay/>
+                                <h4 className='text-[16px] text-[#585858] font-extrabold tracking-wider'>Play all</h4>
+                            </div>
+
+
+                        </div>
+                        <div className='mt-3 gap-x-5 gap-y-3 grid sm:grid-cols-1 md:grid-cols-6 px-4 relative pt-2 pb-4'>
+                        {
+                            playlist.Videos.map((item) => (
+                                    <VideoMini data={item} key={item.id}/>
+                                ))
+                            }
+                            {playlist.Videos.length > 7 &&
+                            <>
+                                <TbCircleArrowLeftFilled
+                                className={'text-gray-300 hover:text-gray-400 transition-colors absolute left-[-15px] top-1/4 cursor-pointer'}
+                                size={32}/>
+                            <TbCircleArrowRightFilled
+                                className={'text-gray-300 hover:text-gray-400 transition-colors absolute right-[-10px] top-1/4 cursor-pointer'}
+                                size={32}/>
+                            </>
+                            }
+
+                        </div>
+                    </div>
+                ))
+            }
+
+            <div className={'mt-4'}>
+                <h4 className='text-[16px] mt-2 text-[#585858] font-bold tracking-wider'>PLAYLISTS</h4>
+                <div className='mt-3 gap-x-5 gap-y-3 grid sm:grid-cols-1 md:grid-cols-6 px-4 relative mt-12 pt-2 pb-4'>
+                    {
+                        playlistList.map((playlist) => {
+                            return <PlayListMini data={{
+                                id: playlist.id
+                            }}/>
+                        })
+                    }
+                    {
+                        playlistList.length > 7 && <>
+                            <TbCircleArrowLeftFilled
+                                className={'text-gray-300 hover:text-gray-400 transition-colors absolute left-[-15px] top-1/4 cursor-pointer'}
+                                size={32}/>
+                            <TbCircleArrowRightFilled
+                                className={'text-gray-300 hover:text-gray-400 transition-colors absolute right-[-10px] top-1/4 cursor-pointer'}
+                                size={32}/>
+                        </>
+                    }
+
+                </div>
             </div>
         </div>
     )

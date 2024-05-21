@@ -31,6 +31,66 @@ const getPlaylistListByUser = async (token) => {
     }
 }
 
+const getPublicPlaylistListByUser = async (channelId) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/playlist/public/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
+        console.log(result)
+        return {
+            success: true,
+            count: result.data.data.count,
+            data: result.data.data.rows,
+            message: 'Get playlist list successfully!'
+        };
+    } catch (error) {
+        let message = '';
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                count: 0,
+                data: [],
+                message: error.response.data.error
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                count: 0,
+                data: [],
+            };
+        }
+    }
+}
+
+const getPublicPlaylistDetail = async (playlistId) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/playlist/public/channel/${playlistId}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
+        console.log(result)
+        return {
+            success: true,
+            count: result.data.data.count,
+            data: result.data.data.rows,
+            message: 'Get playlist list successfully!'
+        };
+    } catch (error) {
+        let message = '';
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                count: 0,
+                data: [],
+                message: error.response.data.error
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                count: 0,
+                data: [],
+            };
+        }
+    }
+}
+
 const addToPlaylist = async (videoId, playlistId, token) => {
     try {
         console.log(videoId, playlistId)
@@ -216,5 +276,7 @@ export const playlistService = {
     deletePlaylist,
     deleteVideoFromPlaylist,
     isAddedToPlaylist,
-    getPlaylistDetail
+    getPlaylistDetail,
+    getPublicPlaylistListByUser,
+    getPublicPlaylistDetail
 }

@@ -234,7 +234,7 @@ export const PlaylistWatchDetail = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className={'mt-4 flex flex-row justify-items-start gap-4'}>
+                    <div className={'mt-4 flex flex-row justify-items-start gap-4 pb-2'}>
                         <button
                             className={'hover:bg-gray-100'}
                             onClick={togglePlaylistLoop}
