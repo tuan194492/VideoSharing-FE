@@ -51,63 +51,30 @@ export default function UserRegisterPage() {
                                             id='name'
                                             className=' w-full pl-2 outline-none text-base text-[#757575] border-2 py-1 px-3 rounded-lg'
                                             type='text'
-                                            placeholder='name'
+                                            placeholder='Name'
                                             {...register('name', { required: true })}
                                         />
                                     </div>
                                 </div>
                                 {errors.name && errors.name.type === 'required' && <p>⚠ This field is required!</p>}
                             </div>
-                            <div className='mb-3 col-span-1'>
-                                <div className='space-y-2 items-center'>
-                                    <div className=''> Phone number </div>
-                                    <div className='px-2'>
-                                        <input
-                                            id='phone_number'
-                                            className=' w-full pl-2 outline-none text-base text-[#757575] border-2 py-1 px-3 rounded-lg'
-                                            type='text'
-                                            placeholder='Phone number'
-                                            {...register('phone_number', { required: true, minLength: 6 })}
-                                        />
-                                    </div>
-                                </div>
-                                {errors.phone_number && errors.phone_number.type === 'required' && <p>⚠ This field is required!</p>}
-                                {errors.phone_number && errors.phone_number.type === 'minLength' && <p>⚠ Zalo number cannot be less than 6 characters!</p>}
-                            </div>
-                        </div>
-                        <div className='grid grid-cols-3 gap-2'>
-                            <div className='mb-3 col-span-1'>
-                                <div className='space-y-2 items-center'>
-                                    <div className=''> Zalo number </div>
-                                    <div className='px-2'>
-                                        <input
-                                            id='zalo_number'
-                                            className=' w-full pl-2 outline-none text-base text-[#757575] border-2 py-1 px-3 rounded-lg'
-                                            type='text'
-                                            placeholder='Zalo number'
-                                            {...register('zalo_number', { required: true, minLength: 6 })}
-                                        />
-                                    </div>
-                                </div>
-                                {errors.zalo_number && errors.zalo_number.type === 'required' && <p>⚠ This field is required!</p>}
-                                {errors.zalo_number && errors.zalo_number.type === 'minLength' && <p>⚠ Zalo number cannot be less than 6 characters!</p>}
-                            </div>
+
 
                             <div className='mb-3 col-span-2'>
                                 <div className='mb-3 col-span-2'>
                                     <div className='space-y-2 items-center'>
-                                        <div className=''> Facebook </div>
+                                        <div className=''> Short name </div>
                                         <div className='px-2'>
                                             <input
-                                                id='facebook'
+                                                id='shortname'
                                                 className=' w-full pl-2 outline-none text-base text-[#757575] border-2 py-1 px-3 rounded-lg'
                                                 type='text'
-                                                placeholder='Facebook'
-                                                {...register('facebook', { required: true })}
+                                                placeholder='Short name'
+                                                {...register('shortname', { required: true })}
                                             />
                                         </div>
                                     </div>
-                                    {errors.facebook && errors.facebook.type === 'required' && <p>⚠ This field is required!</p>}
+                                    {errors.shortname && errors.shortname.type === 'required' && <p>⚠ This field is required!</p>}
                                 </div>
                             </div>
                         </div>
