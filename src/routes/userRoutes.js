@@ -6,10 +6,17 @@ import {PlaylistSummary} from "../pages/user/playlist/PlaylistSummary";
 import {PlaylistWatchDetail} from "../pages/user/playlist/PlaylistWatchDetail";
 import { RiPlayList2Fill } from "react-icons/ri";
 import { FaHistory } from "react-icons/fa";
-import { BsFire } from "react-icons/bs";
+import {BsFire, BsInfo} from "react-icons/bs";
 import { LuClock2 } from "react-icons/lu";
 import { AiOutlineLike } from "react-icons/ai";
 import {ChannelDetail} from "../pages/user/channel/ChannelDetail";
+import {GrChannel, GrUserManager} from "react-icons/gr";
+import {MdAnalytics, MdManageAccounts, MdOutlineUnsubscribe} from "react-icons/md";
+import {FaVideo} from "react-icons/fa6";
+import {BiUser} from "react-icons/bi";
+import {PiPlaylist} from "react-icons/pi";
+import {ChannelManager} from "../pages/user/studio/channel/ChannelManager";
+import {ChannelAnalytic} from "../pages/user/studio/analytic/ChannelAnalytic";
 
 
 export const userRoutes = [
@@ -96,10 +103,10 @@ export const userRoutes = [
 
 export const userStudioRoute = [
     {
-        title: 'Customization',
-        path: '/user/studio/customization',
-        element: <div/>,
-        icon: IMAGES.icon.history,
+        title: 'Channel',
+        path: '/user/studio/channel',
+        element: <ChannelManager />,
+        icon: <MdManageAccounts size={32} />,
         subRoute: [],
         able: 1,
         isStudio: true
@@ -107,26 +114,35 @@ export const userStudioRoute = [
     {
         title: 'Analytic',
         path: '/user/studio/analytic',
-        element: <div/>,
-        icon: IMAGES.icon.history,
+        element: <ChannelAnalytic />,
+        icon: <MdAnalytics size={32}/>,
         subRoute: [],
         able: 1,
         isStudio: true
     },
     {
-        title: 'Video Manage',
+        title: 'Video',
         path: '/user/studio/video-manage',
         element: <div/>,
-        icon: IMAGES.icon.history,
+        icon: <FaVideo size={32}/>,
         subRoute: [],
         able: 1,
         isStudio: true
     },
     {
-        title: 'Subscriber Manage',
+        title: 'Playlist',
+        path: '/user/studio/playlist-manage',
+        element: <div/>,
+        icon: <PiPlaylist size={32}/>,
+        subRoute: [],
+        able: 1,
+        isStudio: true
+    },
+    {
+        title: 'Subscriber',
         path: '/user/studio/subscriber-manage',
         element: <div/>,
-        icon: IMAGES.icon.history,
+        icon: <BiUser size={32}/>,
         subRoute: [],
         able: 1,
         isStudio: true

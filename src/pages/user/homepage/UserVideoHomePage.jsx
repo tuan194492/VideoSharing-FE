@@ -12,7 +12,7 @@ export const UserVideoHomePage = (props) => {
     const [videoList, setVideoList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-
+    const [loading, setLoading] = useState(false);
     function getClassNameForVideoMini() {
         return 'col col-span-1';
     }
@@ -33,19 +33,24 @@ export const UserVideoHomePage = (props) => {
     }
 
     const initVideoData = async () => {
+        setLoading(true);
         const result = await videoService.fetchVideoList(token, {
             page: 1,
             pageSize: videoPerRequest
         })
+        setLoading(false);
         if (result.success) {
             setVideoList(result.data.data)
             if (result.data.count < videoPerRequest) {
                 setHasMore(false);
             } else {
-                setHasMore(true);
+                const resultMore = await videoService.fetchVideoList(token, {
+                    page: 2,
+                    pageSize: videoPerRequest
+                })
+                setHasMore(resultMore.success && resultMore.data.count === 0);
             }
         }
-
     }
 
     useEffect( () => {
@@ -53,8 +58,10 @@ export const UserVideoHomePage = (props) => {
     }, []);
 
     const fetchMoreData = async () => {
+        setLoading(true);
         console.log('Has more')
         const result = await fetchVideoData(currentPage + 1, videoPerRequest);
+        setLoading(true);
         if (result.length > 0) {
             setVideoList([...videoList, ...result]);
             setCurrentPage(currentPage => currentPage + 1);
@@ -63,19 +70,20 @@ export const UserVideoHomePage = (props) => {
             setHasMore(false);
         }
         console.log(hasMore)
+
     }
 
 
 
     return (
         <div
-            className={'flex justify-center flex-col'}
+            className={'flex justify-center flex-col relative'}
         >
             <InfiniteScroll
                 dataLength={videoList.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
-                loader={<ThreeCircles />}
+                loader={loading && <div className={'fixed ml-auto mr-auto'}><ThreeDots /></div>}
                 scrollThreshold="0.8"
                 scrollableTarget={"videoList"}
             >
