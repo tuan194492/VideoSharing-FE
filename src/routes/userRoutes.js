@@ -17,6 +17,8 @@ import {BiUser} from "react-icons/bi";
 import {PiPlaylist} from "react-icons/pi";
 import {ChannelManager} from "../pages/user/studio/channel/ChannelManager";
 import {ChannelAnalytic} from "../pages/user/studio/analytic/ChannelAnalytic";
+import {VideoManage} from "../pages/user/studio/video/VideoManage";
+import {PlaylistManage} from "../pages/user/studio/playlist/PlaylistManage";
 
 
 export const userRoutes = [
@@ -123,7 +125,7 @@ export const userStudioRoute = [
     {
         title: 'Video',
         path: '/user/studio/video-manage',
-        element: <div/>,
+        element: <VideoManage />,
         icon: <FaVideo size={32}/>,
         subRoute: [],
         able: 1,
@@ -132,7 +134,7 @@ export const userStudioRoute = [
     {
         title: 'Playlist',
         path: '/user/studio/playlist-manage',
-        element: <div/>,
+        element: <PlaylistManage />,
         icon: <PiPlaylist size={32}/>,
         subRoute: [],
         able: 1,

@@ -3,7 +3,7 @@ import {BasicInfoManage} from "../channel/BasicInfoManage";
 import {ChannelCustomizeManage} from "../channel/ChannelCustomizeManage";
 import {ChannelLayoutManage} from "../channel/ChannelLayoutManage";
 
-export const ChannelAnalytic = (props) => {
+export const PlaylistManage = (props) => {
     const [currentPage, setCurrentPage] = useState(0);
     const getCurrentPageElement = () => {
         switch (currentPage) {
@@ -19,7 +19,7 @@ export const ChannelAnalytic = (props) => {
     return (
         <div>
             <div className={'font-extrabold text-3xl ml-3 '}>
-                Channel Analytic
+                Playlist Manage
             </div>
             <div
                 className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 mt-6">
