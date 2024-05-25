@@ -58,9 +58,22 @@ function displayDescription(description) {
     return description.replace(regex, '<br>');
 }
 
+function formatDate(date) {
+    return new Date(date).toLocaleDateString();
+}
+
+function capitalizeFirstLetter(str) {
+    if (str.length === 0) {
+        return str;
+    }
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 export const StringUtils = {
     countLines,
     convertSeconds,
     formatNumber,
-    displayDescription
+    displayDescription,
+    formatDate,
+    capitalizeFirstLetter
 };
