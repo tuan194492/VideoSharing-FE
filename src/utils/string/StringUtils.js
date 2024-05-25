@@ -69,11 +69,18 @@ function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
+function getBase64String(str) {
+    return btoa(new Uint8Array(str).reduce(function (data, byte) {
+        return data + String.fromCharCode(byte);
+    }, ''));
+}
+
 export const StringUtils = {
     countLines,
     convertSeconds,
     formatNumber,
     displayDescription,
     formatDate,
-    capitalizeFirstLetter
+    capitalizeFirstLetter,
+    getBase64String
 };

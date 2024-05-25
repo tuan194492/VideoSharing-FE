@@ -6,6 +6,9 @@ import {videoService} from "../../../../api/user/video";
 import {AuthContext} from "../../../../context/AuthContext";
 import {VideoManageMini} from "../../../../components/common/video/VideoManageMini";
 import {StringUtils} from "../../../../utils/string/StringUtils";
+import {CreatePlaylistButton} from "../../../../components/common/button/CreatePLaylistButton";
+import Popup from "reactjs-popup";
+import {VideoEdit} from "../../../../components/common/video/VideoEdit";
 
 const columns = [
     {
@@ -23,7 +26,7 @@ const columns = [
         filterable: true,
         Header: 'Visibility',
         width: 100,
-        Cell: props => <div className={'text-center'}>
+        Cell: props => <div className={'text-center text-black/[0.7] text-md'}>
             {StringUtils.capitalizeFirstLetter(props.value)}
         </div>
     },
@@ -33,7 +36,7 @@ const columns = [
         filterable: false,
         Header: 'View',
         width: 100,
-        Cell: props => <div className={'text-center'}>
+        Cell: props => <div className={'text-center text-black/[0.7] text-md'}>
             {props.value || 0}
         </div>
     },
@@ -43,7 +46,7 @@ const columns = [
         filterable: false,
         Header: 'Comment',
         width: 100,
-        Cell: props => <div className={'text-center'}>
+        Cell: props => <div className={'text-center text-black/[0.7] text-md'}>
             {props.value || 0}
         </div>
     },
@@ -53,7 +56,7 @@ const columns = [
         filterable: true,
         Header: 'Like',
         width: 100,
-        Cell: props => <div className={'text-center'}>
+        Cell: props => <div className={'text-center text-black/[0.7] text-md'}>
             {props.value || 0}
         </div>
     },
@@ -63,7 +66,7 @@ const columns = [
         filterable: true,
         Header: 'Dislike',
         width: 100,
-        Cell: props => <div className={'text-center'}>
+        Cell: props => <div className={'text-center text-black/[0.7] text-md'}>
             {props.value || 0}
         </div>
     },
@@ -73,7 +76,7 @@ const columns = [
         filterable: true,
         Header: 'Date',
         width: 250,
-        Cell: props => <div className={'text-center'}>
+        Cell: props => <div className={'text-center text-black/[0.7] text-md'}>
             {StringUtils.formatDate(props.value)}
         </div>
     },
@@ -83,13 +86,21 @@ const columns = [
         filterable: false,
         Header: 'Action',
         width: 150,
-        Cell: props => <div className={'text-center'}>
-            <div className={'text-blue-600 font-semibold cursor-pointer'}>
+        Cell: props => <div className={'text-center text-black/[0.7] text-md'}>
+            <div className={'text-blue-600 font-semibold cursor-pointer'}
+                 onClick={(e) => {
+                    openEditPopup(props.original)
+                 }}
+            >
                 Edit
             </div>
         </div>
     },
 ]
+
+let openEditPopup = (data) => {
+
+}
 
 const filterMethod = (filter, row, column) => {
     const id = filter.pivotId || filter.id
@@ -100,8 +111,16 @@ export const ChannelVideoManage = (props) => {
     const authContext = useContext(AuthContext);
     const token = authContext.token;
     const [videoList, setVideoList] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [currentVideo, setCurrentVideo] = useState({});
+    const closeModal = () => setOpen(false);
+
 
     const initVideoData = async () => {
+        openEditPopup = (data) => {
+            setCurrentVideo(data);
+            setOpen(true);
+        }
         const result = await videoService.fetchVideoList(token, {
             page: 1,
             pageSize: 8
@@ -129,8 +148,21 @@ export const ChannelVideoManage = (props) => {
                     style: {
                         height: '100%'
                     },
+
+                })}
+                getTheadThProps={(state, rowInfo, column) => ({
+                    style: {
+                        height: '60px',
+                        textAlign: 'center',
+                        paddingTop: '20px'
+                    },
                 })}
             />
+            <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+                <div className={'modal p-2 w-full'}>
+                    <VideoEdit video={currentVideo} />
+                </div>
+            </Popup>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import ReactPlayer from 'react-player'
 export default function ImageWatcher(props) {
     const {image} = props;
-
+    console.log(image)
     if (image) {
         const videoSrc = URL.createObjectURL(image);
         return (
