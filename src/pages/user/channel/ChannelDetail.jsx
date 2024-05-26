@@ -13,6 +13,7 @@ import {FaCircleArrowRight} from "react-icons/fa6";
 import {TbCircleArrowLeftFilled, TbCircleArrowRightFilled} from "react-icons/tb";
 import {playlistService} from "../../../api/user/playlist";
 import {PlayListMini} from "../../../components/common/playlist/PlayListMini";
+import {ImageUtils} from "../../../utils/images/ImageUtils";
 const defaultImage = 'https://www.frontsigns.com/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2020/12/Business-Branding-Ideas.jpg.webp';
 
 const videoPerRequest = 8;
@@ -62,7 +63,7 @@ export const ChannelDetail = (props) => {
             </div>
             <div className='flex gap-x-5 items-center my-5 pb-4 border-b-2 border-gray-100'>
                 <img className='rounded-[40px] w-12 h-12 md:w-16 md:h-16'
-                     src={IMAGES.icon.avatar}/>
+                     src={channel.avatar ? ImageUtils.createImageSrcFromBuffer(channel.avatar.data) : IMAGES.icon.avatar}/>
                 <div className='flex flex-col'>
                     <h3 className='text-md md:text-xl font-medium tracking-wide'>{channel?.name}</h3>
                     <div className='flex flex-col'>

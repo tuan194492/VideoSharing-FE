@@ -19,6 +19,7 @@ import {ChannelManager} from "../pages/user/studio/channel/ChannelManager";
 import {ChannelAnalytic} from "../pages/user/studio/analytic/ChannelAnalytic";
 import {VideoManage} from "../pages/user/studio/video/VideoManage";
 import {PlaylistManage} from "../pages/user/studio/playlist/PlaylistManage";
+import {VideoSearchPage} from "../pages/user/video/VideoSearch/VideoSearchPage";
 
 
 export const userRoutes = [
@@ -100,7 +101,11 @@ export const userRoutes = [
     {
         path: "/user/channel/:id",
         element: <ChannelDetail />
-    }
+    },
+    {
+        path: "/user/search",
+        element: <VideoSearchPage />
+    },
 ]
 
 export const userStudioRoute = [

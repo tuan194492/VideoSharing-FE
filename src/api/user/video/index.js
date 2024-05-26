@@ -116,10 +116,41 @@ const fetchVideoList = async (token, data) => {
     }
 }
 
+const searchVideo = async (keyword) => {
+    try {
+        const formData = RequestFactory.createFormDataFromObject({
+            keyword: keyword
+        })
+        const result = await axios.post(`${baseAdminURL}/video/search`, formData ,RequestFactory.createHeaderRequestWithJson(''));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Get Video list successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
 export const videoService = {
     findVideoById,
     fetchVideoDescriptionData,
     uploadVideo,
-    fetchVideoList
+    fetchVideoList,
+    searchVideo
 }
 
