@@ -13,8 +13,13 @@ export const BasicInfoManage = (props) => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm();
+
+    const resetData = (e) => {
+        reset();
+    }
 
     const onSubmit = async (data) => {
         console.log("Submit")
@@ -100,6 +105,8 @@ export const BasicInfoManage = (props) => {
                 <div className={'absolute right-0 top-[-60px]'}>
                     <button
                         className="px-2.5 py-1.5 rounded-lg text-md text-white bg-gray-400 hover:bg-gray-500 transition-colors"
+                        type={'button'}
+                        onClick={resetData}
                     >
                         Cancel
                     </button>
