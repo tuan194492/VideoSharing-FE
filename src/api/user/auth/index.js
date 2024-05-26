@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {RequestFactory} from "../../../utils/request";
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
 
 export const userLogin = async (props) => {
@@ -34,6 +35,34 @@ export const userRegister = async (props) => {
             success: true,
             data: result.data,
             message: 'Register successfully!'
+        };
+    } catch (error) {
+        console.log(error)
+        let message = '';
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: error.response.data.message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
+export const userUpdate = async (token, data) => {
+    try {
+        const formData = RequestFactory.createFormDataFromObject(data);
+        const result = await axios.post(`${baseAdminURL}/auth/update`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Update  successfully!'
         };
     } catch (error) {
         console.log(error)

@@ -3,6 +3,8 @@ import {IMAGES} from "../../../utils/images/images";
 import {useNavigate} from "react-router-dom";
 import {StringUtils} from "../../../utils/string/StringUtils";
 import VideoLength from "./VideoLength";
+import {DateUtils} from "../../../utils/date/DateUtils";
+
 
 export const VideoMini = (props) => {
     const data = props.data;
@@ -41,7 +43,7 @@ export const VideoMini = (props) => {
                             {StringUtils.formatNumber(data.views)} views
                         </span>
                         <span className={"posted-date ml-4"}>
-                            {StringUtils.convertSeconds(data.postedSince)} ago
+                            {DateUtils.getPostedSince(data.createdAt)} ago
                         </span>
                     </div>
                 </div>
