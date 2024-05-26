@@ -1,5 +1,5 @@
 import {useForm} from "react-hook-form";
-import {userRegister} from "../../../../api/user/auth";
+import {userRegister, userUpdate, userUpdateAvatarAndBanner} from "../../../../api/user/auth";
 import {toast} from "react-toastify";
 import AvatarEditor from 'react-avatar-editor'
 import {useContext, useState} from "react";
@@ -16,20 +16,47 @@ export const ChannelCustomizeManage = (props) => {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = async (data) => {
-        console.log("Submit")
-        const createResult = await userRegister(data);
-        console.log(createResult);
-        if (createResult.success) {
-            toast.success(createResult.message)
-        }
-        else toast.error(createResult.message)
-    };
-
     const [currentAvatar, setCurrentAvatar] = useState(ImageUtils.createImageSrcFromBuffer(user.avatar));
     const [currentBanner, setCurrentBanner] = useState(ImageUtils.createImageSrcFromBuffer(user.banner));
 
+    let editorAvatar, editorBanner;
+    const setEditorAvatarRef = (editor) => (editorAvatar = editor)
+    const setEditorBannerRef = (editor) => (editorBanner = editor)
 
+    const onSubmit = async (data) => {
+        console.log("Submit")
+        data = {
+            id: user.id
+        }
+        editorAvatar.getImageScaledToCanvas().toBlob((blob) => {
+            data = {
+                ...data,
+                avatar: blob
+            }
+        })
+        editorBanner.getImageScaledToCanvas().toBlob(async (blob) => {
+            data = {
+                ...data,
+                banner: blob
+            }
+            console.log(data)
+            const createResult = await userUpdateAvatarAndBanner(token, data, data.avatar, data.banner);
+            console.log(createResult);
+            if (createResult.success) {
+                toast.success(createResult.message)
+            }
+            else toast.error(createResult.message)
+        })
+        // console.log(data)
+        // const createResult = await userUpdate(token, data);
+        // console.log(createResult);
+        // if (createResult.success) {
+        //     toast.success(createResult.message)
+        // }
+        // else toast.error(createResult.message)
+
+
+    };
 
     return (
         <div className={'p-2 mt-4 flex flex-col justify-start relative'}>
@@ -42,6 +69,7 @@ export const ChannelCustomizeManage = (props) => {
                     </div>
                     <div className={'flex flex-row'}>
                         <AvatarEditor
+                            ref={setEditorAvatarRef}
                             image={currentAvatar}
                             width={250}
                             height={250}
@@ -91,6 +119,7 @@ export const ChannelCustomizeManage = (props) => {
                     </div>
                     <div className={'flex flex-row'}>
                         <AvatarEditor
+                            ref={setEditorBannerRef}
                             image={currentBanner}
                             width={250}
                             height={100}

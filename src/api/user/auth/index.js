@@ -58,6 +58,7 @@ export const userRegister = async (props) => {
 export const userUpdate = async (token, data) => {
     try {
         const formData = RequestFactory.createFormDataFromObject(data);
+        console.log(formData);
         const result = await axios.post(`${baseAdminURL}/auth/update`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
@@ -83,3 +84,33 @@ export const userUpdate = async (token, data) => {
     }
 }
 
+export const userUpdateAvatarAndBanner = async (token, data, avatar, banner) => {
+    try {
+        const formData = RequestFactory.createFormDataFromObject(data);
+        formData.append('avatar', avatar);
+        formData.append('banner', banner);
+        console.log(formData);
+        const result = await axios.post(`${baseAdminURL}/auth/update`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Update  successfully!'
+        };
+    } catch (error) {
+        console.log(error)
+        let message = '';
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: error.response.data.message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
