@@ -1,23 +1,26 @@
 import {useContext, useEffect, useState} from "react";
-import {AuthContext} from "../../../context/AuthContext";
-import {playlistService} from "../../../api/user/playlist";
-import {DateUtils} from "../../../utils/date/DateUtils";
-import {VideoSearchFeed} from "../../../components/common/video/VideoSearchFeed";
 import {useNavigate} from "react-router-dom";
-import {ImageUtils} from "../../../utils/images/ImageUtils";
-import {IMAGES} from "../../../utils/images/images";
+import {VideoSearchFeed} from "../../../../components/common/video/VideoSearchFeed";
+import {AuthContext} from "../../../../context/AuthContext";
+import {playlistService} from "../../../../api/user/playlist";
+import {ImageUtils} from "../../../../utils/images/ImageUtils";
+import {IMAGES} from "../../../../utils/images/images";
+import {DateUtils} from "../../../../utils/date/DateUtils";
+import {videoService} from "../../../../api/user/video";
 
-export const PlaylistSummaryV2 = (props) =>  {
+
+export const LikedVideoPage = (props) =>  {
     const authContext = useContext(AuthContext);
     const token = authContext.token;
-    const [playlist, setPlaylist] = useState();
+    const [videoList, setVideoList] = useState([]);
+    const playlist = {}
     const fetchData = async () => {
         console.log('aaaaaaaaaaaa')
-        const result = await playlistService.getWatchLaterPlaylist(token);
+        const result = await videoService.getLikedVideoList(token);
         console.log(result)
         if (result.success) {
             console.log(result.data.data)
-            setPlaylist(result.data.data);
+            setVideoList(result.data.data);
         }
     }
     const role = localStorage.getItem("role");
@@ -40,25 +43,28 @@ export const PlaylistSummaryV2 = (props) =>  {
                 <div className={'aspect-ratio-container'} >
                     <img
                         className={'aspect-ratio-image'}
-                        src={playlist?.Videos?.length > 0 ? ImageUtils.createImageSrcFromBuffer(playlist.Videos[0].thumbnail.data) : IMAGES.icon.noImage }/>
+                        src={videoList?.length > 0 ? ImageUtils.createImageSrcFromBuffer(videoList[0].thumbnail.data) : IMAGES.icon.noImage }/>
                 </div>
                 <div>
                     <div className="font-sans leading-[3.8rem] text-white font-bold mt-4 text-3xl"
                     >
-                        Watch later
+                        Liked Video
                     </div>
                     <div>
                         <div className="font-sans text-[1.4rem] leading-[2rem] font-medium text-white text-sm text-white/[0.7] mt-6"
                         >
-                            {playlist?.User?.name}
+                            {authContext.user.name}
                         </div>
-                        <div className={'font-sans text-[1.4rem] leading-[2rem] font-medium text-white text-sm text-white/[0.7]'}>
+                        <div
+                            className={'font-sans text-[1.4rem] leading-[2rem] font-medium text-white text-sm text-white/[0.7]'}>
                             <div>
-                                {playlist?.Videos?.length} videos
+                                {videoList.length} videos
                             </div>
+                            {videoList.length > 0 &&
                             <div>
-                                Last updated on {DateUtils.formatDate(new Date(playlist?.updatedAt))}
+                                Last updated on {DateUtils.formatDate(new Date(videoList[0].Reactions[0].updatedAt))}
                             </div>
+                            }
                         </div>
                     </div>
                     <div className={'mt-6 flex flex-row justify-center gap-8'}>
@@ -79,8 +85,8 @@ export const PlaylistSummaryV2 = (props) =>  {
             </div>
             <div className={'col col-span-8 ml-6'}>
                 {
-                    playlist?.Videos &&
-                    playlist?.Videos.map((video, index) => {
+                    videoList.length > 0 &&
+                    videoList.map((video, index) => {
                         return <VideoSearchFeed video={video}/>
                     })
                 }

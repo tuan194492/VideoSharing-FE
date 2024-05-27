@@ -21,6 +21,7 @@ import {VideoManage} from "../pages/user/studio/video/VideoManage";
 import {PlaylistManage} from "../pages/user/studio/playlist/PlaylistManage";
 import {VideoSearchPage} from "../pages/user/video/VideoSearch/VideoSearchPage";
 import {PlaylistSummaryV2} from "../pages/user/playlist/PlaylistSummaryV2";
+import {LikedVideoPage} from "../pages/user/video/LikedVideo/LikedVideoPage";
 
 
 export const userRoutes = [
@@ -72,7 +73,7 @@ export const userRoutes = [
     {
         title: 'Liked',
         path: '/user/liked-video',
-        element: <PlaylistSummary />,
+        element: <LikedVideoPage />,
         icon: <AiOutlineLike  size={28}/>,
         subRoute: [],
         able: 1,
