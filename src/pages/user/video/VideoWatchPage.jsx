@@ -45,6 +45,8 @@ export default function VideoWatchPage() {
     const [dislikeCount, setDislikeCount] = useState(0);
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
+    const [refreshComments, setRefreshComments] = useState(false);
+    const [commentCount, setCommentCount] = useState(0);
 
     const fetchVideoData = async (id) => {
         const result = await videoService.findVideoById(token, id);
@@ -53,6 +55,7 @@ export default function VideoWatchPage() {
             setCurrentVideo(result.data.data);
             setLikeCount(result.data.data.likeCount);
             setDislikeCount(result.data.data.dislikeCount);
+            setCommentCount(result.data.data.commentCount);
             setDescription(result.data.data.description);
             setCurrentVideoSrc(createVideoSrc(result.data.data.id));
             const fetchChannelResult = await userService.findUserById(result.data.data.publisher_id);
@@ -207,11 +210,14 @@ export default function VideoWatchPage() {
 
                     <div>
                         <div className={'comment-header'}>
-                            {StringUtils.formatNumber(currentVideo.commentCount)} Comments
+                            {StringUtils.formatNumber(commentCount)} Comments
                         </div>
                         <div className={'comment-body'}>
-                            <CommentPostBox videoId={videoId}/>
-                            <VerticalCommentList videoId={videoId}/>
+                            <CommentPostBox onCommentPosted={() => {
+                                setRefreshComments(prev => !prev)
+                                setCommentCount(prev => prev + 1);
+                            }} videoId={videoId}/>
+                            <VerticalCommentList videoId={videoId} refreshComments={refreshComments}/>
                         </div>
                     </div>
                 </div>

@@ -83,7 +83,7 @@ export const UserVideoHomePage = (props) => {
                 dataLength={videoList.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
-                loader={loading && <div className={'fixed ml-auto mr-auto'}><ThreeDots /></div>}
+                loader={loading && <div className={'fixed ml-auto mr-auto'}><ThreeDots/></div>}
                 scrollThreshold="0.8"
                 scrollableTarget={"videoList"}
             >
@@ -94,9 +94,17 @@ export const UserVideoHomePage = (props) => {
                         videoList.map(item => <VideoMini data={item} className={getClassNameForVideoMini}/>)}
                 </div>
             </InfiniteScroll>
-            <button onClick={fetchMoreData}>
-                Show more
-            </button>
+            {/*<button onClick={fetchMoreData}>*/}
+            {/*    Show more*/}
+            {/*</button>*/}
+            <div className={'flex justify-center mt-8'}>
+                <button
+                    onClick={fetchMoreData}
+                    className={'w-[150px] py-1 bg-black rounded-full px-4 ml-2 text-white hover:bg-white hover:text-black hover:border border-black '}>
+                    Show more
+                </button>
+            </div>
+
         </div>
 
 
