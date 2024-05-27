@@ -269,6 +269,38 @@ const getPlaylistDetail = async (token, playlistId) => {
     }
 }
 
+const getWatchLaterPlaylist = async (token) => {
+    try {
+        console.log('bbb')
+        const result = await axios.get(`${baseAdminURL}/playlist/watch-later`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        console.log('ccc')
+        console.log(result)
+        return {
+            success: true,
+            data: result.data,
+            message: result.message
+        };
+    } catch (error) {
+        let message = '';
+        console.log('has error')
+        console.log(error)
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                data: null,
+                message: 'Network error'
+            };
+        }
+    }
+}
+
 export const playlistService = {
     getPlaylistListByUser,
     addToPlaylist,
@@ -278,5 +310,6 @@ export const playlistService = {
     isAddedToPlaylist,
     getPlaylistDetail,
     getPublicPlaylistListByUser,
-    getPublicPlaylistDetail
+    getPublicPlaylistDetail,
+    getWatchLaterPlaylist
 }

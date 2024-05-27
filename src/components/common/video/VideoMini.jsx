@@ -27,7 +27,7 @@ export const VideoMini = (props) => {
             <div className={"thumbnail col col-span-2 w-full flex justify-center aspect-ratio-container relative"}>
                 <img src={`data:image/png;base64,${base64String}`}
                      alt={"An alt"}
-                     className={"aspect-ratio-image rounded-lg"}/>
+                     className={"aspect-ratio-image rounded-lg border-2 border-gray-50"}/>
                 <VideoLength time={data?.video_length_in_seconds} />
             </div>
             <div className={"col col-span-3 ml-4 flex flex-col justify-between"}>

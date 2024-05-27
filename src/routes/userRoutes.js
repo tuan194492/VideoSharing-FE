@@ -20,6 +20,7 @@ import {ChannelAnalytic} from "../pages/user/studio/analytic/ChannelAnalytic";
 import {VideoManage} from "../pages/user/studio/video/VideoManage";
 import {PlaylistManage} from "../pages/user/studio/playlist/PlaylistManage";
 import {VideoSearchPage} from "../pages/user/video/VideoSearch/VideoSearchPage";
+import {PlaylistSummaryV2} from "../pages/user/playlist/PlaylistSummaryV2";
 
 
 export const userRoutes = [
@@ -61,8 +62,8 @@ export const userRoutes = [
     },
     {
         title: 'Watch Later',
-        path: '/user/playlist',
-        element: <PlaylistSummary />,
+        path: '/user/watch-later',
+        element: <PlaylistSummaryV2 />,
         icon: <LuClock2  size={28}/>,
         subRoute: [],
         able: 1,
@@ -70,7 +71,7 @@ export const userRoutes = [
     },
     {
         title: 'Liked',
-        path: '/user/playlist',
+        path: '/user/liked-video',
         element: <PlaylistSummary />,
         icon: <AiOutlineLike  size={28}/>,
         subRoute: [],

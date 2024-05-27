@@ -36,6 +36,7 @@ export const CommentBox = (props) => {
         const result = await commentService.deleteComment(token, commentId);
         console.log(result)
         if (result.success) {
+            toast.success('Delete comment successful');
             props.onDeleteComment();
            return props.handleRefreshComment();
         }
