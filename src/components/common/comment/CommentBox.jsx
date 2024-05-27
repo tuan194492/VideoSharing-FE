@@ -4,10 +4,15 @@ import './index.css';
 import '../../../css/index.css'
 import {LikeButton} from "../button/LikeButton";
 import {DislikeButton} from "../button/DislikeButton";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {MyButton} from "../button/MyButton";
 import {CommentPostBox} from "./CommentPostBox";
 import {DescriptionTextField} from "../textfield/DescriptionTextField";
+import {DropdownButton} from "../button/DropDownButton";
+import {ThreeDotDropDownButton} from "../button/ThreeDotDropDownButton";
+import {commentService} from "../../../api/user/comment";
+import {toast} from "react-toastify";
+import {AuthContext} from "../../../context/AuthContext";
 
 export const CommentBox = (props) => {
     // console.log(props.comment);
@@ -20,16 +25,29 @@ export const CommentBox = (props) => {
         disliked: false,
         postedSince: props.comment.postedSince
     });
+    const authContext = useContext(AuthContext);
+    const token = authContext.token;
     const [showReply, setShowReply] = useState(false);
     const hideReply = () => {
         setShowReply(false);
     }
+
+    const handleDeleteComment = async () =>  {
+        const result = await commentService.deleteComment(token, commentId);
+        console.log(result)
+        if (result.success) {
+            props.onDeleteComment();
+           return props.handleRefreshComment();
+        }
+        toast.error(result.message);
+    }
+
     return (
         <div className={'grid grid-cols-12 p-2 mt-1.5'}>
             <div className={'relative h-14 md:h-12 md:rounded-xl overflow-hidden'}>
                 <img src={IMAGES.icon.avatar} className={"h-full w-full object-contain rounded-lg"}/>
             </div>
-            <div className={'col col-span-11'}>
+            <div className={'col col-span-11 relative'}>
                 <div>
                     <span className={"text-black text-md font-semibold "}>
                         {props.comment.username}
@@ -64,6 +82,15 @@ export const CommentBox = (props) => {
                         <CommentPostBox hideReply={hideReply} autoFocus holder={'Reply...'}/>
                     </div>
                 }
+                <ThreeDotDropDownButton
+                    className={'absolute top-0 right-0'}
+                    options={[
+                        {
+                            value: 'delete',
+                            label: 'Delete',
+                            onSelect: handleDeleteComment
+                        },
+                ]}/>
             </div>
         </div>
     )

@@ -217,7 +217,13 @@ export default function VideoWatchPage() {
                                 setRefreshComments(prev => !prev)
                                 setCommentCount(prev => prev + 1);
                             }} videoId={videoId}/>
-                            <VerticalCommentList videoId={videoId} refreshComments={refreshComments}/>
+                            <VerticalCommentList
+                                videoId={videoId}
+                                refreshComments={refreshComments}
+                                onCommentDeleted={() => {
+                                    setRefreshComments(prev => !prev)
+                                    setCommentCount(prev => prev - 1);
+                                }}/>
                         </div>
                     </div>
                 </div>

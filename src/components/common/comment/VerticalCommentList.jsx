@@ -13,6 +13,7 @@ export const VerticalCommentList = (props) => {
     console.log(videoId);
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(false);
+    const [refreshComment, setRefreshComment] = useState(false);
 
     const fetchCommentList = async (page, pageSize) => {
         const result = await commentService.getCommentListByVideo(videoId, {
@@ -49,7 +50,7 @@ export const VerticalCommentList = (props) => {
 
     useEffect( () => {
         initCommentData();
-    }, [videoId, props.refreshComments]);
+    }, [videoId, props.refreshComments, refreshComment]);
 
     const fetchMoreData = async () => {
         console.log('Has more')
@@ -65,15 +66,24 @@ export const VerticalCommentList = (props) => {
     }
 
     return (
+
         <InfiniteScroll
             dataLength={commentList.length}
             next={fetchMoreData}
             hasMore={hasMore}
             loader={<ThreeCircles />}
-            className={'flex flex-col'}
+            className={'flex flex-col no-scrollbar'}
         >
-            {commentList.length > 0 && commentList.map(item => {
-                return <CommentBox comment={item}/>
+            {commentList.length > 0 && commentList.map((item, index) => {
+                return <CommentBox key={index}
+                                    comment={item}
+                                   handleRefreshComment={() => {
+                                        setRefreshComment(prev => !prev)}
+                                    }
+                                   onDeleteComment={() => {
+                                       props.onCommentDeleted();
+                                   }}
+                />
             })}
         </InfiniteScroll>
     )

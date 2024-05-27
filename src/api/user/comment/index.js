@@ -65,6 +65,7 @@ const postComment = async (token, data, videoId) => {
 const deleteComment = async (token, commentId) => {
     try {
         const result = await axios.delete(`${baseAdminURL}/comment/${commentId}`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        console.log(result)
         return {
             success: true,
             data: result.data,

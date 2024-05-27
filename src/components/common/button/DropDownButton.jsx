@@ -18,8 +18,8 @@ export const DropdownButton = ({ options, onSelect, className }) => {
     };
 
     return (
-        <div className={"relative inline-block text-left " + className}>
-            <div>
+        <div className={className}>
+            <div className={'relative inline-block text-left'}>
                 <button
                     type="button"
                     className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
@@ -58,7 +58,10 @@ export const DropdownButton = ({ options, onSelect, className }) => {
                             <a
                                 href="#"
                                 key={option.value}
-                                onClick={(e) => handleOptionClick(option)}
+                                onClick={(e) =>  {
+                                    e.stopPropagation();
+                                    handleOptionClick(option)
+                                }}
                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                 role="menuitem"
                             >
