@@ -5,6 +5,8 @@ import {ImageUtils} from "../../../../utils/images/ImageUtils";
 import {StringUtils} from "../../../../utils/string/StringUtils";
 import {DateUtils} from "../../../../utils/date/DateUtils";
 import {VideoSearchFeed} from "../../../../components/common/video/VideoSearchFeed";
+import {Error404Page} from "../../../common/Error404Page";
+import {NoContentPage} from "../../../common/NoContentPage";
 
 export const VideoSearchPage = () => {
     const search = window.location.search;
@@ -33,17 +35,21 @@ export const VideoSearchPage = () => {
 
     useEffect(() => {
         initData();
-    }, []);
+    }, [params.get('param')]);
 
     return (
         <div>
-            <div className={`pl-0 pt-2 w-100% flex flex-col gap-y-5`}>
-                {videoList &&
+            <div className={`pl-0 w-100% flex flex-col gap-y-5`}>
+                {videoList && videoList.length > 0 ?
                     videoList.map((e, index) => {
                         return (
                             <VideoSearchFeed video={e} index={index}/>
                         )
                     })
+                    :
+                    <div className={'translate-y-[-100px]'}>
+                        <NoContentPage />
+                    </div>
 
                 }
             </div>

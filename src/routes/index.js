@@ -8,6 +8,7 @@ import {userRoutes, userStudioRoute} from "./userRoutes";
 import {guestRoutes} from "./guestRoutes";
 import UserStudioLayout from "../layouts/user/UserStudioLayout";
 import {ChannelDetail} from "../pages/user/channel/ChannelDetail";
+import {Error404Page} from "../pages/common/Error404Page";
 
 const admin = [], user = [], guest = [], userStudio = [];
 userRoutes.map((route) => {
@@ -54,5 +55,9 @@ export const routes = [
         path: "/guest",
         element: <GuestLayout />,
         children: guest
+    },
+    {
+        path: "*",
+        element: <Error404Page />
     }
 ];
