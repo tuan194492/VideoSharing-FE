@@ -67,10 +67,7 @@ const Sidebar = ({ menuCollapse, setMenuCollapse, isStudio }) => {
                                 key = {item.path}
                                 icon={item.icon}
                                 onClick = {() => navigate(item.path || '')}
-                                style={{
-                                    font: 'normal normal normal 12px',
-                                }}
-                                className={'hover:bg-gray-200 rounded-xl'}
+                                className={'hover:bg-gray-200 rounded-xl text-black/[0.7]'}
                             >
                                 {item.title}
                             </MenuItem>

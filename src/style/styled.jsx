@@ -306,8 +306,8 @@ export const WrapperOwnerSideBar = styled.div`
       ul {
         padding: 0 5px;
         .pro-menu-item > .pro-inner-item {
-          color: #000000;
-          font-weight: 550;
+          color: #000011;
+          font-weight: 200;
           padding: 5px 0 5px 15px !important;
         }
 
