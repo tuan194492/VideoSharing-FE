@@ -89,11 +89,12 @@ const columns = [
         Cell: props => <div className={'text-center text-black/[0.7] text-md'}>
             <div className={'text-blue-600 font-semibold cursor-pointer'}
                  onClick={(e) => {
-                    openEditPopup(props.original)
+                     openEditPopup(props.original)
                  }}
             >
                 Edit
             </div>
+
         </div>
     },
 ]
@@ -113,6 +114,7 @@ export const ChannelVideoManage = (props) => {
     const [videoList, setVideoList] = useState([]);
     const [open, setOpen] = useState(false);
     const [currentVideo, setCurrentVideo] = useState({});
+    const [refresh, setRefresh] = useState(false);
     const closeModal = () => setOpen(false);
 
 
@@ -132,7 +134,7 @@ export const ChannelVideoManage = (props) => {
 
     useEffect( () => {
         initVideoData();
-    }, []);
+    }, [refresh]);
 
     return (
         <div className={'p-2 mt-8'}>
@@ -160,7 +162,7 @@ export const ChannelVideoManage = (props) => {
             />
             <Popup open={open} closeOnDocumentClick onClose={closeModal}>
                 <div className={'modal p-2 w-full'}>
-                    <VideoEdit video={currentVideo} />
+                    <VideoEdit video={currentVideo} closeModal={closeModal} refresh={e => setRefresh(prev => !prev)} />
                 </div>
             </Popup>
         </div>

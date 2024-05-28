@@ -77,7 +77,7 @@ export const PlaylistDetailManage = (props) => {
     const [open, setOpen] = useState(false);
     const [currentPlaylist, setCurrentPlaylist] = useState({});
     const closeModal = () => setOpen(false);
-
+    const [refresh, setRefresh] = useState(false);
 
     const fetchPlaylistListData = async () => {
         const result = await playlistService.getPlaylistListByUser(token);
@@ -97,7 +97,7 @@ export const PlaylistDetailManage = (props) => {
 
     useEffect(() => {
         initData();
-    }, []);
+    }, [refresh]);
 
     return (
         <div className={'p-2 mt-8'}>
@@ -126,7 +126,11 @@ export const PlaylistDetailManage = (props) => {
             />
             <Popup open={open} closeOnDocumentClick onClose={closeModal}>
                 <div className={'modal p-2 w-full'}>
-                    <PlaylistDetailPopup data={currentPlaylist} closeModel={() => {
+                    <PlaylistDetailPopup data={currentPlaylist}
+                                         refreshTable={e => {
+                                             setRefresh(prev => !prev)
+                                         }}
+                                         closeModel={() => {
                         setOpen(false);
                     }}/>
                 </div>

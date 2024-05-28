@@ -182,6 +182,35 @@ const createPlaylist = async (data, token) => {
     }
 }
 
+const updatePlaylist = async (data, token) => {
+    try {
+        const formData = RequestFactory.createFormDataFromObject(data);
+        const result = await axios.post(`${baseAdminURL}/playlist/update`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        console.log(result)
+        return {
+            success: true,
+            data: result.data,
+            message: 'Update playlist successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
 const deletePlaylist = async (playlistId, token) => {
     try {
         const formData = RequestFactory.createFormDataFromObject({});
@@ -311,5 +340,6 @@ export const playlistService = {
     getPlaylistDetail,
     getPublicPlaylistListByUser,
     getPublicPlaylistDetail,
-    getWatchLaterPlaylist
+    getWatchLaterPlaylist,
+    updatePlaylist
 }

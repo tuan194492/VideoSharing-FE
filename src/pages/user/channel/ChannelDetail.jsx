@@ -34,10 +34,7 @@ export const ChannelDetail = (props) => {
         if (fetchChannelResult.success) {
             console.log(fetchChannelResult.data.data);
             setChannel(prev => fetchChannelResult.data.data);
-            const fetchVideoData = await videoService.fetchVideoList(token, {
-                page: 1,
-                pageSize: videoPerRequest
-            })
+            const fetchVideoData = await videoService.getVideoByPublisherId(token, channelId)
             if (fetchVideoData.success) {
                 setVideoList(fetchVideoData.data.data)
             }
@@ -65,7 +62,7 @@ export const ChannelDetail = (props) => {
             </div>
             <div className='flex gap-x-5 items-center my-5 pb-4 border-b-2 border-gray-100'>
                 <img className='rounded-[40px] w-12 h-12 md:w-16 md:h-16'
-                     src={channel.avatar?.data ? ImageUtils.createImageSrcFromBuffer(channel.avatar.data) : IMAGES.icon.avatar}/>
+                     src={channel?.avatar?.data ? ImageUtils.createImageSrcFromBuffer(channel.avatar.data) : IMAGES.icon.avatar}/>
                 <div className='flex flex-col'>
                     <h3 className='text-md md:text-xl font-medium tracking-wide'>{channel?.name}</h3>
                     <div className='flex flex-col'>

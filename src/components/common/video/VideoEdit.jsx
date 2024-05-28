@@ -12,6 +12,8 @@ import {StringUtils} from "../../../utils/string/StringUtils";
 import {ImageUtils} from "../../../utils/images/ImageUtils";
 import {MdDeleteForever, MdOutlineDelete} from "react-icons/md";
 import {AiTwotoneDelete} from "react-icons/ai";
+import {videoService} from "../../../api/user/video";
+import async from "async";
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
 
 export const VideoEdit = (props) => {
@@ -33,7 +35,7 @@ export const VideoEdit = (props) => {
             setUploadedImage(file);
         }
     }
-    function handleSubmit() {
+    const handleSubmit = async () => {
         if (!uploadedImage) {
             return toast.error(errorMessages.EMPTY_THUMBNAIL);
         }
@@ -43,8 +45,17 @@ export const VideoEdit = (props) => {
         if (formData.description == null || formData.description.length < 50) {
             return toast.error(errorMessages.EMPTY_DESCRIPTION);
         }
-        props.handleSubmitStepTwo(formData);
+        const result = await videoService.updateVideo(video.id, {
+            ...formData,
+            status: formData.isPublic ? 'PUBLIC' : 'PRIVATE'
+        }, uploadedImage, token);
+        if (result.success) {
+            toast.success("Update video successful");
+            props.refresh();
+            props.closeModal();
+        }
     }
+
 
     const createVideoSrc = (videoId) => {
         console.log(`${baseAdminURL}/video/stream/${videoId}`);
@@ -163,6 +174,12 @@ export const VideoEdit = (props) => {
 
                 </form>
                 <div className={'flex justify-center'}>
+                    <button
+                        className=" ml-3 px-2.5 py-1.5 rounded-lg text-md text-white bg-gray-600 hover:bg-gray-800"
+                        type={"button"}
+                    >
+                        Delete
+                    </button>
                     <button
                         className=" ml-3 px-2.5 py-1.5 rounded-lg text-md text-white bg-blue-600 hover:bg-blue-800"
                         type={"submit"}

@@ -14,10 +14,16 @@ export const PlaylistDetailPopup = (props) => {
         formState: { errors },
     } = useForm();
     const onSubmit = async (data) => {
-        const result = await playlistService.createPlaylist(data, token);
+        data = {
+            ...data,
+            id: playlist.id,
+            status: data.isPublic ? 'PUBLIC' : 'PRIVATE'
+        }
+        const result = await playlistService.updatePlaylist(data, token);
         if (!result.success) {
             return toast.error(result.message);
         }
+        props.refreshTable();
         props.closeModel();
     }
 
@@ -77,7 +83,7 @@ export const PlaylistDetailPopup = (props) => {
                         <label className="inline-flex items-center mb-5 cursor-pointer">
                             <input type="checkbox"
                                    className="sr-only peer"
-                                   id="isPublic"
+                                   id="status"
                                    defaultValue={playlist.status}
                                    {...register("isPublic")}
                             />

@@ -173,12 +173,71 @@ const getLikedVideoList = async (token) => {
     }
 }
 
+const updateVideo = async (videoId, data, uploadedImage, token)  => {
+    try {
+        const formData = RequestFactory.createFormDataFromObject(data);
+        formData.append('thumbnail', uploadedImage);
+
+        const result = await axios.post(`${baseAdminURL}/video/${videoId}`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Update Video successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
+const getVideoByPublisherId = async (token, publisherId) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/video/get-by-publisher/${publisherId}`, RequestFactory.createHeaderRequestWithJson(token));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Get Video list successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
 export const videoService = {
     findVideoById,
     fetchVideoDescriptionData,
     uploadVideo,
     fetchVideoList,
     searchVideo,
-    getLikedVideoList
+    getLikedVideoList,
+    getVideoByPublisherId,
+    updateVideo
 }
 
