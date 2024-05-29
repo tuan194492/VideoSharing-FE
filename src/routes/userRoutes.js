@@ -22,6 +22,7 @@ import {PlaylistManage} from "../pages/user/studio/playlist/PlaylistManage";
 import {VideoSearchPage} from "../pages/user/video/VideoSearch/VideoSearchPage";
 import {PlaylistSummaryV2} from "../pages/user/playlist/PlaylistSummaryV2";
 import {LikedVideoPage} from "../pages/user/video/LikedVideo/LikedVideoPage";
+import {SubscriptionHomePage} from "../pages/user/subscriptions/SubscriptionHomePage";
 
 
 export const userRoutes = [
@@ -46,7 +47,7 @@ export const userRoutes = [
     {
         title: 'Subscriptions',
         path: '/user/subscriptions',
-        element: <div/>,
+        element: <SubscriptionHomePage />,
         icon: IMAGES.icon.subscription,
         subRoute: [],
         able: 1,

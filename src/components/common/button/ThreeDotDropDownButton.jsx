@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 export const ThreeDotDropDownButton = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -6,6 +6,19 @@ export const ThreeDotDropDownButton = (props) => {
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
     };
+    const dropdownRef = useRef(null);
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setIsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const handleOptionClick = (option) => {
         option.onSelect();
@@ -34,6 +47,7 @@ export const ThreeDotDropDownButton = (props) => {
                 <div
                     id="dropdownDots"
                     className={`absolute right-0 mt-2 z-50 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ${isOpen ? 'block' : 'hidden'}`}
+                    ref={dropdownRef}
                 >
                     <ul className="py-2 text-sm text-gray-700" aria-labelledby="dropdownMenuIconButton">
                         {props.options && props.options.map((option) => (
