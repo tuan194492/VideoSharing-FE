@@ -12,8 +12,7 @@ export const NoContentPage = (props) => {
                         src={'https://cdn.dribbble.com/users/683081/screenshots/2728654/media/d6f3cc39f60fcd48bc2236264b4748b9.png'}
                         alt={'No content'}/>
                 </div>
-                <p className="mt-8 text-sm text-gray-600">It looks like there's nothing here right now. Check back later
-                    or try something else.</p>
+                <p className="mt-8 text-sm text-gray-600">{props.description || "It looks like there's nothing here right now. Check back later or try something else."}</p>
             </div>
         </div>
     );

@@ -6,6 +6,7 @@ import {VideoSearchFeed} from "../../../components/common/video/VideoSearchFeed"
 import {useNavigate} from "react-router-dom";
 import {ImageUtils} from "../../../utils/images/ImageUtils";
 import {IMAGES} from "../../../utils/images/images";
+import {NoContentPage} from "../../common/NoContentPage";
 
 export const PlaylistSummaryV2 = (props) =>  {
     const authContext = useContext(AuthContext);
@@ -83,6 +84,12 @@ export const PlaylistSummaryV2 = (props) =>  {
                     playlist?.Videos.map((video, index) => {
                         return <VideoSearchFeed video={video}/>
                     })
+                }
+                {
+                    playlist?.Videos?.length === 0 &&
+                    <div className={'translate-y-[-100px]'}>
+                        <NoContentPage description={"Maybe you can try to add some video to watch later :)"} />
+                    </div>
                 }
             </div>
         </div>

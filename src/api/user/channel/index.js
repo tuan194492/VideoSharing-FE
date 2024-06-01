@@ -18,6 +18,24 @@ const getSubscriptionList = async (token) => {
     }
 }
 
+const getSubscriberList = async (channelId) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/subcriber/subcrber/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Get Subscriber list successful!'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            data: null,
+            message: error.response.data.error
+        };
+    }
+}
+
 export const channelService = {
-    getSubscriptionList
+    getSubscriptionList,
+    getSubscriberList
 }

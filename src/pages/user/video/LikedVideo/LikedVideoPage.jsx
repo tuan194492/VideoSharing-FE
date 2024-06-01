@@ -7,6 +7,7 @@ import {ImageUtils} from "../../../../utils/images/ImageUtils";
 import {IMAGES} from "../../../../utils/images/images";
 import {DateUtils} from "../../../../utils/date/DateUtils";
 import {videoService} from "../../../../api/user/video";
+import {NoContentPage} from "../../../common/NoContentPage";
 
 
 export const LikedVideoPage = (props) =>  {
@@ -15,7 +16,6 @@ export const LikedVideoPage = (props) =>  {
     const [videoList, setVideoList] = useState([]);
     const playlist = {}
     const fetchData = async () => {
-        console.log('aaaaaaaaaaaa')
         const result = await videoService.getLikedVideoList(token);
         console.log(result)
         if (result.success) {
@@ -89,6 +89,12 @@ export const LikedVideoPage = (props) =>  {
                     videoList.map((video, index) => {
                         return <VideoSearchFeed video={video}/>
                     })
+                }
+                {
+                    videoList.length === 0 &&
+                    <div className={'translate-y-[-100px]'}>
+                        <NoContentPage description={"Look like you haven't liked any video yet. :)"}/>
+                    </div>
                 }
             </div>
         </div>

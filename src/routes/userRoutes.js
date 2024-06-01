@@ -23,6 +23,7 @@ import {VideoSearchPage} from "../pages/user/video/VideoSearch/VideoSearchPage";
 import {PlaylistSummaryV2} from "../pages/user/playlist/PlaylistSummaryV2";
 import {LikedVideoPage} from "../pages/user/video/LikedVideo/LikedVideoPage";
 import {SubscriptionHomePage} from "../pages/user/subscriptions/SubscriptionHomePage";
+import {SubscriberManage} from "../pages/user/studio/subscriber/SubscriberManage";
 
 
 export const userRoutes = [
@@ -151,7 +152,7 @@ export const userStudioRoute = [
     {
         title: 'Subscriber',
         path: '/user/studio/subscriber-manage',
-        element: <div/>,
+        element: <SubscriberManage />,
         icon: <BiUser size={32}/>,
         subRoute: [],
         able: 1,
