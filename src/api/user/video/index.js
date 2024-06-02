@@ -173,6 +173,35 @@ const getLikedVideoList = async (token) => {
     }
 }
 
+const getWatchedVideoList = async (token, params) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/video/watched-video?page=${params?.page || 0}&pageSize=${params?.pageSize || 0}`, RequestFactory.createHeaderRequestWithJson(token));
+        console.log(result);
+        return {
+            success: true,
+            data: result.data,
+            message: 'Get Watcher Video list successful!'
+        };
+    } catch (error) {
+        let message = '';
+        console.log(error)
+        message = error.response?.data?.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
 const updateVideo = async (videoId, data, uploadedImage, token)  => {
     try {
         const formData = RequestFactory.createFormDataFromObject(data);
@@ -230,6 +259,33 @@ const getVideoByPublisherId = async (token, publisherId) => {
     }
 }
 
+const deleteWatchedVideo = async (token) => {
+    try {
+        const result = await axios.delete(`${baseAdminURL}/video/watched-video`, RequestFactory.createHeaderRequestWithJson(token));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Delete Watcher Video successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
 export const videoService = {
     findVideoById,
     fetchVideoDescriptionData,
@@ -238,6 +294,8 @@ export const videoService = {
     searchVideo,
     getLikedVideoList,
     getVideoByPublisherId,
-    updateVideo
+    updateVideo,
+    getWatchedVideoList,
+    deleteWatchedVideo
 }
 

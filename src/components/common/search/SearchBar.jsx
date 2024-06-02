@@ -2,7 +2,7 @@ import React from 'react';
 
 const SearchBar = (props) => {
     return (
-        <form className="max-w-md mx-auto flex items-center">
+        <div className="max-w-md mx-auto flex items-center">
             <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
             <div className="relative flex-grow">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -15,12 +15,20 @@ const SearchBar = (props) => {
                     id="default-search"
                     className="block w-full p-4 ps-10 text-sm text-gray-900 border-b-2 border-gray-400  "
                     placeholder="Search ..."
-                    onChange={e => {
+                    onKeyDown={e => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            props.filter && props.filter(e.target.value);
+                        }
+                    }}
+
+                    onBlur={e => {
+                        e.preventDefault();
                         props.filter && props.filter(e.target.value);
                     }}
                 />
             </div>
-        </form>
+        </div>
     );
 }
 

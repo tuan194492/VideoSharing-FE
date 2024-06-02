@@ -24,6 +24,7 @@ import {PlaylistSummaryV2} from "../pages/user/playlist/PlaylistSummaryV2";
 import {LikedVideoPage} from "../pages/user/video/LikedVideo/LikedVideoPage";
 import {SubscriptionHomePage} from "../pages/user/subscriptions/SubscriptionHomePage";
 import {SubscriberManage} from "../pages/user/studio/subscriber/SubscriberManage";
+import {HistoryVideoPage} from "../pages/user/video/HistoryPage/HistoryVideoPage";
 
 
 export const userRoutes = [
@@ -84,7 +85,7 @@ export const userRoutes = [
     {
         title: 'History',
         path: '/user/history',
-        element: <div/>,
+        element: <HistoryVideoPage />,
         icon: <FaHistory size={28}/>,
         subRoute: [],
         able: 1,
