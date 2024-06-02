@@ -33,6 +33,7 @@
     "react-table-6": "^6.11.0",
     "react-toastify": "^10.0.5",
     "reactjs-popup": "^2.0.6",
+    "recharts": "^2.12.7",
     "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
