@@ -35,7 +35,25 @@ const getSubscriberList = async (channelId) => {
     }
 }
 
+const getViewAnalytic = async (channelId) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/channel/view-analytic/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Get View data list successful!'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            data: null,
+            message: error.response.data.error
+        };
+    }
+}
+
 export const channelService = {
     getSubscriptionList,
-    getSubscriberList
+    getSubscriberList,
+    getViewAnalytic
 }
