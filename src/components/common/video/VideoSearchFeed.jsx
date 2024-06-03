@@ -10,7 +10,7 @@ export const VideoSearchFeed = (props) => {
 
     return (
         <div key={props.index * 2}
-             className='grid grid-cols-12 cursor-pointer p-2 hover:bg-gray-100 w-[90%]'
+             className={'grid grid-cols-12 cursor-pointer p-2 hover:bg-gray-100 w-[90%] ' + props.className}
              onClick={event => {
                  navigate(`/user/video/detail/${video.id}`)
              }}>
