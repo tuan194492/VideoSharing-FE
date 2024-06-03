@@ -10,7 +10,7 @@ export const ViewAnalytic = (props) => {
     const fetchData = async () => {
         const result = await channelService.getViewAnalytic(channel.id);
         if (result.success) {
-            setViewData([{_id: '2024-01-06', viewCount: 10}, ...result.data.data]);
+            setViewData([...result.data.data]);
             console.log(result.data.data)
         }
     }
@@ -24,11 +24,11 @@ export const ViewAnalytic = (props) => {
     }, []);
 
     return (
-        <div className={'w-full h-full border-2 border-gray-200 rounded-xl'}>
+        <div className={'w-full h-[500px] border-2 border-gray-200 rounded-xl'}>
             <div className={'text-white font-semibold bg-gray-700 p-3 pl-6 rounded-t-xl' }>
                 View Analytic
             </div>
-            <ResponsiveContainer width="100%" height="100%" className={'mt-8  p-3 pb-20'}>
+            <ResponsiveContainer width="100%" height="100%" className={'mt-8 p-3 pb-20'}>
                 <LineChart
                     width={'100%'}
                     height={'100%'}

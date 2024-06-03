@@ -52,8 +52,26 @@ const getViewAnalytic = async (channelId) => {
     }
 }
 
+const getMostWatchedVideos = async (channelId) => {
+try {
+        const result = await axios.get(`${baseAdminURL}/channel/most-watched-video/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Get Most Watched data list successful!'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            data: null,
+            message: error.response.data.error
+        };
+    }
+}
+
 export const channelService = {
     getSubscriptionList,
     getSubscriberList,
-    getViewAnalytic
+    getViewAnalytic,
+    getMostWatchedVideos
 }
