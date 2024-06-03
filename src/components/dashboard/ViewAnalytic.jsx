@@ -24,11 +24,11 @@ export const ViewAnalytic = (props) => {
     }, []);
 
     return (
-        <div className={'w-full h-full'}>
-            <div className={'text-black/[0.7] font-semibold'}>
+        <div className={'w-full h-full border-2 border-gray-200 rounded-xl'}>
+            <div className={'text-white font-semibold bg-gray-400 p-3 pl-6 rounded-t-xl' }>
                 View Analytic
             </div>
-            <ResponsiveContainer width="100%" height="100%" className={'mt-8'}>
+            <ResponsiveContainer width="100%" height="100%" className={'mt-8  p-3 pb-20'}>
                 <LineChart
                     width={'100%'}
                     height={'100%'}
