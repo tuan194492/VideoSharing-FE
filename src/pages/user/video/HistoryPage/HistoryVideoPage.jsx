@@ -7,8 +7,11 @@ import SearchBar from "../../../../components/common/search/SearchBar";
 import {VideoSearchFeed} from "../../../../components/common/video/VideoSearchFeed";
 import {BiTrash} from "react-icons/bi";
 import {toast} from "react-toastify";
+import {NoContentPage} from "../../../common/NoContentPage";
 
 const groupByCreatedDate = (videos) => {
+    console.log(videos)
+    if (!videos || !(videos instanceof Array)) return [];
     return videos.reduce((acc, video) => {
         const dateKey = new Date(video.createdAt).toISOString().split('T')[0];
         if (!acc[dateKey]) {
@@ -94,12 +97,17 @@ export const HistoryVideoPage = (props) => {
                                 </div>
                             })
                         }
+                        {
+                            dateList.length === 0 && <div className={'translate-y-[-100px]'}>
+                                <NoContentPage description={"Look like you haven't watched any video yet. :)"}/>
+                            </div>
+                        }
                     </div>
 
                     <div className={'col-span-1 px-4'}>
                         <SearchBar filter={filter}/>
                         <div>
-                            <button
+                        <button
                                 onClick={handleDeleteWatchHistory}
                                 className={'flex flex-row gap-4 mt-6 justify-center text-center hover:bg-gray-200 p-4 rounded-xl'}>
                                 <BiTrash size={20}/>
