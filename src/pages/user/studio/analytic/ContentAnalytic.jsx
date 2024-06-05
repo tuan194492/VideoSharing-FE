@@ -2,6 +2,7 @@ import {UploadVideosCard} from "../../../../components/dashboard/UploadVideosCar
 import {ChannelDashboardCard} from "../../../../components/dashboard/ChannelDashboardCard";
 import {TopWatchedVideo} from "../../../../components/dashboard/TopWatchedVideo";
 import {ViewAnalytic} from "../../../../components/dashboard/ViewAnalytic";
+import {HLSVideoPlayer} from "../../../../components/common/video/HlsVideoPlayer";
 
 export const ContentAnalytic = (props) => {
     return (
@@ -10,7 +11,10 @@ export const ContentAnalytic = (props) => {
                 <ViewAnalytic/>
             </div>
             <div className={'col-span-2 p-4 mt-2'}>
-                <ViewAnalytic/>
+                aaaa
+                <video width={'100%'} height={'100%'} autoPlay={true}>
+                    <source src={'http://localhost:3000/public/1/sample.mp4'} type={'video/mp4'}/>
+                </video>
             </div>
 
 
