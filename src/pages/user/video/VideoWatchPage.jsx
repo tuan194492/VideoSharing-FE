@@ -27,9 +27,11 @@ import {AiOutlineDownload, AiOutlineLike} from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
 import {MdOutlineReportProblem} from "react-icons/md";
 import {useNavigate} from "react-router-dom";
+import {HlsVideoPlayer} from "../../../components/common/video/HlsVideoPlayer";
 
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
+const baseServerURL = `${process.env.REACT_APP_BASE_SERVER}`;
 export default function VideoWatchPage() {
     const authContext = useContext(AuthContext);
     const token = authContext.token;
@@ -57,7 +59,9 @@ export default function VideoWatchPage() {
             setDislikeCount(result.data.data.dislikeCount);
             setCommentCount(result.data.data.commentCount);
             setDescription(result.data.data.description);
-            setCurrentVideoSrc(createVideoSrc(result.data.data.id));
+            const videoSrc = await createVideoSrc(result.data.data.id);
+            console.log(videoSrc);
+            setCurrentVideoSrc(videoSrc);
             const fetchChannelResult = await userService.findUserById(result.data.data.publisher_id);
             if (fetchChannelResult.success) {
                 console.log(fetchChannelResult.data.data);
@@ -99,14 +103,20 @@ export default function VideoWatchPage() {
     useEffect(() => {
         fetchVideoData(videoId);
         initVideoData();
-    }, []);
+    }, [videoId]);
 
-    const createVideoSrc = (videoId) => {
-        console.log(`${baseAdminURL}/video/stream/${videoId}`);
-        if (user != null) {
-            return `${baseAdminURL}/video/stream/${videoId}?userId=${user.id}`;
+    const createVideoSrc = async (videoId) => {
+        // console.log(`${baseAdminURL}/video/stream/${videoId}`);
+        // if (user != null) {
+        //     return `${baseAdminURL}/video/stream/${videoId}?userId=${user.id}`;
+        // } else {
+        //     return `${baseAdminURL}/video/stream/${videoId}`;
+        // }
+        const videoSrc = await videoService.getVideoSrc(videoId);
+        if (videoSrc.success) {
+            return `${baseServerURL}${videoSrc.data.data}`;
         } else {
-            return `${baseAdminURL}/video/stream/${videoId}`;
+            return '';
         }
     }
 
@@ -145,7 +155,10 @@ export default function VideoWatchPage() {
         <div className={"grid grid-cols-12"}>
             {/* Video watching + Comment List */}
             <div className={"col-start-1 col-span-8 p-2"}>
-                <VideoPlayer videoStc={currentVideoSrc}/>
+                {/*<VideoPlayer videoStc={currentVideoSrc}/>*/}
+                <div className={'w-full'}>
+                    <HlsVideoPlayer width={1054} height={600} src={currentVideoSrc} />
+                </div>
                 <div className={"video-info p-1 ml-3 flex flex-col justify-between"}>
                     <div className={"text-black font-bold text-sm md:text-xl mt-4 line-clamp-2"}>
                         {currentVideo.title}

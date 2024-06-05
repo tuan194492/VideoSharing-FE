@@ -286,6 +286,33 @@ const deleteWatchedVideo = async (token) => {
     }
 }
 
+const getVideoSrc = async (videoId) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/video/stream-multi-res/${videoId}`);
+        return {
+            success: true,
+            data: result.data,
+            message: 'Get Video src successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
 export const videoService = {
     findVideoById,
     fetchVideoDescriptionData,
@@ -296,6 +323,7 @@ export const videoService = {
     getVideoByPublisherId,
     updateVideo,
     getWatchedVideoList,
-    deleteWatchedVideo
+    deleteWatchedVideo,
+    getVideoSrc
 }
 
