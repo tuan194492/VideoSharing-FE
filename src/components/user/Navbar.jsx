@@ -1,10 +1,25 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {AuthContext} from "../../context/AuthContext";
 import {HeaderWrapper} from "../../style/styled";
 import {IMAGES} from "../../utils/images/images";
 import {ImageUtils} from "../../utils/images/ImageUtils";
+
+import socket from "./../../context/Socket";
+
+function handleMessageFromServer(data) {
+    switch (data.type) {
+        case 'Comment':
+            toast.success(`User ${data.actor_id} commented on video ${data.video_id}`);
+            break;
+        case 'Like':
+            toast.success(`${data.actor_id} liked on video ${data.video_id}`);
+            break;
+        default:
+            break;
+    }
+}
 
 export default function Navbar() {
     const projectName = process.env.PROJECT_NAME || 'Video Sharing';
@@ -29,6 +44,22 @@ export default function Navbar() {
     const goToUploadVideoPage = () => {
         navigate(`/${page}/video/create`)
     }
+
+    useEffect(() => {
+        if (user) {
+            socket.on(`user${user.id}`, (data) => {
+                // console.log(data);
+                toast.success(JSON.stringify(data));
+                handleMessageFromServer(data);
+            })
+        }
+
+        return () => {
+            socket.off(`user${user?.id}`)
+        }
+    }, []);
+
+
 
     return (
         <HeaderWrapper className="w-full fixed top-0">

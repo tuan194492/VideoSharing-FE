@@ -14,7 +14,7 @@ export default function App() {
   const { isLogin, role, token, clearAuthData} = useContext(AuthContext);
   const navigate = useNavigate();
   const initData = async () => {
-    const result = await playlistService.getPlaylistListByUser(token);
+    const result = await playlistService.isAddedToPlaylist(token);
     if (!result.success) {
       clearAuthData();
     }
