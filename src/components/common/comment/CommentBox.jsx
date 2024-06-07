@@ -48,7 +48,7 @@ export const CommentBox = (props) => {
             <div className={'relative h-14 md:h-12 md:rounded-xl overflow-hidden'}>
                 <img src={IMAGES.icon.avatar} className={"h-full w-full object-contain rounded-lg"}/>
             </div>
-            <div className={'col col-span-11 relative'}>
+            <div className={'col ml-4 md:ml-0 col-span-11 relative'}>
                 <div>
                     <span className={"text-black text-md font-semibold "}>
                         {props.comment.username}

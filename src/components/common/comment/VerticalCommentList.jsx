@@ -34,7 +34,7 @@ export const VerticalCommentList = (props) => {
         console.log('Init comment data')
         const result = await commentService.getCommentListByVideo(props.videoId, {
             page: 1,
-            pageSize: commentPerRequest
+            pageSize: commentList.length > 0 ? commentList.length + 1 : commentPerRequest
         })
         console.log(result);
         if (result.success) {
@@ -44,6 +44,7 @@ export const VerticalCommentList = (props) => {
             } else {
                 setHasMore(true);
             }
+            console.log('Has more is ' + hasMore)
             console.log(result.data.data)
         }
     }
@@ -52,7 +53,7 @@ export const VerticalCommentList = (props) => {
         initCommentData();
     }, [videoId, props.refreshComments, refreshComment]);
 
-    const fetchMoreData = async () => {
+    const fetchMoreData = async (e) => {
         console.log('Has more')
         const result = await fetchCommentList(currentPage + 1, commentPerRequest);
         if (result.length > 0) {
@@ -66,25 +67,35 @@ export const VerticalCommentList = (props) => {
     }
 
     return (
+        <div id={'scrollableDiv'}>
+            <InfiniteScroll
+                dataLength={commentList.length}
+                next={fetchMoreData}
+                hasMore={hasMore}
+                loader={<ThreeCircles />}
+                data={commentList}
+                className={'flex flex-col'}
+                onScroll={e => console.log('Scrolling')}
+                scrollableTarget="scrollableDiv"
+            >
+                {commentList.length > 0 && commentList.map((item, index) => {
+                    return <CommentBox key={index}
+                                       comment={item}
+                                       handleRefreshComment={() => {
+                                           setRefreshComment(prev => !prev)}
+                                       }
+                                       onDeleteComment={() => {
+                                           props.onCommentDeleted();
+                                       }}
+                    />
+                })}
+            </InfiniteScroll>
+            <div>
+                <button onClick={fetchMoreData}>
+                    Show more
+                </button>
+            </div>
+        </div>
 
-        <InfiniteScroll
-            dataLength={commentList.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            loader={<ThreeCircles />}
-            className={'flex flex-col no-scrollbar'}
-        >
-            {commentList.length > 0 && commentList.map((item, index) => {
-                return <CommentBox key={index}
-                                    comment={item}
-                                   handleRefreshComment={() => {
-                                        setRefreshComment(prev => !prev)}
-                                    }
-                                   onDeleteComment={() => {
-                                       props.onCommentDeleted();
-                                   }}
-                />
-            })}
-        </InfiniteScroll>
     )
 }

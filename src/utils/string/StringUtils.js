@@ -8,7 +8,6 @@ function countLines(text) {
 }
 
 function convertSeconds(seconds) {
-    console.log(seconds)
     seconds = Math.floor(seconds);
     const minute = 60;
     const hour = minute * 60;

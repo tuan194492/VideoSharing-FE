@@ -154,7 +154,7 @@ export default function VideoWatchPage() {
     return (
         <div className={"grid grid-cols-12"}>
             {/* Video watching + Comment List */}
-            <div className={"col-start-1 col-span-8 p-2"}>
+            <div className={"col-start-1 col-span-11  lg:col-span-8 p-2"}>
                 {/*<VideoPlayer videoStc={currentVideoSrc}/>*/}
                 <div className={'w-full'}>
                     <HlsVideoPlayer width={1054} height={600} src={currentVideoSrc} />
@@ -244,7 +244,7 @@ export default function VideoWatchPage() {
             </div>
 
             {/* Recommend video list */}
-            <div className={"col-span-4 ml-8 flex overflow-y-visible"}>
+            <div className={"hidden lg:flex lg:col-span-4 ml-8 overflow-y-visible"}>
                 <InfiniteScroll
                     dataLength={videoList.length}
                     next={fetchMoreData}

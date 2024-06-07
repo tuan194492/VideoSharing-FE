@@ -7,8 +7,13 @@ export const NotificationButton = () => {
     const [showNotifications, setShowNotifications] = useState(false);
     const [notifications, setNotifications] = useState([]);
 
-    const toggleNotifications = () => {
-        setShowNotifications(!showNotifications);
+    const toggleNotifications = (e) => {
+        e.preventDefault()
+        e.stopPropagation();  // Stop the event from propagating
+        console.log(`toggleNotifications value prev`, showNotifications)
+        setShowNotifications(prev => !prev);
+        console.log(`toggleNotifications value after`, showNotifications)
+
     };
 
     const authContext = useContext(AuthContext);
@@ -22,8 +27,24 @@ export const NotificationButton = () => {
     }
 
     const notificationRef = useRef(null);
+    const notificationButtonRef = useRef(null);
+
     const handleClickOutside = (event) => {
-        if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+        console.log(`handleClickOutside from ${event.target}`)
+        console.log(showNotifications)
+        if (( notificationButtonRef.current && notificationButtonRef.current.contains(event.target))) {
+            console.log(`handle click outside 1`)
+
+
+            setShowNotifications(prev => !prev);
+            return event.preventDefault();
+        }
+        if ((notificationRef.current && !notificationRef.current.contains(event.target))) {
+            console.log(`handle click outside 2`)
+
+            console.log(`handle click outside detail`)
+            console.log(notificationRef.current)
+            console.log(event.target)
             setShowNotifications(false);
         }
     };
@@ -37,6 +58,8 @@ export const NotificationButton = () => {
     }, []);
 
     useEffect(() => {
+        console.log(`toggleNotifications value updated`, showNotifications);
+
         if (showNotifications) {
             document.addEventListener('mousedown', handleClickOutside);
         } else {
@@ -50,8 +73,8 @@ export const NotificationButton = () => {
 
     return (
         <div className={'relative flex justify-center'}>
-            <button onClick={toggleNotifications} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                <svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6 text-black' fill='none' viewBox='0 0 24 24' stroke='black'>
+            <button onClick={toggleNotifications} ref={notificationButtonRef} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                <svg  xmlns='http://www.w3.org/2000/svg' className='h-6 w-6 text-black' fill='none' viewBox='0 0 24 24' stroke='black'  >
                     <path
                         strokeLinecap='round'
                         strokeLinejoin='round'
@@ -61,7 +84,7 @@ export const NotificationButton = () => {
                 </svg>
             </button>
             {showNotifications && (
-                <ul ref={notificationRef} className="absolute top-8 right-0 bg-white border border-gray-300 rounded-lg w-[30vw] shadow-lg p-3 list-none">
+                <ul ref={notificationRef} className="absolute top-8 right-0 bg-white border border-gray-300 rounded-lg w-[60vw] md:w-[30vw] shadow-lg p-3 list-none">
                     {notifications.map((notification, index) => (
                         <li key={index} className={`py-2 ${index !== notifications.length - 1 ? 'border-b border-gray-200' : ''}`}>
                             <NotificationFeed notification={notification} />
