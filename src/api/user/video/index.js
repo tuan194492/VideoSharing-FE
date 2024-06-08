@@ -313,6 +313,38 @@ const getVideoSrc = async (videoId) => {
     }
 }
 
+const watchVideo = async (videoId, token, watchTime) => {
+    try {
+        const formData = RequestFactory.createFormDataFromObject({
+            watchTime: watchTime
+        });
+
+        const result = await axios.post(`${baseAdminURL}/video/watch-video/${videoId}`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        console.log(result)
+        return {
+            success: true,
+            data: result.data,
+            message: 'Watch Video successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
 export const videoService = {
     findVideoById,
     fetchVideoDescriptionData,
@@ -324,6 +356,7 @@ export const videoService = {
     updateVideo,
     getWatchedVideoList,
     deleteWatchedVideo,
-    getVideoSrc
+    getVideoSrc,
+    watchVideo
 }
 

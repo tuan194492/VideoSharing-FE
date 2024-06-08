@@ -164,7 +164,7 @@ export default function VideoWatchPage() {
             <div className={"col-start-1 col-span-11  lg:col-span-8 p-2"}>
                 {/*<VideoPlayer videoStc={currentVideoSrc}/>*/}
                 <div className={'w-full'}>
-                    <HlsVideoPlayer width={1054} height={600} src={currentVideoSrc} />
+                    <HlsVideoPlayer width={1054} height={600} src={currentVideoSrc} videoId={currentVideo.id}/>
                 </div>
                 <div className={"video-info p-1 ml-3 flex flex-col justify-between"}>
                     <div className={"text-black font-bold text-sm md:text-xl mt-4 line-clamp-2"}>

@@ -1,19 +1,25 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import 'videojs-hls-quality-selector';
+import {useLocation, useNavigate} from "react-router-dom";
+import {videoService} from "../../../api/user/video";
+import {AuthContext} from "../../../context/AuthContext";
 
 export const HlsVideoPlayer = (props) => {
+    const authContext = useContext(AuthContext);
+    const token = authContext.token;
     const [player, setPlayer] = useState(null);
-
     console.log('Changing player ' + JSON.stringify(props))
     const videoRef = useRef(null);
     const playerRef = useRef(null);
+    let watchTime = 0;
+    let lastTime = 0;
+    const location = useLocation();
     useEffect(() => {
         if (props.src) {
             // Initialize the player if the video source is available
             if (!playerRef.current) {
-                console.log('Set src to ' + props.src);
 
                 playerRef.current = videojs(videoRef.current, {
                     controls: true,
@@ -25,10 +31,8 @@ export const HlsVideoPlayer = (props) => {
                         src: props.src,
                         type: 'application/x-mpegURL'
                     }]
-
                 });
                 setPlayer(playerRef.current);
-
                 // Initialize the quality selector plugin
                 playerRef.current.hlsQualitySelector();
             } else {
@@ -39,8 +43,27 @@ export const HlsVideoPlayer = (props) => {
                     type: 'application/x-mpegURL'
                 });
                 setPlayer(playerRef.current);
-
             }
+            const curPlayer = playerRef.current;
+            const handleTimeUpdate = () => {
+                const currentTime = curPlayer.currentTime();
+                if (!curPlayer.paused()) {
+                    watchTime += Math.max(0,(currentTime - lastTime));
+                }
+                lastTime = currentTime;
+            };
+
+            const handleEnded = () => {
+                console.log('Total watch time: ' + watchTime + ' seconds');
+            };
+
+            const handlePause = () => {
+                console.log('Watch time so far: ' + watchTime + ' seconds');
+            };
+
+            curPlayer.on('timeupdate', handleTimeUpdate);
+            curPlayer.on('ended', handleEnded);
+            curPlayer.on('pause', handlePause);
         }
 
         return () => {
@@ -49,6 +72,7 @@ export const HlsVideoPlayer = (props) => {
             console.log(player)
             if (player) {
                 player.dispose();
+                handleRouteChange(watchTime);
                 console.log('Player destroyed')
             }
         };
@@ -57,6 +81,14 @@ export const HlsVideoPlayer = (props) => {
     useEffect(() => {
         console.log('videoRef.current:', videoRef.current);
     }, []);
+
+    const handleRouteChange = async (value) => {
+        console.log('User is navigating to a new page. Watch time: ' + value + ' seconds');
+        await videoService.watchVideo(props.videoId, token, value);
+    }
+
+
+
 
     return (
         <div className={'w-full h-full'}>
