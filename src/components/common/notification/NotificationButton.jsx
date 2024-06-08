@@ -16,7 +16,7 @@ export const NotificationButton = (props) => {
         e.preventDefault()
         e.stopPropagation();  // Stop the event from propagating
         //console.log(`toggleNotifications value prev`, showNotifications)
-        setHasNewNotifications(false)
+        // setHasNewNotifications(false)
         setShowNotifications(prev => !prev);
         //console.log(`toggleNotifications value after`, showNotifications)
 
@@ -45,6 +45,11 @@ export const NotificationButton = (props) => {
         console.log(result)
         if (result.success) {
             setNotifications(result.data.data);
+        }
+        const hasNewNotifications = await notificationService.hasUnreadNotification(token);
+        console.log(hasNewNotifications)
+        if (hasNewNotifications.success) {
+            setHasNewNotifications(hasNewNotifications.data.hasUnread);
         }
     }
 
@@ -113,6 +118,14 @@ export const NotificationButton = (props) => {
         }
     }
 
+    const updateNotificationStatus = (newNotification) => {
+        setNotifications(prevNotifications =>
+            prevNotifications.map(notification =>
+                notification.id === newNotification.id ? { ...newNotification} : notification
+            )
+        );
+    };
+
     return (
         <div className={'relative flex justify-center'}>
             <button onClick={toggleNotifications} ref={notificationButtonRef} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
@@ -132,7 +145,7 @@ export const NotificationButton = (props) => {
                 <ul ref={notificationRef} className="absolute top-8 right-0 bg-white border border-gray-300 rounded-lg h-[50vh] overflow-y-scroll w-[60vw] md:w-[30vw] shadow-lg p-3 list-none">
                     {notifications.map((notification, index) => (
                         <li key={index} className={`py-2 ${index !== notifications.length - 1 ? 'border-b border-gray-200' : ''}`}>
-                            <NotificationFeed notification={notification} />
+                            <NotificationFeed notification={notification} update={updateNotificationStatus} />
                         </li>
                     ))}
                     <li className="py-2 border-b border-gray-200">

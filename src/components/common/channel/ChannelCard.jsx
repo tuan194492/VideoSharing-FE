@@ -13,7 +13,7 @@ export const ChannelCard = (props) => {
     const [channel, setChannel] = useState(props.data);
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
-    props.data.User = props.data.Publisher;
+    props.data.User = props.data.Publisher ? props.data.Publisher : props.data.user ;
     const visitChannel = () => {
         navigate(`/user/channel/${channel?.User?.id}`);
     }

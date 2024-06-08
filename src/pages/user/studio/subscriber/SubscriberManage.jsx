@@ -22,6 +22,7 @@ export const SubscriberManage = (props) => {
 
     const getSubscriptionList = async () => {
         const result = await channelService.getSubscriberList(user.id);
+        console.log(result);
         if (result.success) {
             setSubscriptionList(result.data.data);
             setFilteredSubscriptionList(result.data.data);
@@ -44,7 +45,7 @@ export const SubscriberManage = (props) => {
             return;
         }
         setFilteredSubscriptionList(subscriptionList.filter(subscription => {
-            return subscription.User.name.toLowerCase().includes(keyword.toLowerCase()) || subscription.User.shortname.toLowerCase().includes(keyword.toLowerCase());
+            return subscription.user.name.toLowerCase().includes(keyword.toLowerCase()) || subscription.user.shortname.toLowerCase().includes(keyword.toLowerCase());
         }));
         setShowSubscriptionList(filteredSubscriptionList.slice(0, numberPerPage));
         setTotalPages(Math.floor(filteredSubscriptionList.length / numberPerPage));
