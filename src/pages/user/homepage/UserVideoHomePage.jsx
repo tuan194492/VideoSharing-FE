@@ -61,7 +61,7 @@ export const UserVideoHomePage = (props) => {
         setLoading(true);
         console.log('Has more')
         const result = await fetchVideoData(currentPage + 1, videoPerRequest);
-        setLoading(true);
+        setLoading(false);
         if (result.length > 0) {
             setVideoList([...videoList, ...result]);
             setCurrentPage(currentPage => currentPage + 1);
@@ -83,7 +83,7 @@ export const UserVideoHomePage = (props) => {
                 dataLength={videoList.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
-                loader={loading && <div className={'fixed ml-auto mr-auto'}><ThreeDots/></div>}
+                loader={loading && <div className={'fixed ml-auto mr-auto flex justify-center'}><ThreeDots/></div>}
                 scrollThreshold="0.8"
                 scrollableTarget={"videoList"}
             >

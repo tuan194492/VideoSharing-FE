@@ -145,7 +145,7 @@ export const PlaylistWatchDetail = (props) => {
     return (
         <div className={"grid grid-cols-12"}>
             {/* Video watching + Comment List */}
-            <div className={"col-start-1 col-span-8 p-2"}>
+            <div className={"col-start-1 col-span-11 lg:col-span-8 p-2"}>
                 <VideoPlayer videoStc={currentVideoSrc}/>
                 <div className={"video-info p-1 ml-3 flex flex-col justify-between"}>
                     <div className={"text-black font-bold text-sm md:text-xl mt-4 line-clamp-2"}>
@@ -222,7 +222,7 @@ export const PlaylistWatchDetail = (props) => {
 
             </div>
 
-            <div className={"col-span-4 flex flex-col border-gray-300 box-border border-[1px] rounded-[12px] relative"}>
+            <div className={"col-span-4 hidden lg:flex flex-col border-gray-300 box-border border-[1px] rounded-[12px] relative md:max-h-[70vh] "}>
                 <div className={'pt-[12px] pr-[6px] pb-[0px] pl-[16px] border-b-2 pb-4'}>
                     <div className={'text-black text-2xl font-semibold line-clamp-2 mt-2'}>
                         Playlist: {playlist.title}

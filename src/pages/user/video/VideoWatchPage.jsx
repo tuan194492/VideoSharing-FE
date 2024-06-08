@@ -12,7 +12,7 @@ import {useParams} from "react-router-dom";
 import async from "async";
 import {videoService} from "../../../api/user/video";
 import {StringUtils} from "../../../utils/string/StringUtils";
-import {ThreeCircles} from "react-loader-spinner";
+import {ThreeCircles, ThreeDots} from "react-loader-spinner";
 import {VideoMini} from "../../../components/common/homepage/VideoMini";
 import InfiniteScroll from "react-infinite-scroll-component";
 import {CommentPostBox} from "../../../components/common/comment/CommentPostBox";
@@ -49,6 +49,7 @@ export default function VideoWatchPage() {
     const navigate = useNavigate();
     const [refreshComments, setRefreshComments] = useState(false);
     const [commentCount, setCommentCount] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     const fetchVideoData = async (id) => {
         const result = await videoService.findVideoById(token, id);
@@ -72,6 +73,7 @@ export default function VideoWatchPage() {
     }
 
     const initVideoData = async () => {
+        setLoading(true);
         const result = await videoService.fetchVideoList(token, {
             page: 1,
             pageSize: videoPerRequest
@@ -84,15 +86,18 @@ export default function VideoWatchPage() {
                 setVideoList(result.data.data)
             }
         }
+        setLoading(false);
 
     }
 
     const fetchVideoDataList = async (page, pageSize) => {
+        setLoading(true);
         const result = await videoService.fetchVideoList(token, {
             page: page,
             pageSize: pageSize
         })
         console.log(result.data.data)
+        setLoading(false);
         if (result.success) {
             return result.data.data;
         } else {
@@ -126,6 +131,7 @@ export default function VideoWatchPage() {
 
     const fetchMoreData = async () => {
         console.log('Has more')
+        setLoading(true);
         const result = await fetchVideoDataList(currentPage + 1, videoPerRequest);
         if (result.length > 0) {
             setVideoList(videoList => [...videoList, ...result]);
@@ -135,6 +141,7 @@ export default function VideoWatchPage() {
             setHasMore(false);
         }
         console.log(hasMore)
+        setLoading(false);
     }
 
     const adjustSubscriberCount = (isAdded) => {
@@ -244,16 +251,28 @@ export default function VideoWatchPage() {
             </div>
 
             {/* Recommend video list */}
-            <div className={"hidden lg:flex lg:col-span-4 ml-8 overflow-y-visible"}>
-                <InfiniteScroll
-                    dataLength={videoList.length}
-                    next={fetchMoreData}
-                    hasMore={hasMore}
-                    loader={<ThreeCircles />}
-                    className={'flex flex-col w-[100%]'}
-                >
+            <div className={"hidden lg:flex flex-col lg:col-span-4 ml-8 overflow-y-visible"}>
+                <div className={'flex flex-col w-[100%]'}>
                     <VideoVerticalList videos={videoList}/>
-                </InfiniteScroll>
+                </div>
+                {/*<InfiniteScroll*/}
+                {/*    dataLength={videoList.length}*/}
+                {/*    next={fetchMoreData}*/}
+                {/*    hasMore={hasMore}*/}
+                {/*    loader={<ThreeCircles />}*/}
+                {/*    className={'flex flex-col w-[100%]'}*/}
+                {/*>*/}
+                {/*    <VideoVerticalList videos={videoList}/>*/}
+                {/*</InfiniteScroll>*/}
+                {loading && <div className={'flex justify-center'}>
+                    <ThreeDots />
+                </div>}
+                <div className={'flex justify-center'}>
+                    <button onClick={fetchMoreData}
+                            className={'py-1 bg-black rounded-full px-4 ml-2 text-white hover:bg-white hover:text-black hover:border border-black '}>
+                        Load more
+                    </button>
+                </div>
             </div>
         </div>
     );
