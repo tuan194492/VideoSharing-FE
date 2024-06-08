@@ -6,21 +6,8 @@ import {HeaderWrapper} from "../../style/styled";
 import {IMAGES} from "../../utils/images/images";
 import {ImageUtils} from "../../utils/images/ImageUtils";
 
-import socket from "./../../context/Socket";
 import {NotificationButton} from "../common/notification/NotificationButton";
 
-function handleMessageFromServer(data) {
-    switch (data.type) {
-        case 'Comment':
-            toast.success(`User ${data.actor_id} commented on video ${data.video_id}`);
-            break;
-        case 'Like':
-            toast.success(`${data.actor_id} liked on video ${data.video_id}`);
-            break;
-        default:
-            break;
-    }
-}
 
 export default function Navbar() {
     const projectName = process.env.PROJECT_NAME || 'Video Sharing';
@@ -46,19 +33,21 @@ export default function Navbar() {
         navigate(`/${page}/video/create`)
     }
 
-    useEffect(() => {
-        if (user) {
-            socket.on(`user${user.id}`, (data) => {
-                // console.log(data);
-                toast.success(JSON.stringify(data));
-                handleMessageFromServer(data);
-            })
-        }
-
-        return () => {
-            socket.off(`user${user?.id}`)
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (user) {
+    //         socket.on(`user${user.id}`, (data) => {
+    //             // console.log(data);
+    //             toast.success(JSON.stringify(data));
+    //             handleMessageFromServer(data, () => {
+    //
+    //             });
+    //         })
+    //     }
+    //
+    //     return () => {
+    //         socket.off(`user${user?.id}`)
+    //     }
+    // }, []);
 
 
 

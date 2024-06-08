@@ -3,6 +3,7 @@ import {FaEllipsisV} from 'react-icons/fa';
 import {ImageUtils} from "../../../utils/images/ImageUtils";
 import {NOTIFICATION_STATUS} from "../../../utils/enum/NotificationStatus";
 import {DateUtils} from "../../../utils/date/DateUtils";
+import {StringUtils} from "../../../utils/string/StringUtils";
 
 export const NotificationFeedWithoutVideo = (props) => {
     const notification = props.notification;
@@ -23,7 +24,7 @@ export const NotificationFeedWithoutVideo = (props) => {
             <img className="w-12 h-12 rounded-full mr-4" src={ImageUtils.createImageSrcFromBuffer(notification.Actor?.avatar)} alt="channel" />
             <div className="flex-1">
                 <div className="text-sm">
-                    <span className="font-semibold">{notification.Actor?.shortname}</span> uploaded: <span className="font-semibold">{notification.Video.title}</span>
+                    <span className="font-semibold">{notification.Actor?.shortname}</span> {StringUtils.getNotifyLabel(notification.type)} <span className="font-semibold">{notification.type ? " to your channel" : ''}</span>
                 </div>
                 <div className="text-xs text-gray-500">{DateUtils.getPostedSince(notification.createdAt)}</div>
             </div>

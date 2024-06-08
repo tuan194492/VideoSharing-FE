@@ -75,6 +75,23 @@ function getBase64String(str) {
     }, ''));
 }
 
+const getNotifyLabel = (type) => {
+    switch (type) {
+        case "Like":
+            return "Like";
+        case "Dislike":
+            return "Dislike";
+        case "Comment":
+            return "Comment";
+        case "Subcribe":
+            return "Subscribed";
+        case "upload":
+            return "Upload";
+        default:
+            return "";
+    }
+}
+
 export const StringUtils = {
     countLines,
     convertSeconds,
@@ -82,5 +99,6 @@ export const StringUtils = {
     displayDescription,
     formatDate,
     capitalizeFirstLetter,
-    getBase64String
+    getBase64String,
+    getNotifyLabel
 };

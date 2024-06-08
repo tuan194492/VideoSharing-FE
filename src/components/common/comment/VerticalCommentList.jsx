@@ -90,8 +90,10 @@ export const VerticalCommentList = (props) => {
                     />
                 })}
             </InfiniteScroll>
-            <div>
-                <button onClick={fetchMoreData}>
+            <div className={'flex justify-center mt-8'}>
+                <button
+                    className={'bg-black rounded-full px-4 ml-2 text-white hover:bg-white hover:text-black hover:border border-black'}
+                    onClick={fetchMoreData}>
                     Show more
                 </button>
             </div>

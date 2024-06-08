@@ -15,14 +15,14 @@ export const ChannelCard = (props) => {
     const navigate = useNavigate();
     props.data.User = props.data.Publisher;
     const visitChannel = () => {
-        navigate(`/user/channel/${channel.User.id}`);
+        navigate(`/user/channel/${channel?.User?.id}`);
     }
 
     const [subscribed, setSubscribed] = useState(true);
 
     const unsubscribe = async () => {
         console.log(channel);
-        const result = await subscribeService.undoSubscribeChannel(token, channel.User.id);
+        const result = await subscribeService.undoSubscribeChannel(token, channel?.User?.id);
         console.log(result);
         if (result.success) {
             setSubscribed(false);
@@ -33,7 +33,7 @@ export const ChannelCard = (props) => {
     }
 
     const subscribe = async () => {
-        const result = await subscribeService.subscribeChannel(token, channel.User.id);
+        const result = await subscribeService.subscribeChannel(token, channel?.User?.id);
         console.log(result);
         if (result.success) {
             setSubscribed(true);
@@ -117,15 +117,15 @@ export const ChannelCard = (props) => {
             </div>
             <div className="flex flex-col items-center pb-10">
                 <img className='w-24 h-24 mb-3 rounded-full shadow-lg'
-                     src={channel?.avatar?.data ? ImageUtils.createImageSrcFromBuffer(channel.User.avatar.data) : IMAGES.icon.avatar}/>
+                     src={channel?.avatar?.data ? ImageUtils.createImageSrcFromBuffer(channel?.User?.avatar.data) : IMAGES.icon.avatar}/>
                 <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                    {channel.User.name}
+                    {channel?.User?.name}
                 </h5>
                 <span className="text-sm text-gray-500 dark:text-gray-400">
-                  @{channel.User.shortname}
+                  @{channel?.User?.shortname}
                 </span>
                 <span className="text-sm text-gray-500 dark:text-gray-400">
-                  {StringUtils.formatNumber(channel.User.subscriberCount)} subscribers
+                  {StringUtils.formatNumber(channel?.User?.subscriberCount)} subscribers
                 </span>
                 <div className="flex mt-4 md:mt-6">
                     <button

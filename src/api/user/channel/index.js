@@ -20,7 +20,7 @@ const getSubscriptionList = async (token) => {
 
 const getSubscriberList = async (channelId) => {
     try {
-        const result = await axios.get(`${baseAdminURL}/subcriber/subcrber/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
+        const result = await axios.get(`${baseAdminURL}/subcriber/subcriber/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
         return {
             success: true,
             data: result.data,
