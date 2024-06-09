@@ -28,6 +28,7 @@ import { AiOutlineDislike } from "react-icons/ai";
 import {MdOutlineReportProblem} from "react-icons/md";
 import {useNavigate} from "react-router-dom";
 import {HlsVideoPlayer} from "../../../components/common/video/HlsVideoPlayer";
+import {CreateVideoReportPopup} from "../../../components/common/report/CreateVideoReportPopup";
 
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
@@ -212,6 +213,7 @@ export default function VideoWatchPage() {
                             </div>
 
                             <AddPlaylistPopup/>
+                            <CreateVideoReportPopup />
                             {/*<MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} />*/}
                         </div>
 
