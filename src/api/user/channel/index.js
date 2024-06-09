@@ -69,9 +69,28 @@ try {
     }
 }
 
+const getChannelAnalytics = async (channelId) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/channel/channel-analytic/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
+       console.log(result);
+        return {
+            success: true,
+            data: result.data,
+            message: 'Get Channel Analytics successful!'
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+            success: false,
+            data: null,
+            message: error.response.data.error
+        };
+    }
+}
 export const channelService = {
     getSubscriptionList,
     getSubscriberList,
     getViewAnalytic,
-    getMostWatchedVideos
+    getMostWatchedVideos,
+    getChannelAnalytics
 }

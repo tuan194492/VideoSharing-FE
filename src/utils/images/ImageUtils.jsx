@@ -2,7 +2,8 @@ import {StringUtils} from "../string/StringUtils";
 import {IMAGES} from "./images";
 
 const createImageSrcFromBuffer = (buffer) => {
-    if (!buffer || !(buffer instanceof Blob)) {
+    console.log(buffer);
+    if (!buffer) {
         return IMAGES.icon.noImage;
     }
     const base64String = StringUtils.getBase64String(buffer);

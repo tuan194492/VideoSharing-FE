@@ -86,7 +86,7 @@ export const HistoryVideoPage = (props) => {
                                     <div className={'font-extrabold text-xl ml-3 '}>
                                         {date}
                                     </div>
-                                    <div className={'flex flex-row gap-4 mt-6'}>
+                                    <div className={'flex flex-col gap-4 mt-6'}>
                                         {
                                             dateList[date].map(video => {
                                                 console.log(video)

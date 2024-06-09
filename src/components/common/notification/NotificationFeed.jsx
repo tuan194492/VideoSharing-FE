@@ -84,14 +84,14 @@ export const NotificationFeed = (props) => {
                     {
                         notification?.type !== 'Subcribe' && <div>
                         <span
-                            className="font-semibold">{notification?.Actor?.shortname}</span> {StringUtils.getNotifyLabel(notification.type)}
+                            className="font-semibold">{notification?.Actor?.shortname}</span> {StringUtils.getNotifyLabel(notification?.type)}
                             <span className="font-semibold">{notification?.Video?.title}</span>
                         </div>
                     }
 
                     {notification?.type === 'Subcribe' && <div><span
-                        className="font-semibold">{notification.Actor?.shortname}</span> {StringUtils.getNotifyLabel(notification.type)}
-                        <span className="font-semibold">{notification.type ? " to your channel" : ''}</span> </div>
+                        className="font-semibold">{notification.Actor?.shortname}</span> {StringUtils.getNotifyLabel(notification?.type)}
+                        <span className="font-semibold">{notification?.type ? " to your channel" : ''}</span> </div>
                 }
                 </div>
                 <div className="text-xs text-gray-500">{DateUtils.getPostedSince(notification?.createdAt)}</div>

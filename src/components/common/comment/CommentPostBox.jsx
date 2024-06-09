@@ -32,7 +32,7 @@ export const CommentPostBox = (props) => {
             return toast.error(postCommentResult.message);
         }
         toast.success(successMessage.POST_COMMENT_SUCCESSFUL);
-        props.onCommentPosted();
+        props.onCommentPosted && props.onCommentPosted();
         setCommentValue('');
 
     }

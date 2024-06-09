@@ -19,8 +19,9 @@ export const HlsVideoPlayer = (props) => {
     useEffect(() => {
         if (props.src) {
             // Initialize the player if the video source is available
+            console.log(videoRef.current)
+            console.log(playerRef.current)
             if (!playerRef.current) {
-
                 playerRef.current = videojs(videoRef.current, {
                     controls: true,
                     autoplay: false,

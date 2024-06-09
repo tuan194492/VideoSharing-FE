@@ -27,8 +27,10 @@ import {HiXMark} from "react-icons/hi2";
 import {GrCirclePlay, GrGooglePlay} from "react-icons/gr";
 import {BiMoviePlay, BiShuffle} from "react-icons/bi";
 import {FiDelete} from "react-icons/fi";
+import {HlsVideoPlayer} from "../../../components/common/video/HlsVideoPlayer";
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
+const baseServerURL = `${process.env.REACT_APP_BASE_SERVER}`;
 
 export const PlaylistWatchDetail = (props) => {
     const params = useParams();
@@ -50,6 +52,8 @@ export const PlaylistWatchDetail = (props) => {
     const [dislikeCount, setDislikeCount] = useState(0);
     const [description, setDescription] = useState('');
     const [hasMore, setHasMore] = useState(false);
+    const [refreshComments, setRefreshComments] = useState(false);
+    const [commentCount, setCommentCount] = useState(0);
     const navigate = useNavigate();
     const fetchMoreData = async () => {
 
@@ -101,7 +105,8 @@ export const PlaylistWatchDetail = (props) => {
             setLikeCount(result.data.data.likeCount);
             setDislikeCount(result.data.data.dislikeCount);
             setDescription(result.data.data.description);
-            setCurrentVideoSrc(createVideoSrc(result.data.data.id));
+            setCurrentVideoSrc(await createVideoSrc(result.data.data.id));
+            setCommentCount(result.data.data.commentCount);
             const fetchChannelResult = await userService.findUserById(result.data.data.publisher_id);
             if (fetchChannelResult.success) {
                 console.log(fetchChannelResult.data.data);
@@ -110,12 +115,18 @@ export const PlaylistWatchDetail = (props) => {
         }
     }
 
-    const createVideoSrc = (videoId) => {
-        console.log(`${baseAdminURL}/video/stream/${videoId}`);
-        if (user != null) {
-            return `${baseAdminURL}/video/stream/${videoId}?userId=${user.id}`;
+    const createVideoSrc = async (videoId) => {
+        // console.log(`${baseAdminURL}/video/stream/${videoId}`);
+        // if (user != null) {
+        //     return `${baseAdminURL}/video/stream/${videoId}?userId=${user.id}`;
+        // } else {
+        //     return `${baseAdminURL}/video/stream/${videoId}`;
+        // }
+        const videoSrc = await videoService.getVideoSrc(videoId);
+        if (videoSrc.success) {
+            return `${baseServerURL}${videoSrc.data.data}`;
         } else {
-            return `${baseAdminURL}/video/stream/${videoId}`;
+            return '';
         }
     }
 
@@ -146,7 +157,10 @@ export const PlaylistWatchDetail = (props) => {
         <div className={"grid grid-cols-12"}>
             {/* Video watching + Comment List */}
             <div className={"col-start-1 col-span-11 lg:col-span-8 p-2"}>
-                <VideoPlayer videoStc={currentVideoSrc}/>
+                {/*<VideoPlayer videoStc={currentVideoSrc}/>*/}
+                <div>
+                    <HlsVideoPlayer width={1054} height={600} src={currentVideoSrc} videoId={currentVideo.id}/>
+                </div>
                 <div className={"video-info p-1 ml-3 flex flex-col justify-between"}>
                     <div className={"text-black font-bold text-sm md:text-xl mt-4 line-clamp-2"}>
                         {currentVideo.title}
@@ -211,11 +225,21 @@ export const PlaylistWatchDetail = (props) => {
 
                     <div>
                         <div className={'comment-header'}>
-                            {StringUtils.formatNumber(currentVideo.commentCount)} Comments
+                            {StringUtils.formatNumber(commentCount)} Comments
                         </div>
                         <div className={'comment-body'}>
-                            <CommentPostBox videoId={currentVideo.id}/>
-                            <VerticalCommentList videoId={currentVideo.id}/>
+                            <CommentPostBox
+                                onCommentPosted={() => {
+                                    setRefreshComments(prev => !prev)
+                                    setCommentCount(prev => prev + 1);
+                                }}
+                                videoId={currentVideo.id}/>
+                            <VerticalCommentList videoId={currentVideo.id}
+                                                 refreshComments={refreshComments}
+                                                 onCommentDeleted={() => {
+                                                     setRefreshComments(prev => !prev)
+                                                     setCommentCount(prev => prev - 1);
+                                                 }}/>
                         </div>
                     </div>
                 </div>
@@ -264,7 +288,7 @@ export const PlaylistWatchDetail = (props) => {
                 </div>
                 <div className={'flex flex-col gap-2 overflow-y-scroll mt-2'}>
                     {videoList &&
-                        videoList.map(video => {
+                        videoList.map(((video, index) => {
                             if (video.id === currentVideo.id) {
                                 return <div
                                     className={'flex flex-row justify-center items-center bg-gray-200 hover:bg-gray-200 gap-1 relative'}>
@@ -284,7 +308,7 @@ export const PlaylistWatchDetail = (props) => {
                             }
                             return <div className={'flex flex-row justify-center items-center hover:bg-gray-100 gap-1'}>
                                 <div className={'w-[5%] flex items-center justify-center'}>
-                                    {video.id}
+                                    {index + 1}
                                 </div>
                                 <VideoMini
                                     className={'p-0.5 w-full'}
@@ -293,7 +317,7 @@ export const PlaylistWatchDetail = (props) => {
                                 />
                                 <MdOutlineDelete size={20} color={'red'} className={' opacity-0 top-[50%] right-4 cursor-pointer'}/>
                             </div>
-                        })
+                        }))
                     }
                 </div>
 

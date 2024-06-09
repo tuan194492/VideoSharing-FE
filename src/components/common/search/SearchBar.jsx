@@ -17,13 +17,11 @@ const SearchBar = (props) => {
                     placeholder="Search ..."
                     onKeyDown={e => {
                         if (e.key === 'Enter') {
-                            e.preventDefault();
                             props.filter && props.filter(e.target.value);
                         }
                     }}
 
                     onBlur={e => {
-                        e.preventDefault();
                         props.filter && props.filter(e.target.value);
                     }}
                 />

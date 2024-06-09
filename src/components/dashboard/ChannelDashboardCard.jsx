@@ -19,7 +19,7 @@ export const ChannelDashboardCard = ({ title, subscribers, views, watchTime, top
                     <span>{views}</span>
                 </div>
                 <div className="flex justify-between text-sm mb-4">
-                    <span>Watch time (hours)</span>
+                    <span>Watch time (minutes)</span>
                     <span>{watchTime}</span>
                 </div>
                 <div className="border-t pt-3">
