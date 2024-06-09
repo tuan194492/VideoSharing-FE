@@ -53,7 +53,7 @@ export const LikedVideoPage = (props) =>  {
                     <div>
                         <div className="font-sans text-[1.4rem] leading-[2rem] font-medium text-white text-sm text-white/[0.7] mt-6"
                         >
-                            {authContext.user.name}
+                            {authContext?.user?.name}
                         </div>
                         <div
                             className={'font-sans text-[1.4rem] leading-[2rem] font-medium text-white text-sm text-white/[0.7]'}>

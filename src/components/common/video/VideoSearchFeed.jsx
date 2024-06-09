@@ -2,17 +2,21 @@ import {ImageUtils} from "../../../utils/images/ImageUtils";
 import {DateUtils} from "../../../utils/date/DateUtils";
 import {useNavigate} from "react-router-dom";
 import VideoLength from "./VideoLength";
+import {AuthContext} from "../../../context/AuthContext";
+import {useContext} from "react";
 
 export const VideoSearchFeed = (props) => {
     const video = props.video;
     console.log(video)
     const navigate = useNavigate();
-
+    const authContext = useContext(AuthContext);
+    console.log(authContext)
+    const role = authContext.role ? authContext.role : 'guest';
     return (
         <div key={props.index * 2}
              className={'grid grid-cols-12 cursor-pointer p-2 hover:bg-gray-100 w-[90%] ' + props.className}
              onClick={event => {
-                 navigate(`/user/video/detail/${video.id}`)
+                 navigate(`/${role}/video/detail/${video.id}`)
              }}>
             <div className={'thumbnail col col-span-3 w-full flex justify-center aspect-ratio-container relative' }>
                 <img className='aspect-ratio-image rounded-lg border-2 border-gray-200'

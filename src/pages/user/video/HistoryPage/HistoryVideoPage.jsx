@@ -24,7 +24,7 @@ const groupByCreatedDate = (videos) => {
 
 export const HistoryVideoPage = (props) => {
     const authContext = useContext(AuthContext);
-    const token = authContext.token;
+    const token = authContext?.token;
 
     const [watchedVideoList, setWatchedVideoList] = useState([]);
     const [filteredVideoList, setFilteredVideoList] = useState([]);
@@ -32,8 +32,8 @@ export const HistoryVideoPage = (props) => {
 
     const fetchData = async () => {
         const result = await videoService.getWatchedVideoList(token);
-        console.log(result.data.data)
         if (result.success) {
+            console.log(result.data.data)
             setWatchedVideoList(result.data.data);
             setFilteredVideoList(result.data.data);
             setDateList(groupByCreatedDate(result.data.data));

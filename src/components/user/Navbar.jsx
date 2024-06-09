@@ -33,24 +33,6 @@ export default function Navbar() {
         navigate(`/${page}/video/create`)
     }
 
-    // useEffect(() => {
-    //     if (user) {
-    //         socket.on(`user${user.id}`, (data) => {
-    //             // console.log(data);
-    //             toast.success(JSON.stringify(data));
-    //             handleMessageFromServer(data, () => {
-    //
-    //             });
-    //         })
-    //     }
-    //
-    //     return () => {
-    //         socket.off(`user${user?.id}`)
-    //     }
-    // }, []);
-
-
-
     return (
         <HeaderWrapper className="w-full fixed top-0">
             <nav className='border-0 grid grid-cols-12 w-screen px-10 py-5 z-10 bg-white'>
@@ -95,7 +77,7 @@ export default function Navbar() {
                         <li>
                             <div className="cursor-pointer">
                                 <img
-                                    src={user.avatar ? ImageUtils.createImageSrcFromBuffer(user.avatar.data)  : IMAGES.icon.avatar}
+                                    src={user.avatar ? ImageUtils.createImageSrcFromBuffer(user?.avatar?.data)  : IMAGES.icon.avatar}
                                     className="rounded-full border-2"
                                     style={{
                                         width: '43px',

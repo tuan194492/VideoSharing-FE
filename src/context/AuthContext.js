@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from "react";
 
 const defaultAuthContext = {
   token: "",
-  role: "",
+  role: null,
   isLogin: true,
   user: null,
 };
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     const role =
       localStorage.getItem("role") !== null
         ? localStorage.getItem("role")
-        : "0";
+        : null;
     setToken(localStorage.getItem("token"));
     setRole(role);
     setIsLogin(localStorage.getItem("isLogin") === "true");

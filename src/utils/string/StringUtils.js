@@ -78,15 +78,15 @@ function getBase64String(str) {
 const getNotifyLabel = (type) => {
     switch (type) {
         case "Like":
-            return "Like";
+            return "Like to";
         case "Dislike":
-            return "Dislike";
+            return "Dislike to";
         case "Comment":
-            return "Comment";
+            return "Comment to";
         case "Subcribe":
-            return "Subscribed";
+            return "Subscribed to";
         case "upload":
-            return "Upload";
+            return "Uploaded ";
         default:
             return "";
     }

@@ -180,7 +180,7 @@ const getWatchedVideoList = async (token, params) => {
         return {
             success: true,
             data: result.data,
-            message: 'Get Watcher Video list successful!'
+            message: 'Get Watched Video list successful!'
         };
     } catch (error) {
         let message = '';

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import {useContext, useEffect} from "react";
 import {
     ProSidebar,
     Menu,
@@ -31,6 +31,14 @@ const Sidebar = ({ menuCollapse, setMenuCollapse, isStudio }) => {
     const navigate = useNavigate();
     const { permission } = useContext(AuthContext);
     const arrayRoute = [...userRoutes, ...userStudioRoute];
+
+    useEffect(() => {
+        console.log('Path name ' + window.location.pathname);
+        if (window.location.pathname === '/user') {
+            navigate('/user/homepage');
+        }
+    }, [window.location.pathname]);
+
     // initSidebarValue(arrayRoute);
     return (
         <WrapperOwnerSideBar style={{ width: !menuCollapse ? '250px' : '100px'}}>

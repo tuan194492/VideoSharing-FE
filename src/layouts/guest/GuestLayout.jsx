@@ -3,6 +3,15 @@ import Navbar from "../../components/guest/Navbar";
 import {WrapperAll, WrapperContent} from "../../style/styled";
 import Sidebar from "../../components/guest/Sidebar";
 import {useState} from "react";
+
+function getClassNameByCollapse(collapsed) {
+    if (collapsed) {
+        return 'left-[55px] w-[100%]';
+    } else {
+        return 'left-[235px] w-[90%]';
+    }
+}
+
 export default function GuestLayout() {
 
     const [collapsed, setCollapsed] = useState(false);
@@ -12,11 +21,11 @@ export default function GuestLayout() {
     return (
         <WrapperAll>
             <div className=''>
-                <Navbar collapseAction={handleCollapsedChange}/>
+                <Navbar />
                 <WrapperContent className='fixed top-[8%]'>
-                    <Sidebar  menuCollapse = {collapsed} setMenuCollapse = {handleCollapsedChange} />
+                    <Sidebar isStudio={false}  menuCollapse = {collapsed} setMenuCollapse = {handleCollapsedChange} />
                 </WrapperContent>
-                <div className='fixed top-[8%] left-[235px] h-[92%] w-[85%] py-[50px] px-[50px] overflow-auto' >
+                <div className={'fixed top-[8%] h-[92%] py-[50px] px-[50px] overflow-auto ' + getClassNameByCollapse(collapsed)} >
                     <Outlet />
                 </div>
             </div>
