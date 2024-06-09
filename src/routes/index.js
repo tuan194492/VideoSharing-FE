@@ -4,7 +4,7 @@ import UserLayout from "../layouts/user/UserLayout";
 import UserLoginPage from "../pages/user/auth/UserLoginPage";
 import UserRegisterPage from "../pages/user/auth/UserRegisterPage";
 import {AdminLoginPage} from "../pages/admin/login/AdminLoginPage";
-import {userRoutes, userStudioRoute} from "./userRoutes";
+import {userFooterRoute, userRoutes, userStudioRoute} from "./userRoutes";
 import {guestRoutes} from "./guestRoutes";
 import UserStudioLayout from "../layouts/user/UserStudioLayout";
 import {ChannelDetail} from "../pages/user/channel/ChannelDetail";
@@ -12,6 +12,10 @@ import {Error404Page} from "../pages/common/Error404Page";
 
 const admin = [], user = [], guest = [], userStudio = [];
 userRoutes.map((route) => {
+    user.push(route)
+})
+
+userFooterRoute.map((route) => {
     user.push(route)
 })
 

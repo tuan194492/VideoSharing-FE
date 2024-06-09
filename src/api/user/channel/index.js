@@ -87,6 +87,7 @@ const getChannelAnalytics = async (channelId) => {
         };
     }
 }
+
 export const channelService = {
     getSubscriptionList,
     getSubscriberList,

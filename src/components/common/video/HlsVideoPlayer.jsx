@@ -114,7 +114,7 @@ export const HlsVideoPlayer = (props) => {
         <div className={'w-full h-full'}>
             <video
                 ref={videoRef}
-                id="my-video"
+                id={props.videoId}
                 className="video-js vjs-default-skin"
                 controls
                 preload="auto"

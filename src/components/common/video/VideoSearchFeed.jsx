@@ -11,7 +11,7 @@ export const VideoSearchFeed = (props) => {
     const navigate = useNavigate();
     const authContext = useContext(AuthContext);
     console.log(authContext)
-    const role = authContext.role ? authContext.role : 'guest';
+    const role = authContext.role ? authContext.role.replaceAll('"', '') : 'guest';
     return (
         <div key={props.index * 2}
              className={'grid grid-cols-12 cursor-pointer p-2 hover:bg-gray-100 w-[90%] ' + props.className}

@@ -13,7 +13,7 @@ import {ChannelDetail} from "../pages/user/channel/ChannelDetail";
 import {GrChannel, GrUserManager} from "react-icons/gr";
 import {MdAnalytics, MdManageAccounts, MdOutlineUnsubscribe} from "react-icons/md";
 import {FaVideo} from "react-icons/fa6";
-import {BiUser} from "react-icons/bi";
+import {BiFlag, BiSolidFlag, BiUser} from "react-icons/bi";
 import {PiPlaylist} from "react-icons/pi";
 import {ChannelManager} from "../pages/user/studio/channel/ChannelManager";
 import {ChannelAnalytic} from "../pages/user/studio/analytic/ChannelAnalytic";
@@ -25,6 +25,7 @@ import {LikedVideoPage} from "../pages/user/video/LikedVideo/LikedVideoPage";
 import {SubscriptionHomePage} from "../pages/user/subscriptions/SubscriptionHomePage";
 import {SubscriberManage} from "../pages/user/studio/subscriber/SubscriberManage";
 import {HistoryVideoPage} from "../pages/user/video/HistoryPage/HistoryVideoPage";
+import {UserReportSummary} from "../pages/user/report/UserReportSummary";
 
 
 export const userRoutes = [
@@ -163,10 +164,10 @@ export const userStudioRoute = [
 
 export const userFooterRoute = [
     {
-        title: 'Setting',
-        path: '/user/setting',
-        element: <div/>,
-        icon: IMAGES.icon.setting,
+        title: 'Report',
+        path: '/user/report',
+        element: <UserReportSummary/>,
+        icon: <BiSolidFlag size={32}/>,
         subRoute: [],
         able: 1
     },
