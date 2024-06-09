@@ -1,6 +1,10 @@
 .login_img_section {
-    background-image: url("https://images.unsplash.com/photo-1616567214738-22fc0c6332b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80");
-    background-size: contain;
-    background-position: left;
-    
+    background-image: url("https://img.freepik.com/premium-photo/modern-workspace-top-view-flat-lay-style_61343-416.jpg?w=1380");
+    background-size: cover;
+    background-position: center;
+}
+.register_img_section {
+     background-image: url("https://as2.ftcdn.net/v2/jpg/05/24/33/91/1000_F_524339117_ngnGjmgghdLATOTLY7NYgqwe4IXdI2z0.jpg ");
+     background-size: contain;
+     background-position: right;
 }

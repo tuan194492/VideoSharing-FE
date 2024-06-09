@@ -28,6 +28,7 @@ import {GrCirclePlay, GrGooglePlay} from "react-icons/gr";
 import {BiMoviePlay, BiShuffle} from "react-icons/bi";
 import {FiDelete} from "react-icons/fi";
 import {HlsVideoPlayer} from "../../../components/common/video/HlsVideoPlayer";
+import {CreateVideoReportPopup} from "../../../components/common/report/CreateVideoReportPopup";
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
 const baseServerURL = `${process.env.REACT_APP_BASE_SERVER}`;
@@ -226,6 +227,7 @@ export const PlaylistWatchDetail = (props) => {
                             </div>
 
                             <AddPlaylistPopup/>
+                            <CreateVideoReportPopup videoId={currentVideo.id}/>
                             {/*<MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} />*/}
                         </div>
 

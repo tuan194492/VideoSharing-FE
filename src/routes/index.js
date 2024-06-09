@@ -3,12 +3,13 @@ import GuestLayout from "../layouts/guest/GuestLayout";
 import UserLayout from "../layouts/user/UserLayout";
 import UserLoginPage from "../pages/user/auth/UserLoginPage";
 import UserRegisterPage from "../pages/user/auth/UserRegisterPage";
-import {AdminLoginPage} from "../pages/admin/login/AdminLoginPage";
 import {userFooterRoute, userRoutes, userStudioRoute} from "./userRoutes";
 import {guestRoutes} from "./guestRoutes";
 import UserStudioLayout from "../layouts/user/UserStudioLayout";
 import {ChannelDetail} from "../pages/user/channel/ChannelDetail";
 import {Error404Page} from "../pages/common/Error404Page";
+import {adminRoute} from "./adminRoutes";
+import AdminLoginPage from "../pages/admin/login/AdminLoginPage";
 
 const admin = [], user = [], guest = [], userStudio = [];
 userRoutes.map((route) => {
@@ -26,6 +27,10 @@ guestRoutes.map((route) => {
     guest.push(route)
 })
 
+adminRoute.map(route => {
+    admin.push(route)
+})
+
 export const routes = [
     {
         path: "/admin",
@@ -33,9 +38,8 @@ export const routes = [
         children: admin
     },
     {
-        path: "/admin/auth",
-        element: <AdminLoginPage />,
-        children: admin
+        path: "/admin/login",
+        element: <AdminLoginPage />
     },
     {
         path: "/user/studio",

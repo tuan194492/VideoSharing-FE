@@ -1,5 +1,5 @@
 export const RoleEnum = {
-    'ADMIN': 'ADMIN',
-    'USER': 'USER',
-    'OWNER': 'OWNER',
+    'ADMIN': 'admin',
+    'USER': 'user',
+    'GUEST': 'guest'
 }

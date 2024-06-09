@@ -37,9 +37,9 @@ export default function UserRegisterPage() {
     }
     return (
 
-        <div className='h-screen flex'>
-            <div className='flex w-full items-center bg-white space-y-8'>
-                <div className='w-full flex flex-rol space-x-5  px-8 md:px-32 lg:px-24'>
+        <div className='h-screen flex '>
+            <div className='flex w-full items-center bg-white space-y-8 register_img_section'>
+                <div className='w-full flex flex-rol space-x-5  px-8 md:px-32 lg:px-24 '>
                     <form className='bg-white rounded-md shadow-2xl p-5 w-1/3 h-1/3' onSubmit={handleSubmit(onSubmit)}>
                         <h1 className='text-gray-800 font-bold text-2xl mb-5 underline'>REGISTER</h1>
                         <div className='grid grid-cols-3 gape-2'>
@@ -132,7 +132,6 @@ export default function UserRegisterPage() {
                             </button>
                         </div>
                     </form>
-                    <img className='w-2/3 max-h-[800px]' src={"https://images.unsplash.com/photo-1563889362352-b0492c224f62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"}/>
                 </div>
             </div>
         </div>

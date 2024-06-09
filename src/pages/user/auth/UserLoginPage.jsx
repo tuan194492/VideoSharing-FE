@@ -37,7 +37,7 @@ export default function UserLoginPage() {
     };
 
     return (
-        <div className="h-screen flex login_img_section object-fill">
+        <div className="h-screen flex login_img_section">
             <div className="hidden lg:flex w-full">
                 <div
                     className="
