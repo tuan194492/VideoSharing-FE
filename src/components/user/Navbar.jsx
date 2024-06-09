@@ -13,7 +13,7 @@ export default function Navbar() {
     const projectName = process.env.PROJECT_NAME || 'Video Sharing';
     const {clearAuthData, user} = useContext(AuthContext)
     const [searchParam, setSearchParam] = useState('');
-    console.log(user)
+    // console.log(user)
     const role = localStorage.getItem("role");
     const page = role?.substring(1, role.length - 1).toLowerCase() || 'guest';
     const navigate = useNavigate()

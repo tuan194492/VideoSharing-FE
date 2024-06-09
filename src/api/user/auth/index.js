@@ -37,7 +37,7 @@ export const userRegister = async (props) => {
             message: 'Register successfully!'
         };
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         let message = '';
         if (axios.isAxiosError(error)) {
             return {

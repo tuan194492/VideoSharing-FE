@@ -11,10 +11,10 @@ export const DescriptionTextField = (props) => {
         }
     }
     useEffect(() => {
-        console.log(props.description);
+        // console.log(props.description);
         const lineCount = Math.max(props.description ? (props.description.match(/\n/g) || []).length : 0, Math.floor(props.description.length / 3 /31));
-        console.log('' + props.description  + lineCount + props.line);
-        console.log(props.line)
+        // console.log('' + props.description  + lineCount + props.line);
+        // console.log(props.line)
         setDisplayShowMore(lineCount > props.line);
     }, [props.description]);
     return (

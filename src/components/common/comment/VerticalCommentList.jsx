@@ -9,8 +9,8 @@ import {commentService} from "../../../api/user/comment";
 export const VerticalCommentList = (props) => {
     const [commentList, setCommentList] = useState([]);
     const videoId = props.videoId || 1;
-    console.log(props);
-    console.log(videoId);
+    // console.log(props);
+    // console.log(videoId);
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(false);
     const [refreshComment, setRefreshComment] = useState(false);

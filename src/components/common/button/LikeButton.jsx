@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 import {AiOutlineLike} from "react-icons/ai";
 
 export const LikeButton = (props) => {
-    console.log(props)
+    // console.log(props)
     const videoId = props.videoId;
     const authContext = useContext(AuthContext);
     const token = authContext.token;

@@ -45,12 +45,12 @@ export const AddPlaylistPopup = (props) => {
     const token = authContext.token;
     const user = authContext.user;
     const params = useParams();
-    console.log(props.videoId)
+    // console.log(props.videoId)
     const videoId = props.videoId > 0 ? props.videoId :params.id;
 
     const initData = async () => {
         const result = await playlistService.getPlaylistListByUser(token);
-        console.log(result)
+        // console.log(result)
         if (result.success) {
             playlist = result.data;
             setPlaylist(result.data);

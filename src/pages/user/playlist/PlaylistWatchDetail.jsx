@@ -152,6 +152,19 @@ export const PlaylistWatchDetail = (props) => {
 
     }
 
+    async function getCallBackOnEnded () {
+        console.log('currentVideoIndex`', currentVideoIndex);
+        console.log(`Next video index`,(currentVideoIndex + 1) % videoList.length )
+        setCurrentVideoIndex(prev => (prev + 1) % videoList.length)
+        await onChangeVideo(videoList[(currentVideoIndex + 1) % videoList.length]);
+    }
+
+    function getCallBackOnPause () {
+        console.log('currentVideoIndex`', currentVideoIndex);
+        console.log(`Next video index`,(currentVideoIndex + 1) % videoList.length )
+
+    }
+
 
     return (
         <div className={"grid grid-cols-12"}>
@@ -159,7 +172,13 @@ export const PlaylistWatchDetail = (props) => {
             <div className={"col-start-1 col-span-11 lg:col-span-8 p-2"}>
                 {/*<VideoPlayer videoStc={currentVideoSrc}/>*/}
                 <div>
-                    <HlsVideoPlayer width={1054} height={600} src={currentVideoSrc} videoId={currentVideo.id}/>
+                    <HlsVideoPlayer
+                        width={1054}
+                        height={600}
+                        src={currentVideoSrc}
+                        videoId={currentVideo.id}
+                        callBackOnEnded={getCallBackOnEnded}
+                        callBackOnPause={getCallBackOnPause}/>
                 </div>
                 <div className={"video-info p-1 ml-3 flex flex-col justify-between"}>
                     <div className={"text-black font-bold text-sm md:text-xl mt-4 line-clamp-2"}>
@@ -296,6 +315,7 @@ export const PlaylistWatchDetail = (props) => {
                                         <BsPlay size={28}/>
                                     </div>
                                     <VideoMini
+                                        key={index}
                                         className={'p-0.5 w-full'}
                                         data={video}
                                         onClick={e => {
@@ -311,6 +331,7 @@ export const PlaylistWatchDetail = (props) => {
                                     {index + 1}
                                 </div>
                                 <VideoMini
+                                    key={index}
                                     className={'p-0.5 w-full'}
                                     data={video}
                                     onClick={e => onChangeVideo(video)}

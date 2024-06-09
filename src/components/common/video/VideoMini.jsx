@@ -8,7 +8,7 @@ import {DateUtils} from "../../../utils/date/DateUtils";
 
 export const VideoMini = (props) => {
     const data = props.data;
-    console.log(data);
+    // console.log(data);
     const navigate = useNavigate();
     const role = localStorage.getItem("role");
     const page = role?.substring(1, role.length - 1).toLowerCase() || 'guest';

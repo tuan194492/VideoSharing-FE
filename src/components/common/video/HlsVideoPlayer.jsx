@@ -11,17 +11,20 @@ export const HlsVideoPlayer = (props) => {
     const token = authContext.token;
     const [player, setPlayer] = useState(null);
     console.log('Changing player ' + JSON.stringify(props))
-    const videoRef = useRef(null);
-    const playerRef = useRef(null);
+    let videoRef = useRef(null);
+    let playerRef = useRef(null);
     let watchTime = 0;
     let lastTime = 0;
     const location = useLocation();
+    let handleTimeUpdate, handleEnded, handlePause;
     useEffect(() => {
         if (props.src) {
             // Initialize the player if the video source is available
+            console.log('BEgin changing src')
             console.log(videoRef.current)
             console.log(playerRef.current)
             if (!playerRef.current) {
+                console.log('BEgin changing src has current')
                 playerRef.current = videojs(videoRef.current, {
                     controls: true,
                     autoplay: false,
@@ -46,7 +49,7 @@ export const HlsVideoPlayer = (props) => {
                 setPlayer(playerRef.current);
             }
             const curPlayer = playerRef.current;
-            const handleTimeUpdate = () => {
+             handleTimeUpdate = () => {
                 const currentTime = curPlayer.currentTime();
                 if (!curPlayer.paused()) {
                     watchTime += Math.max(0,(currentTime - lastTime));
@@ -54,28 +57,44 @@ export const HlsVideoPlayer = (props) => {
                 lastTime = currentTime;
             };
 
-            const handleEnded = () => {
+             handleEnded = async () => {
+                if (props.callBackOnEnded) {
+                    await props.callBackOnEnded();
+                }
+                console.log(curPlayer)
                 console.log('Total watch time: ' + watchTime + ' seconds');
             };
 
-            const handlePause = () => {
+             handlePause = () => {
+                 if (props.callBackOnPause) {
+                      props.callBackOnPause();
+                 }
                 console.log('Watch time so far: ' + watchTime + ' seconds');
             };
 
-            curPlayer.on('timeupdate', handleTimeUpdate);
-            curPlayer.on('ended', handleEnded);
-            curPlayer.on('pause', handlePause);
+            if (curPlayer) {
+                curPlayer.on('timeupdate', handleTimeUpdate);
+                curPlayer.on('ended', handleEnded);
+                curPlayer.on('pause', handlePause);
+            }
+
         }
 
         return () => {
             // Dispose of the player when the component unmounts
             console.log('Disposing')
             console.log(player)
+
             if (player) {
-                player.dispose();
+                // player.dispose();
+                player.off('timeupdate', handleTimeUpdate);
+                player.off('handleEnded', handleEnded);
+                player.off('handlePause', handlePause);
+                // setPlayer(null);
                 handleRouteChange(watchTime);
                 console.log('Player destroyed')
             }
+
         };
     }, [props.src, playerRef.current]);
 
