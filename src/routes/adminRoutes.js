@@ -1,6 +1,7 @@
 import {IMAGES} from "../utils/images/images";
 import {BiSolidFlag} from "react-icons/bi";
 import {DashBoardSummary} from "../pages/admin/dashboard/DashBoardSummary";
+import {ReportManage} from "../pages/admin/report/ReportManage";
 export const adminRoute = [
     {
         title: 'Dashboard',
@@ -23,7 +24,7 @@ export const adminRoute = [
         path: '/admin/report',
         icon: <BiSolidFlag size={28}/>,
         subRoute: [],
-        element: <div/>,
+        element: <ReportManage />,
         able : 1
     },
 ]

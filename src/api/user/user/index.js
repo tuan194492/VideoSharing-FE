@@ -1,4 +1,5 @@
 import axios from "axios";
+import {RequestFactory} from "../../../utils/request";
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
 
 
@@ -29,6 +30,66 @@ const findUserById = async (id) => {
 
 }
 
+const getAllUsers = async token => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/all-user`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        return {
+            success: true,
+            data: result.data
+        };
+    } catch (error) {
+        let message = 'Network error';
+        if (axios.isAxiosError(error)) {
+            message = error.response?.data.message || message;
+        }
+        return {
+            success: false,
+            message
+        };
+    }
+};
+
+const activateUser = async (token, userId) => {
+    try {
+        const result = await axios.post(`${baseAdminURL}/${userId}/activate`, {}, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        return {
+            success: true,
+            message: 'User activated successfully!'
+        };
+    } catch (error) {
+        let message = 'Network error';
+        if (axios.isAxiosError(error)) {
+            message = error.response?.data.message || message;
+        }
+        return {
+            success: false,
+            message
+        };
+    }
+};
+
+const suspendUser = async (token, userId) => {
+    try {
+        const result = await axios.post(`${baseAdminURL}/${userId}/suspend`, {}, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        return {
+            success: true,
+            message: 'User suspended successfully!'
+        };
+    } catch (error) {
+        let message = 'Network error';
+        if (axios.isAxiosError(error)) {
+            message = error.response?.data.message || message;
+        }
+        return {
+            success: false,
+            message
+        };
+    }
+};
+
 export const userService = {
-    findUserById
+    findUserById,
+    getAllUsers,
+    activateUser,
+    suspendUser,
 }
