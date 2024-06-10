@@ -27,7 +27,7 @@ const getReportsByUser = async (token) => {
         const result = await axios.get(`${baseAdminURL}/report/user`, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
-            data: result.data
+            data: result.data.data.rows
         };
     } catch (error) {
         console.error(error);
@@ -40,9 +40,12 @@ const getReportsByUser = async (token) => {
     }
 };
 
-const approveReport = async (token, reportId) => {
+const approveReport = async (token, reportId, reportRemark) => {
     try {
-        const result = await axios.post(`${baseAdminURL}/report/${reportId}/approve`, null, RequestFactory.createHeaderRequestFormDataWithToken(token));
+
+        const result = await axios.post(`${baseAdminURL}/report/${reportId}/approve`, RequestFactory.createFormDataFromObject({
+            reportRemark
+        }), RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             data: result.data,
@@ -59,9 +62,11 @@ const approveReport = async (token, reportId) => {
     }
 };
 
-const rejectReport = async (token, reportId) => {
+const rejectReport = async (token, reportId, reportRemark) => {
     try {
-        const result = await axios.post(`${baseAdminURL}/report/${reportId}/reject`, null, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const result = await axios.post(`${baseAdminURL}/report/${reportId}/reject`, RequestFactory.createFormDataFromObject({
+            reportRemark
+        }), RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             data: result.data,

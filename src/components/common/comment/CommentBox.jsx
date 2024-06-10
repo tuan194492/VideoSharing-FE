@@ -13,6 +13,9 @@ import {ThreeDotDropDownButton} from "../button/ThreeDotDropDownButton";
 import {commentService} from "../../../api/user/comment";
 import {toast} from "react-toastify";
 import {AuthContext} from "../../../context/AuthContext";
+import {ReportPopup} from "../report/ReportPopup";
+import {ReportType} from "../../../utils/enum/ReportType";
+import Popup from "reactjs-popup";
 
 export const CommentBox = (props) => {
     // console.log(props.comment);
@@ -42,6 +45,14 @@ export const CommentBox = (props) => {
         }
         toast.error(result.message);
     }
+    const [open, setOpen] = useState(false);
+
+    function handleReportComment() {
+        setOpen(prev => !prev);
+    }
+
+    const closeModal = () => setOpen(false);
+
 
     return (
         <div className={'grid grid-cols-12 p-2 mt-1.5'}>
@@ -91,7 +102,21 @@ export const CommentBox = (props) => {
                             label: 'Delete',
                             onSelect: handleDeleteComment
                         },
+                        {
+                            value: 'report',
+                            label: 'Report',
+                            onSelect: handleReportComment
+                        }
                 ]}/>
+                <Popup nested contentStyle={{width: '25%'}} open={open} closeOnDocumentClick onClose={closeModal}>
+                    <div className={'modal'}>
+                        <ReportPopup
+                            onSuccess={() => closeModal()}
+                            comment_id={commentId}
+                            type={ReportType.Comment}
+                        />
+                    </div>
+                </Popup>
             </div>
         </div>
     )

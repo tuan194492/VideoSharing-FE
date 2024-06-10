@@ -1,12 +1,13 @@
 import {DashboardCard} from "../../../components/dashboard/DashboardCard";
 import ReactTable from "react-table-6";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {AuthContext} from "../../../context/AuthContext";
 import {reportService} from "../../../api/admin/report";
 import {DateUtils} from "../../../utils/date/DateUtils";
 import {ReportStatus} from "../../../utils/enum/ReportStatus";
+import {ReportType} from "../../../utils/enum/ReportType";
 
 const legendData = [
     { item: 'A', color: 'green', label: 'Approved' },
@@ -76,7 +77,19 @@ const columns = (handleApprove, handleReject, handleRemarkChange) => [
     {
         Header: 'Content',
         accessor: 'content',
-        Cell: props => <div className='text text-blue-500 text-center'><a href={getContent(props.original)} className={'line-clamp-2 break-words'}> {getLink(props.original)} </a></div>,
+        Cell: props =>{
+            if (props.original.type === ReportType.Comment) {
+                return <div className='text text-black/[0.7] text-center line-clamp-2 break-words'>
+                    {props.original.Comment?.value || 'Comment has been removed'}
+                </div>
+            } else {
+                return <div className='text text-blue-500 text-center line-clamp-2 break-words'>
+                    <a
+                        href={getContent(props.original)}
+                        className={'line-clamp-2 break-words'}> {getLink(props.original)} </a></div>
+            }
+
+        },
         width: 300
     },
     {
@@ -93,12 +106,12 @@ const columns = (handleApprove, handleReject, handleRemarkChange) => [
     },
     {
         Header: 'Approve Remark',
-        accessor: 'approveRemark',
+        accessor: 'approve_remark',
         Cell: props => (
             <div className={'w-full h-full'}>
                 <textarea
                     className={'w-full'}
-                    value={props.original.approveRemark || ''}
+                    value={props.original.approve_remark || ''}
                     readOnly={props.original.status !== ReportStatus.PENDING}
                     onChange={(e) => handleRemarkChange(e, props.original.id)}
                 />
@@ -111,8 +124,8 @@ const columns = (handleApprove, handleReject, handleRemarkChange) => [
         Header: 'Actions',
         Cell: props => (
             <div className={'flex justify-evenly'}>
-                {props.original.status === ReportStatus.PENDING && <button onClick={() => handleApprove(props.original.id, props.original.approveRemark)} className="text-green-500">Approve</button>}
-                {props.original.status === ReportStatus.PENDING && <button onClick={() => handleReject(props.original.id, props.original.approveRemark)} className="text-red-500 ml-2">Reject</button>}
+                {props.original.status === ReportStatus.PENDING && <button onClick={() => handleApprove(props.original.id, props.original.approve_remark)} className="text-green-500">Approve</button>}
+                {props.original.status === ReportStatus.PENDING && <button onClick={() => handleReject(props.original.id, props.original.approve_remark)} className="text-red-500 ml-2">Reject</button>}
             </div>
         )
     }
@@ -157,7 +170,7 @@ export const ReportManage = (props) => {
     const handleRemarkChange = (e, reportId) => {
         const { value } = e.target;
         setReportList(prevState => prevState.map(report =>
-            report.id === reportId ? { ...report, approveRemark: value } : report
+            report.id === reportId ? { ...report, approve_remark: value } : report
         ));
     };
 

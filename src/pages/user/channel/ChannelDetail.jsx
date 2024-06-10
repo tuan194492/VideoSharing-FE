@@ -14,6 +14,9 @@ import {TbCircleArrowLeftFilled, TbCircleArrowRightFilled} from "react-icons/tb"
 import {playlistService} from "../../../api/user/playlist";
 import {PlayListMini} from "../../../components/common/playlist/PlayListMini";
 import {ImageUtils} from "../../../utils/images/ImageUtils";
+import {ReportPopup} from "../../../components/common/report/ReportPopup";
+import {CreateVideoReportPopup} from "../../../components/common/report/CreateVideoReportPopup";
+import {ChannelReportButton} from "../../../components/common/report/ChannelReportButton";
 const defaultImage = 'https://www.frontsigns.com/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2020/12/Business-Branding-Ideas.jpg.webp';
 
 const videoPerRequest = 8;
@@ -71,6 +74,9 @@ export const ChannelDetail = (props) => {
                         <span
                             className='text-[12px] md:text-[13px] tracking-wider -mt-1 font-[500] text-[#323232]'>{StringUtils.formatNumber(channel?.subscriberCount)} subscribers</span>
                     </div>
+                </div>
+                <div className={'ml-auto mr-2'}>
+                    <ChannelReportButton channelId={channel.id} />
                 </div>
             </div>
             <div className={'border-b-2 border-gray-100'}>

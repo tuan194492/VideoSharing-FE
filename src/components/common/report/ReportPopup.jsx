@@ -36,7 +36,7 @@ export const ReportPopup = (props) => {
 
     return (
         <div className="p-6 w-full mx-auto bg-white rounded-xl shadow-md space-y-4">
-            <h2 className="text-xl font-semibold text-gray-900">Report video</h2>
+            <h2 className="text-xl font-semibold text-gray-900">Report reason</h2>
             <form onSubmit={handleSubmit}>
                 {[
                     'Sexual content',
