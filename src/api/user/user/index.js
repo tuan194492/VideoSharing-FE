@@ -1,6 +1,7 @@
 import axios from "axios";
 import {RequestFactory} from "../../../utils/request";
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
+const baseAuthAdminURL = `${process.env.REACT_APP_BE_HOST}/auth`;
 
 
 const findUserById = async (id) => {
@@ -30,14 +31,15 @@ const findUserById = async (id) => {
 
 }
 
-const getAllUsers = async token => {
+const getAllUsers = async (token) => {
     try {
-        const result = await axios.get(`${baseAdminURL}/all-user`, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const result = await axios.get(`${baseAuthAdminURL}/all-user`, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             data: result.data
         };
     } catch (error) {
+        console.log(error)
         let message = 'Network error';
         if (axios.isAxiosError(error)) {
             message = error.response?.data.message || message;
@@ -51,7 +53,7 @@ const getAllUsers = async token => {
 
 const activateUser = async (token, userId) => {
     try {
-        const result = await axios.post(`${baseAdminURL}/${userId}/activate`, {}, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const result = await axios.post(`${baseAuthAdminURL}/${userId}/activate`, {}, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             message: 'User activated successfully!'
@@ -70,7 +72,7 @@ const activateUser = async (token, userId) => {
 
 const suspendUser = async (token, userId) => {
     try {
-        const result = await axios.post(`${baseAdminURL}/${userId}/suspend`, {}, RequestFactory.createHeaderRequestFormDataWithToken(token));
+        const result = await axios.post(`${baseAuthAdminURL}/${userId}/suspend`, {}, RequestFactory.createHeaderRequestFormDataWithToken(token));
         return {
             success: true,
             message: 'User suspended successfully!'

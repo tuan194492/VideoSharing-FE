@@ -2,6 +2,7 @@ import {IMAGES} from "../utils/images/images";
 import {BiSolidFlag} from "react-icons/bi";
 import {DashBoardSummary} from "../pages/admin/dashboard/DashBoardSummary";
 import {ReportManage} from "../pages/admin/report/ReportManage";
+import {UserManagement} from "../pages/admin/user/UserManagement";
 export const adminRoute = [
     {
         title: 'Dashboard',
@@ -15,7 +16,7 @@ export const adminRoute = [
         title: 'User',
         path: '/admin/user/',
         icon: IMAGES.icon.personal,
-        element: <div/>,
+        element: <UserManagement />,
         subRoute: [],
         able : 1
     },
