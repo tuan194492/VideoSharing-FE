@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import {StringUtils} from "../../../utils/string/StringUtils";
 import {userService} from "../../../api/user/user";
@@ -25,7 +25,9 @@ export const ChannelDetail = (props) => {
     const channelId = params.id;
     const authContext = useContext(AuthContext);
     const token = authContext.token;
-
+    const navigate = useNavigate();
+    const role = localStorage.getItem("role");
+    const page = role?.substring(1, role.length - 1).toLowerCase() || 'guest';
     const [channel, setChannel] = useState({
         avatar: ''
     });
@@ -99,7 +101,11 @@ export const ChannelDetail = (props) => {
                             <h4 className='text-[16px] text-[#585858] font-bold tracking-wider'>{playlist.title}</h4>
                             <div className={'flex flex-row justify-items-start items-center hover:bg-gray-200 cursor-pointer rounded-full gap-1 px-2'}>
                                 <BsPlay/>
-                                <h4 className='text-[16px] text-[#585858] font-extrabold tracking-wider'>Play all</h4>
+                                <h4 className='text-[16px] text-[#585858] font-extrabold tracking-wider'
+                                    onClick={e => {
+                                        navigate(`/${page}/playlist/detail/${playlist.id}`);
+                                    }}
+                                >Play all</h4>
                             </div>
 
 
@@ -128,12 +134,14 @@ export const ChannelDetail = (props) => {
 
             <div className={'mt-4'}>
                 <h4 className='text-[16px] mt-2 text-[#585858] font-bold tracking-wider'>PLAYLISTS</h4>
-                <div className='mt-3 gap-x-5 gap-y-3 grid sm:grid-cols-1 md:grid-cols-6 px-4 relative mt-12 pt-2 pb-4'>
+                <div className=' gap-x-5 gap-y-3 grid sm:grid-cols-1 md:grid-cols-6 px-4 relative mt-12 pb-4'>
                     {
                         playlistList.map((playlist) => {
                             return <PlayListMini data={{
                                 id: playlist.id
-                            }}/>
+                            }}
+                                                 className={'mt-1'}
+                            />
                         })
                     }
                     {

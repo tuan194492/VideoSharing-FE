@@ -29,6 +29,7 @@ import {MdOutlineReportProblem} from "react-icons/md";
 import {useNavigate} from "react-router-dom";
 import {HlsVideoPlayer} from "../../../components/common/video/HlsVideoPlayer";
 import {CreateVideoReportPopup} from "../../../components/common/report/CreateVideoReportPopup";
+import {ImageUtils} from "../../../utils/images/ImageUtils";
 
 
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
@@ -178,7 +179,7 @@ export default function VideoWatchPage() {
                                     navigate(`/user/channel/${currentChannel.id}`);
                                 }} 
                                 className={'relative h-20 md:h-16 md:rounded-xl overflow-hidden'}>
-                                <img src={IMAGES.icon.avatar} className={"h-full w-full object-cover rounded-lg"}/>
+                                <img src={ImageUtils.createImageSrcFromBufferWithDefaultIsAvatar(currentChannel?.avatar?.data)} className={"h-full w-full object-cover rounded-lg"}/>
                             </div>
                             <div className={'flex flex-col'}>
                                 <span className={"inline-block ml-2 "}>

@@ -2,6 +2,8 @@ import {IMAGES} from "../../../utils/images/images";
 import {StringUtils} from "../../../utils/string/StringUtils";
 import {useNavigate} from "react-router-dom";
 import VideoLength from "../video/VideoLength";
+import {DateUtils} from "../../../utils/date/DateUtils";
+import {ImageUtils} from "../../../utils/images/ImageUtils";
 
 export const VideoMini = (props) => {
     const data = props.data;
@@ -23,7 +25,7 @@ export const VideoMini = (props) => {
             </div>
             <div className={'grid grid-cols-12 mt-2'}>
                 <div className={'col col-span-1 mt-2'}>
-                <img src={IMAGES.icon.avatar} />
+                <img className='rounded-full' src={ImageUtils.createImageSrcFromBufferWithDefaultIsAvatar(data?.User?.avatar?.data)} />
                 </div>
                 <div className={"col col-span-11 p-1 ml-3 flex flex-col justify-between"}>
                     <div className={"title font-bold text-lg line-clamp-2"}>
@@ -38,7 +40,7 @@ export const VideoMini = (props) => {
                             {StringUtils.formatNumber(data.views)} views
                         </span>
                             <span className={"posted-date ml-4"}>
-                            {StringUtils.convertSeconds(data.postedSince)} ago
+                            {DateUtils.getPostedSince(data.createdAt)} ago
                         </span>
                         </div>
                     </div>
