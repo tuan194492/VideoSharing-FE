@@ -112,14 +112,3 @@ export const guestRoutes = [
         element: <VideoSearchPage />
     },
 ]
-
-export const userFooterRoute = [
-    {
-        title: 'Setting',
-        path: '/guest/setting',
-        element: <div/>,
-        icon: IMAGES.icon.setting,
-        subRoute: [],
-        able: 1
-    },
-];

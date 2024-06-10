@@ -3,16 +3,18 @@ import {useContext, useEffect, useState} from "react";
 import {channelService} from "../../api/user/channel";
 import {AuthContext} from "../../context/AuthContext";
 import {RotatingLines} from "react-loader-spinner";
+import {DateUtils} from "../../utils/date/DateUtils";
 
 export const ViewAnalytic = (props) => {
     const context = useContext(AuthContext);
     const channel = context.user;
     const [viewData, setViewData] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const [startDate, setStartDate] = useState(new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000));
+    const [endDate, setEndDate] = useState(new Date());
     const fetchData = async () => {
         setLoading(true);
-        const result = await channelService.getViewAnalytic(channel.id);
+        const result = await channelService.getViewAnalytic(channel.id, DateUtils.formatDateStr(startDate), DateUtils.formatDateStr(endDate));
         if (result.success) {
             setViewData([...result.data.data]);
             console.log(result.data.data)
@@ -27,12 +29,17 @@ export const ViewAnalytic = (props) => {
 
     useEffect(() => {
         initData();
-    }, []);
+    }, [startDate, endDate]);
 
     return (
         <div className={'w-full h-[500px] border-2 border-gray-200 rounded-xl'}>
-            <div className={'text-white font-semibold bg-gray-700 p-3 pl-6 rounded-t-xl' }>
+            <div className={'text-white font-semibold bg-gray-700 p-3 pl-6 rounded-t-xl flex justify-between' }>
                 View Analytic
+                <div>
+                    <input type="date" className={'text-black/[0.7] text-center'} onChange={e => setStartDate(new Date(e.target.value))} value={DateUtils.formatDateStr(startDate)}/>
+                    <span className={'mx-1'}> To </span>
+                    <input type="date" className={'text-black/[0.7] text-center'} onChange={e => setStartDate(new Date(e.target.value))} value={DateUtils.formatDateStr(endDate)}/>
+                </div>
             </div>
             {
                 loading && <div className={'flex justify-center mt-24'}>
@@ -57,7 +64,7 @@ export const ViewAnalytic = (props) => {
                             <Label value="Date" offset={0} position="insideBottom" />
                         </XAxis>
                         <YAxis tickCount={2} domain={[0, parseInt(viewData.reduce((max, item) => (item.viewCount > max ? item.viewCount : max), -Infinity)) * 1.2]} >
-                            <Label value="View count" offset={0} position="center" />
+                            <Label value="View " offset={0} position="center" />
                         </YAxis>
                         <Tooltip />
                         <Line type="monotone" dataKey="viewCount" name={"View"} stroke="#8884d8" activeDot={{ r: 8 }} />

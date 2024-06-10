@@ -35,9 +35,9 @@ const getSubscriberList = async (channelId) => {
     }
 }
 
-const getViewAnalytic = async (channelId) => {
+const getViewAnalytic = async (channelId, startDate, endDate) => {
     try {
-        const result = await axios.get(`${baseAdminURL}/channel/view-analytic/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
+        const result = await axios.get(`${baseAdminURL}/channel/view-analytic/${channelId}?startDate=${startDate}&endDate=${endDate}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
         return {
             success: true,
             data: result.data,

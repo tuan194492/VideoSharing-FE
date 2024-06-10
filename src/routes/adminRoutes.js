@@ -1,9 +1,11 @@
 import {IMAGES} from "../utils/images/images";
+import {BiSolidFlag} from "react-icons/bi";
+import {DashBoardSummary} from "../pages/admin/dashboard/DashBoardSummary";
 export const adminRoute = [
     {
         title: 'Dashboard',
         path: '/admin/dashboard',
-        element: <div/>,
+        element: <DashBoardSummary/>,
         icon: IMAGES.icon.table,
         subRoute: [],
         able : 1
@@ -17,9 +19,9 @@ export const adminRoute = [
         able : 1
     },
     {
-        title: 'Post',
+        title: 'Report',
         path: '/admin/report',
-        icon: IMAGES.icon.voucher,
+        icon: <BiSolidFlag size={28}/>,
         subRoute: [],
         element: <div/>,
         able : 1

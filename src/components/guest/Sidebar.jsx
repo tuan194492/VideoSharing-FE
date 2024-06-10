@@ -79,23 +79,7 @@ const Sidebar = ({ menuCollapse, setMenuCollapse }) => {
                         </Menu>)
                     })}
                 </SidebarContent>
-                <SidebarFooter>
-                    <Menu iconShape="square">
-                        {userFooterRoute.map((item) => (
-                            <MenuItem
-                                active={item.path === window.location.pathname}
-                                onClick = {() => navigate(item.path || '')}
-                                key={item.path}
-                                icon={item.icon}
-                                style={{
-                                    font: 'normal normal normal 12px '
-                                }}
-                            >
-                                {item.title}
-                            </MenuItem>
-                        ))}
-                    </Menu>
-                </SidebarFooter>
+                
             </ProSidebar>
         </WrapperOwnerSideBar>
     );
