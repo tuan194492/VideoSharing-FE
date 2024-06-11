@@ -9,6 +9,7 @@ import {StringUtils} from "../../../../utils/string/StringUtils";
 import {CreatePlaylistButton} from "../../../../components/common/button/CreatePLaylistButton";
 import Popup from "reactjs-popup";
 import {VideoEdit} from "../../../../components/common/video/VideoEdit";
+import {toast} from "react-toastify";
 
 const columns = [
     {
@@ -86,7 +87,7 @@ const columns = [
         filterable: false,
         Header: 'Action',
         width: 150,
-        Cell: props => <div className={'text-center text-black/[0.7] text-md'}>
+        Cell: props => <div className={'text-center text-black/[0.7] text-md flex justify-center gap-4'}>
             <div className={'text-blue-600 font-semibold cursor-pointer'}
                  onClick={(e) => {
                      openEditPopup(props.original)
@@ -94,10 +95,21 @@ const columns = [
             >
                 Edit
             </div>
+            <div className={'text-red-600 font-semibold cursor-pointer'}
+                 onClick={(e) => {
+                     handleDeleteVideo(props.original)
+                 }}
+            >
+                Delete
+            </div>
 
         </div>
     },
 ]
+
+let handleDeleteVideo = (video) => {
+
+}
 
 let openEditPopup = (data) => {
 
@@ -122,6 +134,15 @@ export const ChannelVideoManage = (props) => {
         openEditPopup = (data) => {
             setCurrentVideo(data);
             setOpen(true);
+        }
+        handleDeleteVideo = async (video) => {
+            const result = await videoService.deleteVideo(token, video.id);
+            if (result.success) {
+                setRefresh(!refresh);
+                toast.success(result.message);
+            } else {
+                toast.error(result.message);
+            }
         }
         const result = await videoService.fetchVideoList(token, {
             page: 1,

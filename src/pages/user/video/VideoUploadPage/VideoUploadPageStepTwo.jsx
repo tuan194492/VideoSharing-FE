@@ -129,7 +129,6 @@ export const VideoUploadPageStepTwo = (props) => {
             </div>
             <div className={'col col-span-2 p-2'}>
                 <VideoPreview width={'100%'} height={'100%'} video={currentVideo}/>
-
             </div>
         </div>
     )

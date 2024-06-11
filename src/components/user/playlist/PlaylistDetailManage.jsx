@@ -48,8 +48,8 @@ const columns = [
         sortable: false,
         filterable: false,
         Header: 'Action',
-        width: 150,
-        Cell: props => <div className={'text-center text-black/[0.7] text-md'}>
+        width: 300,
+        Cell: props => <div className={'text-center text-black/[0.7] text-md flex justify-center gap-4'}>
             <div className={'text-blue-600 font-semibold cursor-pointer'}
                  onClick={(e) => {
                      openEditPopup(props.original)
@@ -57,11 +57,22 @@ const columns = [
             >
                 Edit
             </div>
+            <div className={'text-red-600 font-semibold cursor-pointer'}
+                 onClick={(e) => {
+                     handleDeletePlaylist(props.original)
+                 }}
+            >
+                Delete
+            </div>
         </div>
     },
 ]
 
 let openEditPopup = (data) => {
+
+}
+
+let handleDeletePlaylist = (playlist) => {
 
 }
 
@@ -92,8 +103,17 @@ export const PlaylistDetailManage = (props) => {
             setCurrentPlaylist(data);
             setOpen(true);
         }
+        handleDeletePlaylist = async (playlist) => {
+            const result = await playlistService.deletePlaylist(token, playlist.id);
+            if (result.success) {
+                toast.success('Remove playlist successfully');
+                setRefresh(prev =>!prev);
+            }
+        }
         await fetchPlaylistListData();
     }
+
+
 
     useEffect(() => {
         initData();

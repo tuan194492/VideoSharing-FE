@@ -63,7 +63,7 @@ export const PlaylistWatchDetail = (props) => {
     const onChangeVideo = async (video) => {
         console.log('aaa')
         await fetchVideoData(video.id);
-        setCurrentVideoIndex(videoList.indexOf(video))
+        setCurrentVideoIndex(videoList.findIndex(e => e.id === video.id))
     }
 
     const fetchPlaylistData = async () => {
@@ -153,16 +153,16 @@ export const PlaylistWatchDetail = (props) => {
 
     }
 
-    async function getCallBackOnEnded () {
-        console.log('currentVideoIndex`', currentVideoIndex);
-        console.log(`Next video index`,(currentVideoIndex + 1) % videoList.length )
-        setCurrentVideoIndex(prev => (prev + 1) % videoList.length)
-        await onChangeVideo(videoList[(currentVideoIndex + 1) % videoList.length]);
+    async function getCallBackOnEnded (videoIndex) {
+        console.log('currentVideoIndex`', videoIndex);
+        console.log(`Next video index`,(videoIndex + 1) % videoList.length )
+        setCurrentVideoIndex((videoIndex + 1) % videoList.length)
+        await onChangeVideo(videoList[(videoIndex + 1) % videoList.length]);
     }
 
-    function getCallBackOnPause () {
-        console.log('currentVideoIndex`', currentVideoIndex);
-        console.log(`Next video index`,(currentVideoIndex + 1) % videoList.length )
+    function getCallBackOnPause (videoIndex) {
+        console.log('currentVideoIndex`', videoIndex);
+        console.log(`Next video index`,(videoIndex + 1) % videoList.length )
 
     }
 
@@ -172,12 +172,13 @@ export const PlaylistWatchDetail = (props) => {
             {/* Video watching + Comment List */}
             <div className={"col-start-1 col-span-11 lg:col-span-8 p-2"}>
                 {/*<VideoPlayer videoStc={currentVideoSrc}/>*/}
-                <div>
+                <div className={'w-full'}>
                     <HlsVideoPlayer
                         width={1054}
                         height={600}
                         src={currentVideoSrc}
                         videoId={currentVideo.id}
+                        videoIndex={videoList.findIndex(video => video.id === currentVideo.id)}
                         callBackOnEnded={getCallBackOnEnded}
                         callBackOnPause={getCallBackOnPause}/>
                 </div>

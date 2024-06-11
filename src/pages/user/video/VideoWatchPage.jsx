@@ -107,10 +107,14 @@ export default function VideoWatchPage() {
         }
     }
 
+    const initData = async (videoId) => {
+        await fetchVideoData(videoId);
+        await initVideoData();
+    }
+
     useEffect(() => {
-        fetchVideoData(videoId);
-        initVideoData();
-    }, [videoId]);
+        initData(params.id);
+    }, []);
 
     const createVideoSrc = async (videoId) => {
         // console.log(`${baseAdminURL}/video/stream/${videoId}`);

@@ -211,7 +211,7 @@ const updatePlaylist = async (data, token) => {
     }
 }
 
-const deletePlaylist = async (playlistId, token) => {
+const deletePlaylist = async (token, playlistId) => {
     try {
         const formData = RequestFactory.createFormDataFromObject({});
         const result = await axios.post(`${baseAdminURL}/playlist/delete-playlist/${playlistId}`, formData, RequestFactory.createHeaderRequestFormDataWithToken(token));

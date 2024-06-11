@@ -23,6 +23,12 @@ export const HlsVideoPlayer = (props) => {
             console.log('BEgin changing src')
             console.log(videoRef.current)
             console.log(playerRef.current)
+            if (playerRef.current) {
+                playerRef.current.off('timeupdate', handleTimeUpdate);
+                playerRef.current.off('ended', handleEnded);
+                playerRef.current.off('pause', handlePause);
+            }
+
             if (!playerRef.current) {
                 console.log('BEgin changing src has current')
                 playerRef.current = videojs(videoRef.current, {
@@ -59,7 +65,7 @@ export const HlsVideoPlayer = (props) => {
 
              handleEnded = async () => {
                 if (props.callBackOnEnded) {
-                    await props.callBackOnEnded();
+                    await props.callBackOnEnded(props.videoIndex);
                 }
                 console.log(curPlayer)
                 console.log('Total watch time: ' + watchTime + ' seconds');
@@ -67,7 +73,7 @@ export const HlsVideoPlayer = (props) => {
 
              handlePause = () => {
                  if (props.callBackOnPause) {
-                      props.callBackOnPause();
+                      props.callBackOnPause(props.videoIndex);
                  }
                 console.log('Watch time so far: ' + watchTime + ' seconds');
             };
@@ -96,7 +102,7 @@ export const HlsVideoPlayer = (props) => {
             }
 
         };
-    }, [props.src, playerRef.current]);
+    }, [props.src, props.videoId]);
 
     useEffect(() => {
         console.log('videoRef.current:', videoRef.current);

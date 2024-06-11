@@ -1,5 +1,4 @@
 import axios from 'axios';
-import async from "async";
 import {RequestFactory} from "../../../utils/request";
 const baseAdminURL = `${process.env.REACT_APP_BE_HOST}`;
 
@@ -92,6 +91,7 @@ const fetchVideoList = async (token, data) => {
     try {
         console.log(`${baseAdminURL}/video/watch?page=${data.page}&pageSize=${data.pageSize}`);
         const result = await axios.get(`${baseAdminURL}/video/watch?page=${data.page}&pageSize=${data.pageSize}`, RequestFactory.createHeaderRequestWithJson(token));
+        console.log(result.data)
         return {
             success: true,
             data: result.data,
@@ -99,6 +99,7 @@ const fetchVideoList = async (token, data) => {
         };
     } catch (error) {
         let message = '';
+        console.log(error)
         message = error.response.data.message;
         if (axios.isAxiosError(error)) {
             return {
@@ -345,6 +346,33 @@ const watchVideo = async (videoId, token, watchTime) => {
     }
 }
 
+const deleteVideo = async (token, videoId) => {
+    try {
+        const result = await axios.delete(`${baseAdminURL}/video/${videoId}`, RequestFactory.createHeaderRequestWithJson(token));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Delete Video successful!'
+        };
+    } catch (error) {
+        let message = '';
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
 export const videoService = {
     findVideoById,
     fetchVideoDescriptionData,
@@ -357,6 +385,7 @@ export const videoService = {
     getWatchedVideoList,
     deleteWatchedVideo,
     getVideoSrc,
-    watchVideo
+    watchVideo,
+    deleteVideo
 }
 

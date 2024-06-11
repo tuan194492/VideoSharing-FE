@@ -80,7 +80,7 @@ export const UserVideoHomePage = (props) => {
             className={'flex justify-center flex-col relative'}
         >
             <InfiniteScroll
-                dataLength={videoList.length}
+                dataLength={videoList?.length}
                 next={fetchMoreData}
                 hasMore={hasMore}
                 loader={loading && <div className={'fixed ml-auto mr-auto flex justify-center'}><ThreeDots/></div>}

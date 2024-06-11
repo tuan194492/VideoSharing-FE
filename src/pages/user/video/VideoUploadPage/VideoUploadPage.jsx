@@ -10,6 +10,7 @@ import {VideoUploadPageStepTwo} from "./VideoUploadPageStepTwo";
 import {toast} from "react-toastify";
 import {errorMessages} from "../../../../assets/message/error_messages/error-messages";
 import {videoService} from "../../../../api/user/video";
+import {ThreeDots} from "react-loader-spinner";
 
 export default function VideoUploadPage(props) {
     const authContext = useContext(AuthContext);
@@ -24,6 +25,8 @@ export default function VideoUploadPage(props) {
     const [uploadedVideo, setUploadedVideo] = useState(null);
     const [uploadedImage, setUploadedImage] = useState(null);
     const [currentStep, setCurrentStep] = useState(0);
+    const [loading, setLoading] = useState(false);
+
     const uploadVideo = (video) => {
         setUploadedVideo(video);
     }
@@ -41,7 +44,9 @@ export default function VideoUploadPage(props) {
     }
 
     async function handleSubmitStepTwo(formDataFromChild) {
+        setLoading(true);
         const result = await videoService.uploadVideo(formDataFromChild, uploadedVideo, uploadedImage, token);
+        setLoading(false);
         if (result.success) {
             toast.success(result.message);
             goToStepThree();
@@ -87,6 +92,14 @@ export default function VideoUploadPage(props) {
                     />}
                 {currentStep === 2 && <VideoUploadPageStepThree />}
             </div>
+            {
+                loading &&
+                <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+                    <div
+                        className="spinner-border animate-spin inline-block w-12 h-12 border-4 rounded-full border-t-transparent border-white"><ThreeDots size={32}/> </div>
+                    <span className="text-white ml-4">Uploading...</span>
+                </div>
+            }
         </div>
     );
 }

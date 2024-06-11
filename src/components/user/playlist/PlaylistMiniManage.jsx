@@ -6,11 +6,12 @@ import {IMAGES} from "../../../utils/images/images";
 import {toast} from "react-toastify";
 import {StringUtils} from "../../../utils/string/StringUtils";
 import {DescriptionTextField} from "../../common/textfield/DescriptionTextField";
+import {ImageUtils} from "../../../utils/images/ImageUtils";
 
 export const PlayListMiniManage = (props) => {
     const playlistId = props.data.id;
 
-    const [playlistThumbnail, setPlaylistThumbnail] = useState();
+    const [playlistThumbnail, setPlaylistThumbnail] = useState(null);
     const [playlist, setPlaylist] = useState({
         title: props.data.title,
         status: props.data.status,
@@ -53,7 +54,7 @@ export const PlayListMiniManage = (props) => {
     }, []);
 
     return (
-        <div className={"flex flex-row cursor-pointer hover:bg-gray-100 p-4 w-[50%] " + props.className}
+        <div className={"flex flex-col cursor-pointer hover:bg-gray-100 p-4 w-[50%] " + props.className}
              title={playlist.description}
         >
             <div className="aspect-ratio-container relative ">
@@ -66,14 +67,17 @@ export const PlayListMiniManage = (props) => {
                 <div className={'absolute bg-gray-400 translate-y-[-8px] w-[95%] h-full rounded-[8px] left-[2.5%]'}>
 
                 </div>
-                {!playlistThumbnail && <img src={IMAGES.icon.empty}
-                                            alt={"An alt"}
-                                            className={"aspect-ratio-image"}/>}
-                {playlistThumbnail &&
-                    <img src={`data:image/png;base64,${base64String}`}
-                         alt={"An alt"}
-                         className={"aspect-ratio-image"}/>
-                }
+
+                    {!playlistThumbnail &&
+                        <img src={ImageUtils.createImageSrcFromBuffer('')}
+                             alt={"An alt"}
+                             className={"aspect-ratio-image"}/>}
+                    {playlistThumbnail &&
+                        <img src={`data:image/png;base64,${base64String}`}
+                             alt={"An alt"}
+                             className={"aspect-ratio-image"}/>
+                    }
+
                 <VideoCount count={videoCount}/>
             </div>
             <div className={'flex flex-col'}>
