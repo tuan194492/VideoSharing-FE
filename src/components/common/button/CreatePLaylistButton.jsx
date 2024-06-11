@@ -27,6 +27,7 @@ export const CreatePlaylistButton = (props) => {
         if (!result.success) {
             return toast.error(result.message);
         }
+        props.refresh && await props.refresh();
         setOpen(false);
     }
     return (

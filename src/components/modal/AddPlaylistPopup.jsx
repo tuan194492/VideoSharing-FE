@@ -9,7 +9,7 @@ import {playlistService} from "../../api/user/playlist";
 import {toast} from "react-toastify";
 import {AuthContext} from "../../context/AuthContext";
 import {useParams} from "react-router-dom";
-import {CreatePlaylistButton, CreatePLaylistButton} from "../common/button/CreatePLaylistButton";
+import {CreatePlaylistButton,} from "../common/button/CreatePLaylistButton";
 import {AddToPlaylistCheckBox} from "./AddToPlaylistCheckBox";
 
 const columns = [
@@ -90,6 +90,10 @@ export const AddPlaylistPopup = (props) => {
         init();
     }, []);
     const closeModal = () => setOpen(false);
+    let handleRefresh = async () => {
+        console.log('Refreshing playlist')
+        await initData();
+    };
     return (
         <div>
             <MyButton title={"Add to playlist"} icon={IMAGES.icon.addPlaylist} callback={() => setOpen(true)}/>
@@ -110,7 +114,7 @@ export const AddPlaylistPopup = (props) => {
                         />
                     </div>
                     <div className={'flex justify-center'}>
-                        <CreatePlaylistButton nested />
+                        <CreatePlaylistButton refresh={handleRefresh} nested />
                     </div>
 
                 </div>
