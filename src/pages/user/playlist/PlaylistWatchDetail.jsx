@@ -55,6 +55,8 @@ export const PlaylistWatchDetail = (props) => {
     const [hasMore, setHasMore] = useState(false);
     const [refreshComments, setRefreshComments] = useState(false);
     const [commentCount, setCommentCount] = useState(0);
+    const [autoPlay, setAutoPlay] = useState(false);
+    const [shufflePlay, setShufflePlay] = useState(false);
     const navigate = useNavigate();
     const fetchMoreData = async () => {
 
@@ -145,19 +147,35 @@ export const PlaylistWatchDetail = (props) => {
         })
     }
 
-    const togglePlaylistLoop = (e) => {
-
+    const togglePlaylistLoop = () => {
+        console.log('Toggling')
+        console.log(autoPlay)
+        setAutoPlay(prev => !prev);
+        setShufflePlay(false);
     }
 
-    const togglePlaylistShuffle = (e) => {
-
+    const togglePlaylistShuffle = () => {
+        console.log('Shuffle')
+        console.log(shufflePlay)
+        setShufflePlay(prev => !prev);
+        setAutoPlay(false)
     }
 
     async function getCallBackOnEnded (videoIndex) {
-        console.log('currentVideoIndex`', videoIndex);
-        console.log(`Next video index`,(videoIndex + 1) % videoList.length )
-        setCurrentVideoIndex((videoIndex + 1) % videoList.length)
-        await onChangeVideo(videoList[(videoIndex + 1) % videoList.length]);
+        console.log('autoPlay', autoPlay);
+        console.log('shufflePlay', shufflePlay);
+        if (autoPlay) {
+            console.log('currentVideoIndex`', videoIndex);
+            console.log(`Next video index`,(videoIndex + 1) % videoList.length )
+            setCurrentVideoIndex((videoIndex + 1) % videoList.length)
+            await onChangeVideo(videoList[(videoIndex + 1) % videoList.length]);
+        }
+        if (shufflePlay) {
+            console.log('currentVideoIndex`', videoIndex);
+            console.log(`Next video index`,Math.floor(Math.random() * videoList.length) )
+            setCurrentVideoIndex(Math.floor(Math.random() * videoList.length))
+            await onChangeVideo(videoList[Math.floor(Math.random() * videoList.length)]);
+        }
     }
 
     function getCallBackOnPause (videoIndex) {
@@ -180,7 +198,9 @@ export const PlaylistWatchDetail = (props) => {
                         videoId={currentVideo.id}
                         videoIndex={videoList.findIndex(video => video.id === currentVideo.id)}
                         callBackOnEnded={getCallBackOnEnded}
-                        callBackOnPause={getCallBackOnPause}/>
+                        callBackOnPause={getCallBackOnPause}
+                        autoPlay={autoPlay || shufflePlay}
+                    />
                 </div>
                 <div className={"video-info p-1 ml-3 flex flex-col justify-between"}>
                     <div className={"text-black font-bold text-sm md:text-xl mt-4 line-clamp-2"}>
@@ -295,16 +315,18 @@ export const PlaylistWatchDetail = (props) => {
                     </div>
                     <div className={'mt-4 flex flex-row justify-items-start gap-4 pb-2'}>
                         <button
-                            className={'hover:bg-gray-100'}
+                            title={'Auto play'}
+                            className={autoPlay ? 'bg-gray-200 animate-pulse hover:bg-gray-100 rounded-full ' : 'hover:bg-gray-100 rounded-full' }
                             onClick={togglePlaylistLoop}
                         >
-                            <MdLoop size={28}/>
+                            <MdLoop size={28} className={'hover:animate-spin'}/>
                         </button>
                         <button
-                            className={'hover:bg-gray-100'}
+                            title={'Shuffle play'}
+                            className={shufflePlay ? 'bg-gray-200 animate-pulse hover:bg-gray-100 rounded-full ' : 'hover:bg-gray-100 rounded-full'}
                             onClick={togglePlaylistShuffle}
                         >
-                            <BiShuffle size={28}/>
+                            <BiShuffle size={28}  className={'hover:animate-pulse'}/>
                         </button>
                     </div>
                 </div>
@@ -315,7 +337,7 @@ export const PlaylistWatchDetail = (props) => {
                                 return <div
                                     className={'flex flex-row justify-center items-center bg-gray-200 hover:bg-gray-200 gap-1 relative'}>
                                     <div className={'w-[5%] flex items-center justify-center'}>
-                                        <BsPlay size={28}/>
+                                        <BsPlay size={28} className={'pulse'} />
                                     </div>
                                     <VideoMini
                                         key={index}

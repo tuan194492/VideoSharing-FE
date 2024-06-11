@@ -108,6 +108,7 @@ export const HlsVideoPlayer = (props) => {
         console.log('videoRef.current:', videoRef.current);
     }, []);
 
+
     const handleRouteChange = async (value) => {
         console.log('User is navigating to a new page. Watch time: ' + value + ' seconds');
         await videoService.watchVideo(props.videoId, token, value);
@@ -127,6 +128,7 @@ export const HlsVideoPlayer = (props) => {
                 data-setup='{ "playbackRates": [0.5, 1, 1.5, 2] }'
                 width={props.width || "100%"}
                 height={props.height || "100%"}
+                autoPlay={props.autoPlay}
             />
         </div>
     );
