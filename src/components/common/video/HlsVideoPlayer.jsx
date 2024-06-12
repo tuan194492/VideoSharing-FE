@@ -31,16 +31,17 @@ export const HlsVideoPlayer = (props) => {
 
             if (!playerRef.current) {
                 console.log('BEgin changing src has current')
+                console.log(props)
                 playerRef.current = videojs(videoRef.current, {
                     controls: true,
                     autoplay: false,
                     preload: 'auto',
                     fluid: true,
-                    responsive: true,
-                    sources: [{
-                        src: props.src,
-                        type: 'application/x-mpegURL'
-                    }]
+                    responsive: true
+                });
+                playerRef.current.src({
+                    src: props.src,
+                    type: 'application/x-mpegURL'
                 });
                 setPlayer(playerRef.current);
                 // Initialize the quality selector plugin
