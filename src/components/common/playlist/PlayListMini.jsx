@@ -33,13 +33,17 @@ export const PlayListMini = (props) => {
         const result = await playlistService.getPlaylistDetail(token, props.data.id);
         console.log(result);
         if (result.success) {
+            console.log(props.data.id);
             console.log(result.data);
+            console.log(result.data.data.createdAt)
             console.log((new Date()).getTime())
             console.log(((new Date()).getTime() - new Date(result.data.data.createdAt)) / 1000)
             if (result.data.data.Videos.length > 0) {
                 setPlaylistThumbnail(result.data.data.Videos[0].thumbnail)
                 setVideoCount(result.data.data.Videos.length)
             }
+            console.log(result.data);
+            console.log(result.data.data.createdAt)
             return setPlaylist({
                 ...result.data.data,
                 postedSince: ((new Date()).getTime() - new Date(result.data.data.createdAt)) / 1000

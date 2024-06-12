@@ -2,9 +2,10 @@ import {useForm} from "react-hook-form";
 import {userRegister, userUpdate, userUpdateAvatarAndBanner} from "../../../../api/user/auth";
 import {toast} from "react-toastify";
 import AvatarEditor from 'react-avatar-editor'
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../../../context/AuthContext";
 import {ImageUtils} from "../../../../utils/images/ImageUtils";
+import {IMAGES} from "../../../../utils/images/images";
 export const ChannelCustomizeManage = (props) => {
     const authContext = useContext(AuthContext);
     const token = authContext.token;
@@ -16,8 +17,14 @@ export const ChannelCustomizeManage = (props) => {
         formState: { errors },
     } = useForm();
 
-    const [currentAvatar, setCurrentAvatar] = useState(ImageUtils.createImageSrcFromBuffer(user.avatar));
-    const [currentBanner, setCurrentBanner] = useState(ImageUtils.createImageSrcFromBuffer(user.banner));
+
+    const [currentAvatar, setCurrentAvatar] = useState();
+    const [currentBanner, setCurrentBanner] = useState();
+
+    useEffect(() => {
+        setCurrentAvatar(ImageUtils.createImageSrcFromBuffer(user.avatar?.data));
+        setCurrentBanner(ImageUtils.createImageSrcFromBuffer(user.banner?.data) || IMAGES.icon.noImage);
+    }, []);
 
     let editorAvatar, editorBanner;
     const setEditorAvatarRef = (editor) => (editorAvatar = editor)
@@ -75,7 +82,7 @@ export const ChannelCustomizeManage = (props) => {
                             height={250}
                             border={50}
                             color={[255, 255, 255, 0.6]} // RGBA
-                            scale={1.2}
+                            scale={1.5}
                             rotate={0}
                             borderRadius={125}
                         />

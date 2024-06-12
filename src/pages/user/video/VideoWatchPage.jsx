@@ -38,6 +38,8 @@ export default function VideoWatchPage() {
     const authContext = useContext(AuthContext);
     const token = authContext.token;
     const user = authContext.user;
+    const role = authContext.role ? authContext.role.replaceAll('"', '') : 'guest';
+
     const params = useParams();
     const videoId = params.id;
 
@@ -63,7 +65,7 @@ export default function VideoWatchPage() {
             setCommentCount(result.data.data.commentCount);
             setDescription(result.data.data.description);
             const videoSrc = await createVideoSrc(result.data.data.id);
-            console.log(videoSrc);
+            console.log('Video src is ', videoSrc);
             setCurrentVideoSrc(videoSrc);
             const fetchChannelResult = await userService.findUserById(result.data.data.publisher_id);
             if (fetchChannelResult.success) {
@@ -109,7 +111,7 @@ export default function VideoWatchPage() {
 
     const initData = async (videoId) => {
         await fetchVideoData(videoId);
-        await initVideoData();
+        initVideoData();
     }
 
     useEffect(() => {
@@ -180,7 +182,7 @@ export default function VideoWatchPage() {
                         <div className={"flex flex-row items-center"}>
                             <div
                                 onClick={(e) => {
-                                    navigate(`/user/channel/${currentChannel.id}`);
+                                    navigate(`/${role}/channel/${currentChannel.id}`);
                                 }} 
                                 className={'relative h-20 md:h-16 md:rounded-xl overflow-hidden'}>
                                 <img src={ImageUtils.createImageSrcFromBufferWithDefaultIsAvatar(currentChannel?.avatar?.data)} className={"h-full w-full object-cover rounded-lg"}/>

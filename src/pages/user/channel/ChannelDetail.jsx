@@ -63,7 +63,7 @@ export const ChannelDetail = (props) => {
         <div className={'p-0 m-0'}>
             <div>
                 <img className='w-[100%] h-[120px] sm:h-[160px] lg:h-[210px] bg-cover rounded-[16px]'
-                     style={{background: `url(${channel?.brandingSettings?.image?.bannerExternalUrl || defaultImage})`}}/>
+                     src={channel.banner?.data ? ImageUtils.createImageSrcFromBuffer(channel.banner?.data) : defaultImage}/>
             </div>
             <div className='flex gap-x-5 items-center my-5 pb-4 border-b-2 border-gray-100'>
                 <img className='rounded-[40px] w-12 h-12 md:w-16 md:h-16'
