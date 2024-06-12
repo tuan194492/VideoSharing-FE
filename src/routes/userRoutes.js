@@ -26,6 +26,7 @@ import {SubscriptionHomePage} from "../pages/user/subscriptions/SubscriptionHome
 import {SubscriberManage} from "../pages/user/studio/subscriber/SubscriberManage";
 import {HistoryVideoPage} from "../pages/user/video/HistoryPage/HistoryVideoPage";
 import {UserReportSummary} from "../pages/user/report/UserReportSummary";
+import {UserVideoTrendingPage} from "../pages/user/homepage/UserVideoTrendingPage";
 
 
 export const userRoutes = [
@@ -41,7 +42,7 @@ export const userRoutes = [
     {
         title: 'Trending',
         path: '/user/trending',
-        element: <UserVideoHomePage/>,
+        element: <UserVideoTrendingPage/>,
         icon: <BsFire size={28}/>,
         subRoute: [],
         able: 1,

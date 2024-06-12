@@ -4,6 +4,7 @@ import {ChannelCard} from "../../../../components/common/channel/ChannelCard";
 import {Pagination} from "flowbite-react";
 import SearchBar from "../../../../components/common/search/SearchBar";
 import {AuthContext} from "../../../../context/AuthContext";
+import {ChannelCardWithoutSubscribe} from "../../../../components/common/channel/ChannelCardWithoutSubscribe";
 
 export const SubscriberManage = (props) => {
     const authContext = useContext(AuthContext);
@@ -67,7 +68,7 @@ export const SubscriberManage = (props) => {
                     <div className={'col-span-4 pr-12 '}>
                         <div className={'grid grid-cols-4 gap-6'}>
                             {filteredSubscriptionList.map(subscription => {
-                                return <ChannelCard data={subscription} key={subscription.id}/>;
+                                return <ChannelCardWithoutSubscribe data={subscription} key={subscription.id}/>;
                             })}
                         </div>
 

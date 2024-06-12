@@ -117,6 +117,36 @@ const fetchVideoList = async (token, data) => {
     }
 }
 
+const getTrendingVideoList = async (token, data) => {
+    try {
+        console.log(`${baseAdminURL}/video/trending-video?page=${data.page}&pageSize=${data.pageSize}`);
+        const result = await axios.get(`${baseAdminURL}/video/trending-video?page=${data.page}&pageSize=${data.pageSize}`, RequestFactory.createHeaderRequestWithJson(token));
+        console.log(result.data)
+        return {
+            success: true,
+            data: result.data,
+            message: 'Get Video list successful!'
+        };
+    } catch (error) {
+        let message = '';
+        console.log(error)
+        message = error.response.data.message;
+        if (axios.isAxiosError(error)) {
+            return {
+                success: false,
+                data: null,
+                message: message
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Network error',
+                data: null
+            };
+        }
+    }
+}
+
 const searchVideo = async (keyword) => {
     try {
         const formData = RequestFactory.createFormDataFromObject({
@@ -386,6 +416,7 @@ export const videoService = {
     deleteWatchedVideo,
     getVideoSrc,
     watchVideo,
-    deleteVideo
+    deleteVideo,
+    getTrendingVideoList
 }
 

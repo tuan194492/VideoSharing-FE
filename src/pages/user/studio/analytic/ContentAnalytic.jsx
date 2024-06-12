@@ -4,6 +4,7 @@ import {TopWatchedVideo} from "../../../../components/dashboard/TopWatchedVideo"
 import {ViewAnalytic} from "../../../../components/dashboard/ViewAnalytic";
 import {HlsVideoPlayer} from "../../../../components/common/video/HlsVideoPlayer";
 import {NotificationFeed} from "../../../../components/common/notification/NotificationFeed";
+import {SubscriberAnalytic} from "../../../../components/dashboard/SubscriberAnalytic";
 const notifications = [
     {
         image: 'path_to_image1',
@@ -28,19 +29,7 @@ export const ContentAnalytic = (props) => {
                 <ViewAnalytic/>
             </div>
             <div className={'col-span-2 p-4 mt-2'}>
-                <div className="px-4 py-2 bg-gray-100 border-b border-gray-200">
-                    <h2 className="text-lg font-semibold text-gray-700">Notifications</h2>
-                </div>
-                {notifications.map((notification, index) => (
-                    <NotificationFeed
-                        key={index}
-                        image={notification.image}
-                        channelName={notification.channelName}
-                        title={notification.title}
-                        createdAt={notification.time}
-                        isRead={notification.isRead}
-                    />
-                ))}
+                <SubscriberAnalytic />
             </div>
 
 

@@ -96,7 +96,7 @@ export default function VideoUploadPage(props) {
                 loading &&
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
                     <div
-                        className="spinner-border animate-spin inline-block w-12 h-12 border-4 rounded-full border-t-transparent border-white"><ThreeDots size={32}/> </div>
+                        className="spinner-border animate-spin inline-block w-12 h-12 border-4 rounded-full border-t-transparent border-white"> </div>
                     <span className="text-white ml-4">Uploading...</span>
                 </div>
             }

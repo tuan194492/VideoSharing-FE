@@ -25,6 +25,7 @@ import {LikedVideoPage} from "../pages/user/video/LikedVideo/LikedVideoPage";
 import {SubscriptionHomePage} from "../pages/user/subscriptions/SubscriptionHomePage";
 import {SubscriberManage} from "../pages/user/studio/subscriber/SubscriberManage";
 import {HistoryVideoPage} from "../pages/user/video/HistoryPage/HistoryVideoPage";
+import {UserVideoTrendingPage} from "../pages/user/homepage/UserVideoTrendingPage";
 
 
 export const guestRoutes = [
@@ -40,7 +41,7 @@ export const guestRoutes = [
     {
         title: 'Trending',
         path: '/guest/trending',
-        element: <UserVideoHomePage/>,
+        element: <UserVideoTrendingPage/>,
         icon: <BsFire size={28}/>,
         subRoute: [],
         able: 1,

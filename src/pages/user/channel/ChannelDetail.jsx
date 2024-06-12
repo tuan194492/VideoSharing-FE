@@ -70,7 +70,7 @@ export const ChannelDetail = (props) => {
                      src={channel?.avatar?.data ? ImageUtils.createImageSrcFromBuffer(channel.avatar.data) : IMAGES.icon.avatar}/>
                 <div className='flex flex-col'>
                     <h3 className='text-md md:text-xl font-medium tracking-wide'>{channel?.name}</h3>
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col mt-2'>
                     <span
                         className='text-[12px] md:text-[14px] tracking-wide font-[500] text-[#323232]'>@ {channel?.shortname || 'No shortname'}</span>
                         <span
@@ -99,7 +99,7 @@ export const ChannelDetail = (props) => {
                     <div className={'border-b-2 border-gray-100 mt-4'}>
                         <div className={'flex flex-row justify-start items-center gap-8'}>
                             <h4 className='text-[16px] text-[#585858] font-bold tracking-wider'>{playlist.title}</h4>
-                            <div className={'flex flex-row justify-items-start items-center hover:bg-gray-200 cursor-pointer rounded-full gap-1 px-2'}>
+                            <div className={'flex flex-row justify-items-start items-center hover:bg-gray-200 cursor-pointer rounded-full gap-1 px-2 hover:animate-pulse'}>
                                 <BsPlay/>
                                 <h4 className='text-[16px] text-[#585858] font-extrabold tracking-wider'
                                     onClick={e => {

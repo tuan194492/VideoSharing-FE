@@ -52,6 +52,23 @@ const getViewAnalytic = async (channelId, startDate, endDate) => {
     }
 }
 
+const getSubscriberAnalytic = async (channelId, startDate, endDate) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/channel/subscriber-analytic/${channelId}?startDate=${startDate}&endDate=${endDate}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Get View data list successful!'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            data: null,
+            message: error.response.data.error
+        };
+    }
+}
+
 const getMostWatchedVideos = async (channelId) => {
 try {
         const result = await axios.get(`${baseAdminURL}/channel/most-watched-video/${channelId}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
@@ -93,5 +110,6 @@ export const channelService = {
     getSubscriberList,
     getViewAnalytic,
     getMostWatchedVideos,
-    getChannelAnalytics
+    getChannelAnalytics,
+    getSubscriberAnalytic
 }

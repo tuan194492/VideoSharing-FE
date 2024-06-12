@@ -29,7 +29,24 @@ export const NotificationButton = (props) => {
     useEffect(() => {
         if (user) {
             socket.on(`user${user.id}`, (data) => {
-                toast.success(JSON.stringify(data));
+                let message;
+                switch (data.type) {
+                    case 'L':
+                        message = `Someone liked your video`;
+                        break;
+                    case 'D':
+                        message = `Someone disliked your video`;
+                        break;
+                    case 'U':
+                        message = `Someone uploaded new video`;
+                        break;
+                    case 'C':
+                        message = `Someone commented on your video`;
+                        break;
+                    default:
+                        return;
+                }
+                message && toast.success(message);
                 fetchNewNotifications();
             })
         }
