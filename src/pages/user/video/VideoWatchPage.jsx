@@ -127,7 +127,7 @@ export default function VideoWatchPage() {
         // }
         const videoSrc = await videoService.getVideoSrc(videoId);
         if (videoSrc.success) {
-            return `${baseServerURL}${videoSrc.data.data}`;
+            return `${videoSrc.data.data}`;
         } else {
             return '';
         }
