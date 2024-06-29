@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {BasicInfoManage} from "./BasicInfoManage";
 import {ChannelCustomizeManage} from "./ChannelCustomizeManage";
-import {ChannelLayoutManage} from "./ChannelLayoutManage";
+import {UserChangePassword} from "./UserChangePassword";
 
 export function ChannelManager() {
     const [currentPage, setCurrentPage] = useState(0);
@@ -12,7 +12,7 @@ export function ChannelManager() {
             case 1:
                 return <ChannelCustomizeManage />
             case 2:
-                return <ChannelLayoutManage />
+                return <UserChangePassword />
         }
     }
 
@@ -36,6 +36,12 @@ export function ChannelManager() {
                            onClick={(e) => setCurrentPage(1)}
                            aria-current="page">Branding</a>
 
+                    </li>
+                    <li className="me-2">
+                        <a href="#"
+                           className={"inline-block p-4 rounded-t-lg hover:text-gray-600 hover:border-gray-300 " + (currentPage === 2 ? 'text-blue-600 active border-blue-600 border-b-2' : '')}
+                           onClick={(e) => setCurrentPage(2)}
+                           aria-current="page">Change password</a>
                     </li>
 
                 </ul>

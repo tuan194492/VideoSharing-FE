@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {BasicInfoManage} from "../channel/BasicInfoManage";
 import {ChannelCustomizeManage} from "../channel/ChannelCustomizeManage";
-import {ChannelLayoutManage} from "../channel/ChannelLayoutManage";
+import {UserChangePassword} from "../channel/UserChangePassword";
 import {ChannelVideoManage} from "./ChannelVideoManage";
 
 export const VideoManage = (props) => {
@@ -13,7 +13,7 @@ export const VideoManage = (props) => {
             case 1:
                 return <ChannelCustomizeManage />
             case 2:
-                return <ChannelLayoutManage />
+                return <UserChangePassword />
         }
     }
 

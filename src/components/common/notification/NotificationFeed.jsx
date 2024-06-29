@@ -24,6 +24,7 @@ export const NotificationFeed = (props) => {
 
     const handleOnclick = async(e) => {
         const result = await notificationService.readNotification(notification.id, token);
+        console.log(notification);
         if (result.success) {
             setIsRead(true);
             props.update && props.update({

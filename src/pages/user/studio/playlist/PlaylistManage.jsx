@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {BasicInfoManage} from "../channel/BasicInfoManage";
 import {ChannelCustomizeManage} from "../channel/ChannelCustomizeManage";
-import {ChannelLayoutManage} from "../channel/ChannelLayoutManage";
+import {UserChangePassword} from "../channel/UserChangePassword";
 import {PlaylistLayoutManage} from "../../../../components/user/playlist/PlaylistLayoutManage";
 import {PlaylistDetailManage} from "../../../../components/user/playlist/PlaylistDetailManage";
 

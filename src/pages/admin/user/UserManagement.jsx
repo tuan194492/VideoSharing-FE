@@ -33,8 +33,8 @@ const columns = (handleActivate, handleSuspend) => [
         width: 300
     },
     {
-        Header: 'Content',
-        accessor: 'content',
+        Header: 'Short name',
+        accessor: 'shortname',
         Cell: props => <div className='text text-blue-500 text-center'><a href={`/guest/channel/${props.original.id}`} className={'line-clamp-2 break-words'}> {props.original.shortname ?? "No short name"} </a></div>,
         width: 300
     },
