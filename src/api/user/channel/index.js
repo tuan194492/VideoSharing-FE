@@ -105,11 +105,29 @@ const getChannelAnalytics = async (channelId) => {
     }
 }
 
+const searchChannel = async (params) => {
+    try {
+        const result = await axios.get(`${baseAdminURL}/channel/search?keywords=${params}`, RequestFactory.createHeaderRequestFormDataWithToken(''));
+        return {
+            success: true,
+            data: result.data,
+            message: 'Search Channel successful!'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            data: null,
+            message: error.response.data.error
+        };
+    }
+}
+
 export const channelService = {
     getSubscriptionList,
     getSubscriberList,
     getViewAnalytic,
     getMostWatchedVideos,
     getChannelAnalytics,
-    getSubscriberAnalytic
+    getSubscriberAnalytic,
+    searchChannel
 }

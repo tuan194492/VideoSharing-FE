@@ -44,7 +44,9 @@ function formatNumber(num) {
         return 0;
     }
     if (num < 1000) {
-        return num.toFixed(2);
+        if (num !== Math.floor(num)) {
+            return num.toFixed(2);
+        } else return num;
     } else if (num < 1000000) {
         return (num / 1000).toFixed(3).replace(/\.?0+$/, '') + 'K';
     } else {

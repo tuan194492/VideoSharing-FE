@@ -6,9 +6,7 @@ import { IMAGES } from "../../../utils/images/images";
 import { useNavigate } from "react-router-dom";
 
 export const ChannelCardWithoutSubscribe = (props) => {
-    const dropdownRef = useRef(null);
     const [channel, setChannel] = useState(props.data);
-    const token = localStorage.getItem('token');
     const navigate = useNavigate();
     props.data.User = props.data.Publisher ? props.data.Publisher : props.data.user ;
 

@@ -60,7 +60,7 @@ export const SubscriberAnalytic = (props) => {
                         }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="_id"  padding={{ left: 30, right: 30 }} tick={{ display: 'none' }} >
+                        <XAxis dataKey="date"  padding={{ left: 30, right: 30 }} tick={{ display: 'none' }} >
                             <Label value="Date" offset={0} position="insideBottom" />
                         </XAxis>
                         <YAxis tickCount={2} domain={[0, parseInt(viewData.reduce((max, item) => (item.subscriberCount > max ? item.subscriberCount : max), -Infinity)) * 1.2]} >
