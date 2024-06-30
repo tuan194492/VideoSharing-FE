@@ -78,35 +78,62 @@ export default function VideoWatchPage() {
 
     const initVideoData = async () => {
         setLoading(true);
-        const result = await videoService.fetchVideoList(token, {
-            page: 1,
-            pageSize: videoPerRequest
-        })
-        if (result.success) {
-            if (result.data.count < videoPerRequest) {
-                setHasMore(false);
-            }
-            if (result.data.count > 0) {
+        if (token) {
+            const result = await videoService.getRecommendVideos(token, {
+                page: 1,
+                pageSize: videoPerRequest
+            })
+            console.log(result.data.data)
+            if (result.success) {
                 setVideoList(result.data.data)
             }
+        } else {
+            const result = await videoService.fetchVideoList(token, {
+                page: 1,
+                pageSize: videoPerRequest
+            })
+            if (result.success) {
+                if (result.data.count < videoPerRequest) {
+                    setHasMore(false);
+                }
+                if (result.data.count > 0) {
+                    setVideoList(result.data.data)
+                }
+            }
         }
+
         setLoading(false);
 
     }
 
     const fetchVideoDataList = async (page, pageSize) => {
         setLoading(true);
-        const result = await videoService.fetchVideoList(token, {
-            page: page,
-            pageSize: pageSize
-        })
-        console.log(result.data.data)
-        setLoading(false);
-        if (result.success) {
-            return result.data.data;
+        if (token) {
+            const result = await videoService.getRecommendVideos(token, {
+                page: page,
+                pageSize: pageSize
+            })
+            console.log(result.data.data)
+            setLoading(false);
+            if (result.success) {
+                return result.data.data;
+            } else {
+                return [];
+            }
         } else {
-            return [];
+            const result = await videoService.fetchVideoList(token, {
+                page: page,
+                pageSize: pageSize
+            })
+            console.log(result.data.data)
+            setLoading(false);
+            if (result.success) {
+                return result.data.data;
+            } else {
+                return [];
+            }
         }
+
     }
 
     const initData = async (videoId) => {

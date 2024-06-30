@@ -20,37 +20,73 @@ export const UserVideoHomePage = (props) => {
     const videoPerRequest = 8;
 
     const fetchVideoData = async (page, pageSize) => {
-        const result = await videoService.fetchVideoList(token, {
-            page: page,
-            pageSize: pageSize
-        })
-        console.log(result.data.data)
-        if (result.success) {
-            return result.data.data;
+        if (token) {
+            setLoading(true);
+            const result = await videoService.getRecommendVideos(token, {
+                page: page,
+                pageSize: pageSize
+            })
+            setLoading(false);
+            if (result.success) {
+                return result.data.data;
+            } else {
+                return [];
+            }
         } else {
-            return [];
+            const result = await videoService.fetchVideoList(token, {
+                page: page,
+                pageSize: pageSize
+            })
+            console.log(result.data.data)
+            if (result.success) {
+                return result.data.data;
+            } else {
+                return [];
+            }
         }
+
     }
 
     const initVideoData = async () => {
         setLoading(true);
-        const result = await videoService.fetchVideoList(token, {
-            page: 1,
-            pageSize: videoPerRequest
-        })
-        setLoading(false);
-        if (result.success) {
-            setVideoList(result.data.data)
-            if (result.data.count < videoPerRequest) {
-                setHasMore(false);
-            } else {
-                const resultMore = await videoService.fetchVideoList(token, {
-                    page: 2,
-                    pageSize: videoPerRequest
-                })
-                setHasMore(resultMore.success && resultMore.data.count === 0);
+        if (token) {
+            const result = await videoService.getRecommendVideos(token, {
+                page: 1,
+                pageSize: videoPerRequest
+            })
+            setLoading(false);
+            if (result.success) {
+                setVideoList(result.data.data)
+                if (result.data.count < videoPerRequest) {
+                    setHasMore(false);
+                } else {
+                    const resultMore = await videoService.getRecommendVideos(token, {
+                        page: 2,
+                        pageSize: videoPerRequest
+                    })
+                    setHasMore(resultMore.success && resultMore.data.count === 0);
+                }
+            }
+        } else {
+            const result = await videoService.fetchVideoList(token, {
+                page: 1,
+                pageSize: videoPerRequest
+            })
+            setLoading(false);
+            if (result.success) {
+                setVideoList(result.data.data)
+                if (result.data.count < videoPerRequest) {
+                    setHasMore(false);
+                } else {
+                    const resultMore = await videoService.fetchVideoList(token, {
+                        page: 2,
+                        pageSize: videoPerRequest
+                    })
+                    setHasMore(resultMore.success && resultMore.data.count === 0);
+                }
             }
         }
+
     }
 
     useEffect( () => {
