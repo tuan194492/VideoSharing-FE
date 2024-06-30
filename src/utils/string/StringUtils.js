@@ -94,6 +94,14 @@ const getNotifyLabel = (type) => {
     }
 }
 
+function convertToHLSUrl(mp4Url) {
+    // Extract the directory path (common path)
+    const commonPath = mp4Url.substring(0, mp4Url.lastIndexOf('/') + 1);
+
+    // Constructing the HLS URL
+    return commonPath + 'hls/index.m3u8';
+}
+
 export const StringUtils = {
     countLines,
     convertSeconds,
@@ -102,5 +110,6 @@ export const StringUtils = {
     formatDate,
     capitalizeFirstLetter,
     getBase64String,
-    getNotifyLabel
+    getNotifyLabel,
+    convertToHLSUrl
 };

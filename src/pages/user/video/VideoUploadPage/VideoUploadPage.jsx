@@ -52,6 +52,7 @@ export default function VideoUploadPage(props) {
             goToStepThree();
         } else {
             toast.error(result.message);
+            setLoading(false);
         }
     }
 

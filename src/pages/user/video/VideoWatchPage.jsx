@@ -116,7 +116,7 @@ export default function VideoWatchPage() {
 
     useEffect(() => {
         initData(params.id);
-    }, []);
+    }, [params.id]);
 
     const createVideoSrc = async (videoId) => {
         // console.log(`${baseAdminURL}/video/stream/${videoId}`);
@@ -127,7 +127,7 @@ export default function VideoWatchPage() {
         // }
         const videoSrc = await videoService.getVideoSrc(videoId);
         if (videoSrc.success) {
-            return `${videoSrc.data.data}`;
+            return  StringUtils.convertToHLSUrl(`${videoSrc.data.data}`);
         } else {
             return '';
         }
@@ -264,15 +264,6 @@ export default function VideoWatchPage() {
                 <div className={'flex flex-col w-[100%]'}>
                     <VideoVerticalList videos={videoList}/>
                 </div>
-                {/*<InfiniteScroll*/}
-                {/*    dataLength={videoList.length}*/}
-                {/*    next={fetchMoreData}*/}
-                {/*    hasMore={hasMore}*/}
-                {/*    loader={<ThreeCircles />}*/}
-                {/*    className={'flex flex-col w-[100%]'}*/}
-                {/*>*/}
-                {/*    <VideoVerticalList videos={videoList}/>*/}
-                {/*</InfiniteScroll>*/}
                 {loading && <div className={'flex justify-center'}>
                     <ThreeDots />
                 </div>}

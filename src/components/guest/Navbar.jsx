@@ -6,13 +6,16 @@ import {HeaderWrapper} from "../../style/styled";
 import {IMAGES} from "../../utils/images/images";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignIn } from '@fortawesome/free-solid-svg-icons';
+import {DropdownButton} from "../common/button/DropDownButton";
 export default function Navbar() {
     const projectName = process.env.PROJECT_NAME || 'Video Sharing';
     const {clearAuthData} = useContext(AuthContext)
     const [searchParam, setSearchParam] = useState('');
+    const [searchType, setSearchType] = useState('Video');
     const role = localStorage.getItem("role");
     const page = role?.substring(1, role.length - 1).toLowerCase() || 'guest';
     const navigate = useNavigate()
+
     const logout = () => {
         clearAuthData?.();
         toast.success('Logout successful!');
@@ -38,18 +41,40 @@ export default function Navbar() {
                             fill='none'
                             viewBox='0 0 24 24'
                             stroke='currentColor'
-                            onClick={e => navigate(`/guest/search?param=${searchParam}`)
+                            onClick={e => navigate(`/guest/search?param=${searchParam}&searchType=${searchType}`)
                             }
                         >
                             <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='5'
                                   d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/>
                         </svg>
-                        <input className='ml-2  bg-white outline-0 ' type='text' name='search' id='search'
+                        <input className='ml-2 bg-white outline-0 w-full ' type='text' name='search' id='search'
                                placeholder='Search...'
                                onChange={e => {
                                    setSearchParam(e.target.value);
                                }}
                         />
+                        <div className={'relative ml-auto'}>
+                            <DropdownButton
+                                className={'w-full flex'}
+                                options={[
+                                    {
+                                        value: 'Video',
+                                        label: 'Video',
+                                        onSelect: () => {
+                                            setSearchType('Video');
+                                        }
+                                    },
+                                    {
+                                        value: 'Channel',
+                                        label: 'Channel',
+                                        onSelect: () => {
+                                            setSearchType('Channel');
+                                        }
+                                    }]}
+                            />
+                        </div>
+
+
                     </div>
                 </div>
                 <div className="col-start-13 col-span-3">

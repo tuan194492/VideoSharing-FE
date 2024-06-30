@@ -41,7 +41,7 @@ export const HlsVideoPlayer = (props) => {
                 });
                 playerRef.current.src({
                     src: props.src,
-                    type: 'video/mp4'
+                    type: 'application/x-mpegURL'
                 });
                 setPlayer(playerRef.current);
                 // Initialize the quality selector plugin

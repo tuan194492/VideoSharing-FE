@@ -127,7 +127,7 @@ export const PlaylistWatchDetail = (props) => {
         // }
         const videoSrc = await videoService.getVideoSrc(videoId);
         if (videoSrc.success) {
-            return `${baseServerURL}${videoSrc.data.data}`;
+            return  StringUtils.convertToHLSUrl(`${videoSrc.data.data}`);
         } else {
             return '';
         }
