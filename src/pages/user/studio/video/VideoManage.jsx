@@ -10,10 +10,6 @@ export const VideoManage = (props) => {
         switch (currentPage) {
             case 0:
                 return <ChannelVideoManage />
-            case 1:
-                return <ChannelCustomizeManage />
-            case 2:
-                return <UserChangePassword />
         }
     }
 

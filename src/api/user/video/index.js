@@ -405,6 +405,7 @@ const deleteVideo = async (token, videoId) => {
 
 const getRecommendVideos = async (token, {page, pageSize}) => {
     try {
+        console.log(page, pageSize);
         const result = await axios.get(`${baseAdminURL}/video/recommend-video?page=${page}&pageSize=${pageSize}`, RequestFactory.createHeaderRequestWithJson(token));
         return {
             success: true,

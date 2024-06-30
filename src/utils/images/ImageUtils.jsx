@@ -2,7 +2,6 @@ import {StringUtils} from "../string/StringUtils";
 import {IMAGES} from "./images";
 
 const createImageSrcFromBuffer = (buffer) => {
-    console.log(buffer);
     if (!buffer) {
         return IMAGES.icon.noImage;
     }
@@ -12,7 +11,6 @@ const createImageSrcFromBuffer = (buffer) => {
 }
 
 const createImageSrcFromBufferWithDefaultIsAvatar = (buffer) => {
-    console.log(buffer);
     if (!buffer) {
         return IMAGES.icon.avatar;
     }

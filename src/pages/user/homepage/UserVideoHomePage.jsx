@@ -33,10 +33,12 @@ export const UserVideoHomePage = (props) => {
                 return [];
             }
         } else {
+            setLoading(true);
             const result = await videoService.fetchVideoList(token, {
                 page: page,
                 pageSize: pageSize
             })
+            setLoading(false);
             console.log(result.data.data)
             if (result.success) {
                 return result.data.data;
