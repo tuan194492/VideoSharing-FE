@@ -91,6 +91,7 @@ export const HlsVideoPlayer = (props) => {
             // Dispose of the player when the component unmounts
             console.log('Disposing')
             console.log(player)
+            handleRouteChange(watchTime);
 
             if (player) {
                 // player.dispose();
@@ -98,7 +99,6 @@ export const HlsVideoPlayer = (props) => {
                 player.off('handleEnded', handleEnded);
                 player.off('handlePause', handlePause);
                 // setPlayer(null);
-                handleRouteChange(watchTime);
                 console.log('Player destroyed')
             }
 
