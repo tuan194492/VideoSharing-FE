@@ -36,7 +36,7 @@ export const VideoMini = (props) => {
                 </div>
                 <div className={"channel-name text-black/[0.7] text-sm"}>
                     <div >
-                        {data.user_name}
+                        {data.User.name}
                     </div>
                     <div className={"detail"}>
                         <span className={"view-count"}>

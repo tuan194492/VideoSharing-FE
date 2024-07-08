@@ -7,7 +7,7 @@ import {ImageUtils} from "../../../utils/images/ImageUtils";
 
 export const VideoMini = (props) => {
     const data = props.data;
-    // console.log(data)
+    console.log(data)
     const navigate = useNavigate();
     const role = localStorage.getItem("role");
     const page = role?.substring(1, role.length - 1).toLowerCase() || 'guest';
@@ -33,7 +33,7 @@ export const VideoMini = (props) => {
                     </div>
                     <div className={"channel-name text-black/[0.7] text-sm mt-1 "}>
                         <div className={'line-clamp-1 '}>
-                            {data.user_name}
+                            {data.user_name || data.User?.name}
                         </div>
                         <div className={"detail"}>
                         <span className={"view-count"}>

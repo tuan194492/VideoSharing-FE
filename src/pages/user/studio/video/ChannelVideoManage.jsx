@@ -144,10 +144,7 @@ export const ChannelVideoManage = (props) => {
                 toast.error(result.message);
             }
         }
-        const result = await videoService.fetchVideoList(token, {
-            page: 1,
-            pageSize: 8
-        })
+        const result = await videoService.getVideoByPublisherId(token, authContext.user?.id);
         if (result.success) {
             setVideoList(result.data.data)
         }
