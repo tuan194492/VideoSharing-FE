@@ -7,7 +7,56 @@ import ImageWatcher from "../../../../components/common/video/ImageWatcher";
 import {toast} from "react-toastify";
 import {errorMessages} from "../../../../assets/message/error_messages/error-messages";
 import VideoPreview from "../../../../components/common/video/VideoPreview";
+import {AiTwotoneDelete} from "react-icons/ai";
 
+const extractFirstFrame = (file) => {
+    return new Promise((resolve, reject) => {
+        const video = document.createElement('video');
+        const url = URL.createObjectURL(file);
+        video.src = url;
+
+        video.onloadeddata = () => {
+            video.currentTime = 0; // Ensure we are at the first frame
+
+            video.onseeked = () => {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                console.log("Canvas drawn successfully");
+
+                canvas.toBlob((blob) => {
+                    if (!blob) {
+                        reject(new Error("Canvas to Blob conversion failed"));
+                        return;
+                    }
+
+                    const imageFile = new File([blob], `${file.name}-thumbnail.png`, {
+                        type: 'image/png',
+                        lastModified: Date.now(),
+                    });
+
+                    URL.revokeObjectURL(url);
+                    resolve(imageFile);
+                }, 'image/png');
+            };
+
+            video.onerror = (error) => {
+                URL.revokeObjectURL(url);
+                reject(error);
+            };
+        };
+
+        video.onerror = (error) => {
+            URL.revokeObjectURL(url);
+            reject(error);
+        };
+
+        video.load();
+    });
+};
 export const VideoUploadPageStepTwo = (props) => {
     const currentVideo = props.uploadedVideo;
     const [uploadedImage, setUploadedImage] = useState(props.uploadedImage);
@@ -27,16 +76,22 @@ export const VideoUploadPageStepTwo = (props) => {
     }
 
     function handleSubmit() {
-        if (!uploadedImage) {
-            return toast.error(errorMessages.EMPTY_THUMBNAIL);
-        }
         if (formData.title == null || formData.title.length < 10) {
             return toast.error(errorMessages.EMPTY_TITLE);
         }
         if (formData.description == null || formData.description.length < 50) {
             return toast.error(errorMessages.EMPTY_DESCRIPTION);
         }
-        props.handleSubmitStepTwo(formData);
+        if (!uploadedImage) {
+            extractFirstFrame(currentVideo).then((imageDataUrl) => {
+                setUploadedImage(imageDataUrl);
+                console.log(imageDataUrl);
+                formData.uploadedImage = imageDataUrl;
+                props.handleSubmitStepTwo(formData);
+            });
+        } else {
+            props.handleSubmitStepTwo(formData);
+        }
     }
 
     return (
@@ -97,7 +152,22 @@ export const VideoUploadPageStepTwo = (props) => {
                         }
 
                         {(uploadedImage == null) ||
-                            <ImageWatcher className={'max-w-[20%]'} image={uploadedImage}/>
+                            <div className="aspect-ratio-container relative">
+
+                                {!(uploadedImage instanceof File)
+                                    ? <img className={'aspect-ratio-image '} src={uploadedImage}/>
+                                    : <img className={'aspect-ratio-image '} src={URL.createObjectURL(uploadedImage)}/>}
+                                <div className={'ml-3 flex flex-row gap-4 absolute right-[-45px] top-0'}>
+                                    <div className={'text-gray-500 font-semibold cursor-pointer'}
+                                         title={'Remove image'}
+                                         onClick={(e) => {
+                                             setUploadedImage(null);
+                                         }}
+                                    >
+                                        <AiTwotoneDelete size={32}/>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     </div>
                     <label className="inline-flex items-center mb-5 cursor-pointer">

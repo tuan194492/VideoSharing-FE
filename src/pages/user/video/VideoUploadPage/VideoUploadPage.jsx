@@ -45,7 +45,9 @@ export default function VideoUploadPage(props) {
 
     async function handleSubmitStepTwo(formDataFromChild) {
         setLoading(true);
-        const result = await videoService.uploadVideo(formDataFromChild, uploadedVideo, uploadedImage, token);
+        let image = uploadedImage != null ? uploadedImage : formDataFromChild.uploadedImage;
+        console.log(image);
+        const result = await videoService.uploadVideo(formDataFromChild, uploadedVideo, image, token);
         setLoading(false);
         if (result.success) {
             toast.success(result.message);
@@ -78,7 +80,7 @@ export default function VideoUploadPage(props) {
                     <Step label={UploadVideoStage.SUCCESS} onClick={goToStepThree} />
                 </Stepper>
             </div>
-            <div className={'col col-start-2 col-span-10 flex justify-center items-center min-h-[70vh] h-[100%] border-2'}>
+            <div className={'col col-start-2 col-span-10 flex justify-center items-center min-h-[70vh] h-fit border-2'}>
                 {currentStep === 0 &&
                     <VideoUploadPageStepOne uploadedVideo={uploadedVideo}
                                             setUploadedVideo={setUploadedVideo}
