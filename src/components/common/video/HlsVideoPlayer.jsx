@@ -36,8 +36,9 @@ export const HlsVideoPlayer = (props) => {
                     controls: true,
                     autoplay: false,
                     preload: 'auto',
-                    fluid: true,
-                    responsive: true
+                    responsive: true,
+                    width: props.width || "100%",
+                    height: props.height || "100%"
                 });
                 playerRef.current.src({
                     src: props.src,
@@ -109,17 +110,25 @@ export const HlsVideoPlayer = (props) => {
         console.log('videoRef.current:', videoRef.current);
     }, []);
 
+    useEffect(() => {
+        if (playerRef.current) {
+            playerRef.current.width(props.width);
+            playerRef.current.height(props.height);
+
+            // Force resize after setting dimensions
+            setTimeout(() => {
+                playerRef.current?.trigger('resize');
+            }, 0);
+        }
+    }, [props.width, props.height]);
 
     const handleRouteChange = async (value) => {
         console.log('User is navigating to a new page. Watch time: ' + value + ' seconds');
         await videoService.watchVideo(props.videoId, token, value);
     }
 
-
-
-
     return (
-        <div className={'w-full h-full'}>
+        <div className={`${props.width ? `w-[${props.width}px]` : 'w-full'} ${props.height ? `w-[${props.height}px]` : 'h-full'}`}>
             <video
                 ref={videoRef}
                 id={props.videoId}

@@ -25,7 +25,7 @@ export const VideoEdit = (props) => {
     const [formData, setFormData] = useState({
         title: video.title || '',
         description: video.description || '',
-        isPublic: video.status
+        isPublic: video.status === 'PUBLIC'
     });
 
     function handleUploadThumbnails(e) {
@@ -45,6 +45,9 @@ export const VideoEdit = (props) => {
         if (formData.description == null || formData.description.length < 50) {
             return toast.error(errorMessages.EMPTY_DESCRIPTION);
         }
+
+        console.log(formData);
+
         const result = await videoService.updateVideo(video.id, {
             ...formData,
             status: formData.isPublic ? 'PUBLIC' : 'PRIVATE'
@@ -155,14 +158,15 @@ export const VideoEdit = (props) => {
                     </div>
                     <label className="inline-flex items-center mb-5 cursor-pointer">
                         <input type="checkbox"
-                               value={formData.isPublic}
                                className="sr-only peer"
                                onChange={e => {
+                                   console.log(e.target.value);
                                    setFormData({
                                        ...formData,
-                                       isPublic: e.target.value
+                                       isPublic: !formData.isPublic
                                    })
                                }}
+                               checked={formData.isPublic}
                                 defaultValue={formData.isPublic}
                         />
 

@@ -87,7 +87,7 @@ const getNotifyLabel = (type) => {
             return "Comment to";
         case "Subcribe":
             return "Subscribed to";
-        case "upload":
+        case "Post Video":
             return "Uploaded ";
         default:
             return "";
